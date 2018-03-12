@@ -1,0 +1,36 @@
+<!--pages/detail/detail.wxml-->
+<wxs src="./date.wxs" module="date" />
+
+<template name="shipment">
+  <view>
+    <view>定单号：{{shipmentCode}}</view>
+    <view>发货人：{{consignor}}</view>
+    <view>收货人：{{consignee}}</view>
+
+    <view>提货地址：{{pickUpAddress}}</view>
+    <view>联系电话：{{consignorPhoneNumber}}</view>
+    <view>要求提货地址:{{date.dateFormatter(requirePickupStartDate)}} 至 {{date.dateFormatter(requirePickupEndDate)}}</view>
+
+    <view>送货地址：{{arrivalAddress}}</view>
+    <view>联系电话：{{consigneePhoneNumber}}</view>
+    <view>要求到货地址:{{date.dateFormatter(requireArrivalStartDate)}} 至 {{date.dateFormatter(requireArrivalEndDate)}}</view>
+  </view>
+</template>
+
+<view>
+  <view>运单号： {{shipment.shipmentCode}}
+    <view>运单状态: {{shipment.statusDisplay}}</view>
+  </view>
+  <view>起始地：{{shipment.startAddress}} -----> 结束地: {{shipment.endAddress}}</view>
+  <view>总数量（立方米）： {{shipment.totalVolume}}</view>
+  <view>总重量（吨）：{{shipment.totalWeight}}</view>
+  <view>车牌号： {{shipment.licensePlateNumber}}</view>
+  <view>委托方: {{shipment.enterpriseName}}</view>
+  
+  <view wx:for="{{shipment.orders}}"
+    wx:key="shipmentCode"
+    wx:for-index="idx"
+    wx:for-item="shipment">
+  <template is="shipment" data="{{...shipment}}" />
+  </view>
+</view>

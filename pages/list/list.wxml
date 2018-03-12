@@ -1,0 +1,17 @@
+<!--pages/list/list.wxml-->
+<template name="shipment">
+  <view
+    data-shipmentcode='{{shipmentCode}}'
+    data-enterprisecode='{{enterpriseCode}}'
+    bindtap='toDetail' >
+   <view>运单号:{{shipmentCode}}</view>
+  </view>
+</template>
+
+
+<view wx:for="{{shipments}}"
+    wx:key="shipmentCode"
+    wx:for-index="idx"
+    wx:for-item="shipment">
+  <template is="shipment" data="{{...shipment}}" />
+</view>

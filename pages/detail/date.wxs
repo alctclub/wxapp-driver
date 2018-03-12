@@ -1,0 +1,9 @@
+var dateFormatter = function (date) {
+  var result = getDate(date);
+  var m = result.getMonth();
+  var d = result.getDay()
+  console.log('dateM', );
+  console.log('dateD', result.getDay());
+  return result.getFullYear() + '/' + m + '/' + d;
+}
+module.exports.dateFormatter = dateFormatter;

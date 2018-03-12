@@ -1,0 +1,18 @@
+/* pages/login/login.wxss */
+.container {
+  display: flex;
+}
+
+#username, #password {
+  width: 650rpx;
+  border-bottom: 2rpx solid #999;
+  margin-bottom: 20rpx;
+}
+
+#btn_login {
+  width: 650rpx;
+}
+
+.errorMessage {
+  color: red;
+}

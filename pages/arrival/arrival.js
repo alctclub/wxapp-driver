@@ -1,46 +1,49 @@
-// pages/detail/detail.js
-import { getStatusDisplay } from '../../utils/util.js';
-import { getShipmentDetail } from './actions';
-
+// pages/arrival/arrival.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    shipment: {}
+    order: {},
+    images: [],
   },
-  onEvent: (event) => {
-    const { ordercode, statuscode, shipmentcode } = event.currentTarget.dataset;
-    wx.showLoading({
-      title: '加载中',
-    });
-    if (`${statuscode}` === '30') {
-      wx.navigateTo({
-        url: `../arrival/arrival?orderCode=${ordercode}&shipmentCode=${shipmentcode}`,
-        complete: function (res) {
-          wx.hideLoading();
-        },
-      })
+  onClickCancel:function() {
+    wx.navigateBack();
+  },
+  onClickUpload: function() {
+    const { order, images } = this.data;
+
+  },
+  selectImage: function() {
+    const { images } = this.data;
+    if (images.length > 2) {
+      return;
     }
-    
+    wx.chooseImage({
+      count: 2,
+      sourceType: ['camera'],
+      success: (res) => {
+        images.push([...res.tempFilePaths]);
+        this.setData({ images });
+      },
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getShipmentDetail(options.enterpriseCode, options.shipmentcode).then((res) => {
-      const shipment = res;
-      shipment['statusDisplay'] = getStatusDisplay(shipment.statusCode);
-      wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
-      this.setData({ shipment })})
+    const { shipmentCode, orderCode } = options;
+    const shipment = wx.getStorageSync(`${shipmentCode}`);
+    const order = shipment.orders.find(x => x.orderCode === orderCode);
+    this.setData({ order });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+  
   },
 
   /**

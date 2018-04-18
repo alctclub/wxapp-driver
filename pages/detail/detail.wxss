@@ -1,1 +1,20 @@
 /* pages/detail/detail.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.section {
+  margin: 20rpx;
+}
+
+.blue {
+  color: #0092ca;
+}

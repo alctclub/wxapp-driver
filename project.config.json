@@ -7,16 +7,16 @@
 		"minified": true,
 		"newFeature": true
 	},
-  "window": {
-    "navigationBarBackgroundColor": ",",
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "ALCT",
-    "backgroundColor": "#eeeeee",
-    "backgroundTextStyle": "light",
-    "enablePullDownRefresh": true
-  },
+	"window": {
+		"navigationBarBackgroundColor": ",",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "ALCT",
+		"backgroundColor": "#eeeeee",
+		"backgroundTextStyle": "light",
+		"enablePullDownRefresh": true
+	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.91",
+	"libVersion": "1.9.4",
 	"appid": "wxeda24e2782cf0130",
 	"projectname": "ALCT",
 	"condition": {

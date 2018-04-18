@@ -1,0 +1,25 @@
+<!--pages/arrival/arrival.wxml-->
+<view class='container'>
+  <text>上传卸货照片</text>
+  <block wx:if='{{images.length == 0}}'>
+    <image src='../../assert/bg_upload_picture.png'
+      bindtap='selectImage' />
+  </block>
+  <block wx:elif='{{images.length == 1}}'>
+    <image src='{{images[0]}}'
+      bindtap='selectImage' />
+    <image src='../../assert/bg_upload_picture.png'
+      bindtap='selectImage' />
+  </block>
+  <block wx:elif='{{images.length == 2}}'>
+    <image src='{{images[0]}}'
+      bindtap='selectImage' />
+    <image src='{{images[1]}}'
+    bindtap='selectImage' />
+  </block>
+
+  <view>
+    <button bindtap='onClickCancel'>取消</button>
+    <button bindtap='onClickUpload'>确认到货</button>
+  </view>
+</view>

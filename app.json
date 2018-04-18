@@ -1,14 +1,29 @@
 {
   "pages": [
+    "pages/list/list",
     "pages/login/login",
     "pages/map/map",
-    "pages/list/list",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/pickup/pickup",
+    "pages/arrival/arrival"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "ALCT",
+    "enablePullDownRefresh": true,
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "backgroundColor": "#f8f8f8"
+  },
+  "tabBar": {
+    "color": "", 
+    "selectedColor": "#1aad19",
+    "list": [{
+      "pagePath": "pages/list/list",
+      "text": "运单"
+    }, {
+      "pagePath": "pages/login/login",
+      "text": "登录"
+    }]
   }
 }

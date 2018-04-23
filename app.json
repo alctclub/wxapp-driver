@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/list/list",
     "pages/login/login",
+    "pages/shipmentList/shipmentList",
     "pages/map/map",
     "pages/detail/detail",
     "pages/pickup/pickup",
-    "pages/arrival/arrival"
+    "pages/arrival/arrival",
+    "pages/invoiceList/invoiceList"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,14 +17,17 @@
     "backgroundColor": "#f8f8f8"
   },
   "tabBar": {
-    "color": "", 
+    "color": "",
     "selectedColor": "#1aad19",
-    "list": [{
-      "pagePath": "pages/list/list",
-      "text": "运单"
-    }, {
-      "pagePath": "pages/login/login",
-      "text": "登录"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/shipmentList/shipmentList",
+        "text": "运单"
+      },
+      {
+        "pagePath": "pages/invoiceList/invoiceList",
+        "text": "发票"
+      }
+    ]
   }
 }

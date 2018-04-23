@@ -1,0 +1,31 @@
+<!--pages/invoiceList/invoiceList.wxml-->
+<template name="invoice">
+    <view class="page__bd page__bd_spacing">
+        <view>
+            <text>受票方：{{invoiceReceiverName}}</text>
+        </view>
+        <view>
+            <text>税率：{{taxRate}}</text>
+        </view>
+        <view>
+            <text>税额：{{taxAmount}}</text>
+        </view>
+        <view>
+            <text>金额：{{totalAmount}}</text>
+        </view>
+        <view>
+            <text>总金额：{{totalAmountIncludeTax}}</text>
+        </view>
+        <view>
+            <text>流水号：{{driverInvoiceCode}}</text>
+        </view>
+    </view>
+</template>
+
+<view class="page">
+    <view class="page__bd">
+        <view wx:for="{{invoiceList.modelList}}" wx:key="driverInvoiceCode" wx:for-index="idx" wx:for-item="invoice">
+            <template is="invoice" data="{{...invoice}}" />
+        </view>
+    </view>
+</view>

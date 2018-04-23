@@ -12,11 +12,14 @@
         <text>发货人：{{consignor}}</text>
         <text>收货人：{{consignee}}</text>
       </view>
-      <button bindtap='onEvent' data-shipmentcode='{{shipmentCode}}'
+      <block wx:if='{{util.funcName(statusCode)}}'>
+          <button bindtap='onEvent' data-shipmentcode='{{shipmentCode}}'
           data-ordercode='{{orderCode}}'
           data-statuscode='{{statusCode}}'>
         {{util.funcName(statusCode)}}
-      </button>
+        </button>
+      </block>
+      
     </view>
 
     <view class='section'>
@@ -29,9 +32,8 @@
     <view class='blue section'>
       <text>送货地址：{{arrivalAddress}}</text>
       <text>联系电话：{{consigneePhoneNumber}}</text>
-      <text>要求到货地址:{{util.dateFormatter(requireArrivalStartDate)}} 至 {{util.dateFormatter(requireArrivalEndDate)}}}</text>
+      <text>要求到货地址:{{util.dateFormatter(requireArrivalStartDate)}} 至 {{util.dateFormatter(requireArrivalEndDate)}}</text>
     </view>
-    <button>查看上传照片</button>
   </view>
 </template>
 

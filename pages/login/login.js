@@ -9,8 +9,8 @@ Page({
   onLoad: function (options) {
     const accessToken = wx.getStorageSync('access_Token');
     if (accessToken) {
-      wx.redirectTo({
-        url: '../list/list',
+      wx.switchTab({
+        url: '../shipmentList/shipmentList'
       })
     }
   },
@@ -32,8 +32,8 @@ Page({
       username: 'D00000281',
       password: 'e10adc3949ba59abbe56e057f20f883e',
     }).then(() =>
-      wx.redirectTo({
-        url: '../list/list',
+      wx.switchTab({
+        url: '../shipmentList/shipmentList',
       })).catch((error) => {
       this.setData({
         errorMessage: error.errMsg,

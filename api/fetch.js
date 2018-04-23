@@ -10,7 +10,7 @@ const baseURL = {
 
 export const buildURL = (url, urlType) => `${baseURL[urlType]}${url}`;
 
-export const fetch = (url, options) => {
+export const fetch = (url, options = {}) => {
 
   const {
     method = 'GET',
@@ -49,7 +49,7 @@ export const fetch = (url, options) => {
         wx.removeStorageSync('access_Token')
         wx.redirectTo({
           url: '/pages/login/login',
-        })
+        });
       }
       reject(response.data);
     };

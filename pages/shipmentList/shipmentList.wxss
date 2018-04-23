@@ -1,0 +1,29 @@
+#signin {
+  background-color: #1aad19;
+  color: white;
+  border-radius: 50rpx;
+  height: 100rpx;
+  width: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 50rpx;
+  bottom: 50rpx;
+}
+
+.row {
+  display: flex;
+}
+
+.row_between {
+  display: flex;
+  justify-content:space-between
+}
+.col_start {
+
+}
+
+.col_end {
+
+}

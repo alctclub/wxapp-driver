@@ -1,7 +1,13 @@
-<!--pages/list/list.wxml-->
+<wxs src="./data.wxs" module="util" />
+
 <template name="shipment">
-  <view data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
-    <view>运单号:{{shipmentCode}}</view>
+  <view class="page__bd page__bd_spacing"
+    data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
+    <view class="row_between">
+      <text>运单号:{{shipmentCode}}</text>
+      <text>{{util.getStatusDisplay(statusCode)}}</text>
+    </view>
+
   </view>
 </template>
 
@@ -21,13 +27,20 @@
       <!-- list -->
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view wx:for="{{shipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">
+          <view wx:for="{{runningShipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">
             <template is="shipment" data="{{...shipment}}" />
           </view>
         </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view wx:for="{{historyShipment.modelList}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">
+            <template is="shipment" data="{{...shipment}}" />
+          </view>
+        </view>
       </view>
 
+      <view id="signin" bindtap='signin'>
+        <text>签到</text>
+      </view>
 
     </view>
 

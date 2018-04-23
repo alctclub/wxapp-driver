@@ -1,25 +1,40 @@
 <!--pages/arrival/arrival.wxml-->
-<view class='container'>
-  <text>上传卸货照片</text>
-  <block wx:if='{{images.length == 0}}'>
-    <image src='../../assert/bg_upload_picture.png'
-      bindtap='selectImage' />
-  </block>
-  <block wx:elif='{{images.length == 1}}'>
-    <image src='{{images[0]}}'
-      bindtap='selectImage' />
-    <image src='../../assert/bg_upload_picture.png'
-      bindtap='selectImage' />
-  </block>
-  <block wx:elif='{{images.length == 2}}'>
-    <image src='{{images[0]}}'
-      bindtap='selectImage' />
-    <image src='{{images[1]}}'
-    bindtap='selectImage' />
-  </block>
 
-  <view>
-    <button bindtap='onClickCancel'>取消</button>
-    <button bindtap='onClickUpload'>确认到货</button>
+<!--
+  src: image src
+-->
+<template name="img-view">
+  <view class="img_box">
+    <view class="deletebtn" data-src='{{src}}' bindtap='onDelete'>
+      <label>x</label>
+    </view>
+    <image class="img_display" src='{{src}}' />
+  </view>
+</template>
+
+<view class='container page__bd_spacing'>
+  <view class="headerTip">
+    <text>上传卸货照片</text>
+  </view>
+  <view class="imageContainer">
+    <block wx:if='{{images.length == 0}}'>
+
+      <image class="img_upload" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
+
+    </block>
+    <block wx:elif='{{images.length == 1}}'>
+
+      <template is="img-view" data="{{src: images[0]}}" />
+      <image class="img_box" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
+    </block>
+    <block wx:elif='{{images.length == 2}}'>
+      <template is="img-view" data="{{ src: images[0]}}" />
+      <template is="img-view" data="{{ src: images[1]}}" />
+    </block>
+  </view>
+
+  <view class="bottomButton ">
+    <view class="button" bindtap='onClickCancel'>取消</view>
+    <view class="button button_main" bindtap='onClickUpload'>确认到货</view>
   </view>
 </view>

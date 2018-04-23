@@ -12,9 +12,6 @@ Page({
   },
   onEvent: (event) => {
     const { ordercode, statuscode, shipmentcode } = event.currentTarget.dataset;
-    wx.showLoading({
-      title: '加载中',
-    });
     if (`${statuscode}` === '30') {
       wx.navigateTo({
         url: `../arrival/arrival?orderCode=${ordercode}&shipmentCode=${shipmentcode}`,
@@ -29,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getShipmentDetail(options.enterpriseCode, options.shipmentcode).then((res) => {
+    getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
       const shipment = res;
       shipment['statusDisplay'] = getStatusDisplay(shipment.statusCode);
       wx.setStorageSync(`${shipment.shipmentCode}`, shipment);

@@ -1,4 +1,4 @@
-// pages/list/list.js
+
 import {
   getRunningShipments,
   getHistoryShipments,
@@ -16,7 +16,11 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     runningShipments: [],
-    historyShipments: [],
+    historyShipment: {
+      modelList: [],
+      currentPage: 1,
+      totalPage: 1,
+    },
     sliderWidth: 128, // tab 下面线的宽度 只是来计算，实际还是在页面上控制的 8em.
   },
 
@@ -40,7 +44,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getListData();
+    this.getListData(this.data.activeIndex);
   },
 
   /**
@@ -68,9 +72,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getListData().then(
+    this.getListData(this.data.activeIndex).then(
       () => wx.stopPullDownRefresh())
-      .catch(() => wx.stopPullDownRefresh());
+    .catch(() => wx.stopPullDownRefresh());
   },
 
   /**
@@ -86,8 +90,8 @@ Page({
   onShareAppMessage: function () {
 
   },
-  getListData: function () {
-    if (this.data.activeIndex === 0) {
+  getListData: function (activeIndex) {
+    if (activeIndex == 0) {
       return getRunningShipments().then(
         (res) => this.setData({
           runningShipments: res
@@ -95,7 +99,7 @@ Page({
     } else {
       return getHistoryShipments().then(
         (res) => this.setData({
-          historyShipments: res
+          historyShipment: res
         }));
     }
   },
@@ -116,9 +120,15 @@ Page({
   },
 
   tabClick: function (e) {
+    this.getListData(e.currentTarget.id);
+
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+
+  signin: function() {
+    wx.showToast({ title: '签到成功', icon: 'none' });
   }
 })

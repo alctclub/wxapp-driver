@@ -17,17 +17,25 @@ Page({
   },
   selectImage: function() {
     const { images } = this.data;
-    if (images.length > 2) {
+    if (images.length >= 2) {
       return;
     }
     wx.chooseImage({
-      count: 2,
+      count: 1,
       sourceType: ['camera'],
       success: (res) => {
-        images.push([...res.tempFilePaths]);
+        images.push(...res.tempFilePaths);
         this.setData({ images });
       },
     })
+  },
+  onDelete: function(event) {
+    let { images= []} = this.data;
+    const deleteSrc = event.currentTarget.dataset.src;
+    if (deleteSrc) {
+      images = images.filter((x => x !== deleteSrc));
+      this.setData({ images });
+    }
   },
   /**
    * 生命周期函数--监听页面加载

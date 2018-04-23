@@ -21,10 +21,6 @@ export function Login(user) {
 function onSuccess(response) {
   if (response.access_Token) {
     wx.setStorageSync('access_Token', response.access_Token);
-    wx.setStorageSync('monilePhone', username);
-    wx.redirectTo({
-      url: '../list/list',
-    });
   } else {
     wx.clearStorageSync('access_Token');
     const { errorResult } = response;

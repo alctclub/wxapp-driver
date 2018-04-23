@@ -1,4 +1,4 @@
-import uploadLocation from '../../utils/uploadLocation.js'
+import uploadLocation from '../../api/uploadLocation.js';
 let intervId;
 // pages/map/map.js
 Page({

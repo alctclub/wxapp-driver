@@ -1,3 +1,6 @@
+var numeral = require('../libs/numeral.min.js');
+var Moment = require('../libs/moment');
+
 const SHIPMENT_STATUS_LIST = [
   {
     code: 10,
@@ -41,10 +44,32 @@ const SHIPMENT_STATUS_LIST = [
   },
 ];
 
-export function getStatusDisplay(code) { 
+export function getShipmentDisplayStatus(code) { 
   const status =  SHIPMENT_STATUS_LIST.find((x) => `${x.code}` === `${code}`);
   if (status) {
     return status.status;
   }
   return '';
+}
+
+export function percentFormatter(percent) {
+  if (percent) {
+      return (percent * 100) + '%';
+  }
+  return '0%';
+
+}
+
+export function moneyFormatter(money) {
+  if (money) {
+      return numeral(money / 100).format('0,0.00');
+  }
+  return 0.00;
+}
+
+export function dateFormatter(date) {
+  if (!date) {
+    return '';
+  }
+  return Moment(date).format('YYYY/MM/DD');
 }

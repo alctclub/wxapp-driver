@@ -12,21 +12,25 @@
     "backgroundTextStyle": "light",
     "navigationBarTitleText": "ALCT",
     "enablePullDownRefresh": true,
-    "navigationBarTextStyle": "black",
-    "navigationBarBackgroundColor": "#f8f8f8",
-    "backgroundColor": "#f8f8f8"
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#009141",
+    "backgroundColor": "#f2f2f2"
   },
   "tabBar": {
-    "color": "",
-    "selectedColor": "#1aad19",
+    "color": "#999999",
+    "selectedColor": "#009141",
     "list": [
       {
         "pagePath": "pages/shipmentList/shipmentList",
-        "text": "运单"
+        "text": "运单",
+        "iconPath": "assert/icon/invoice.png",
+        "selectedIconPath": "assert/icon/invoice_selected.png"
       },
       {
         "pagePath": "pages/invoiceList/invoiceList",
-        "text": "发票"
+        "text": "发票",
+        "iconPath": "assert/icon/shipment.png",
+        "selectedIconPath": "assert/icon/shipment_selected.png"
       }
     ]
   }

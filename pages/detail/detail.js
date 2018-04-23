@@ -1,5 +1,5 @@
 // pages/detail/detail.js
-import { getStatusDisplay } from '../../utils/util.js';
+import { getShipmentDisplayStatus } from '../../utils/index';
 import { getShipmentDetail } from './actions';
 
 Page({
@@ -28,7 +28,7 @@ Page({
   onLoad: function (options) {
     getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
       const shipment = res;
-      shipment['statusDisplay'] = getStatusDisplay(shipment.statusCode);
+      shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
       wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
       this.setData({ shipment })})
   },

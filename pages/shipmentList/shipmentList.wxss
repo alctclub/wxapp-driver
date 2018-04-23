@@ -1,5 +1,55 @@
-#signin {
-  background-color: #1aad19;
+.shipment {
+  color: #666666;
+  display: flex;
+  padding: 20px;
+  margin: 10px 0px;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.shipmetn_status {
+  color: #009141;
+}
+
+.img_arrow {
+  width: 40px;
+  height: 10px;
+  margin: 0 5px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.row_between {
+  display: flex;
+  justify-content: space-between;
+  width: 100%
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white
+}
+
+.step_start {
+  background-color: #d4661d;
+}
+
+.setp_end {
+  background-color: #49b631;
+}
+
+.signin {
+  background-color: #009141;
   color: white;
   border-radius: 50rpx;
   height: 100rpx;
@@ -10,20 +60,4 @@
   position: fixed;
   right: 50rpx;
   bottom: 50rpx;
-}
-
-.row {
-  display: flex;
-}
-
-.row_between {
-  display: flex;
-  justify-content:space-between
-}
-.col_start {
-
-}
-
-.col_end {
-
 }

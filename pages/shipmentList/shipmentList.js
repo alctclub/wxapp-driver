@@ -1,7 +1,5 @@
-
 import {
   getRunningShipments,
-  getHistoryShipments,
 } from './actions.js';
 
 
@@ -11,40 +9,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["执行运单", "历史运单"],
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
     runningShipments: [],
     historyShipment: {
       modelList: [],
       currentPage: 1,
       totalPage: 1,
-    },
-    sliderWidth: 128, // tab 下面线的宽度 只是来计算，实际还是在页面上控制的 8em.
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
-    var that = this;
-
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - that.data.sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
-  },
+  onLoad: function () {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getListData(this.data.activeIndex);
+    getRunningShipments().then(
+      (res) => this.setData({
+        runningShipments: res
+      }));
   },
 
   /**
@@ -72,9 +57,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getListData(this.data.activeIndex).then(
-      () => wx.stopPullDownRefresh())
-    .catch(() => wx.stopPullDownRefresh());
+    getRunningShipments().then(
+        (res) => this.setData({
+          runningShipments: res
+        })).then(
+        () => wx.stopPullDownRefresh())
+      .catch(() => wx.stopPullDownRefresh());
   },
 
   /**
@@ -89,19 +77,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  getListData: function (activeIndex) {
-    if (activeIndex == 0) {
-      return getRunningShipments().then(
-        (res) => this.setData({
-          runningShipments: res
-        }));
-    } else {
-      return getHistoryShipments().then(
-        (res) => this.setData({
-          historyShipment: res
-        }));
-    }
   },
   toDetail: function (event) {
     const {
@@ -118,17 +93,10 @@ Page({
       },
     })
   },
-
-  tabClick: function (e) {
-    this.getListData(e.currentTarget.id);
-
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+  signin: function () {
+    wx.showToast({
+      title: '签到成功',
+      icon: 'none'
     });
-  },
-
-  signin: function() {
-    wx.showToast({ title: '签到成功', icon: 'none' });
   }
 })

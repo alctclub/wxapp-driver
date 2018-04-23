@@ -3,7 +3,11 @@ import {
     buildURL,
     fetch,
 } from '../../api/fetch.js';
-var numeral = require('../../libs/numeral.min.js');
+import {
+    percentFormatter,
+    moneyFormatter,
+} from '../../utils/index';
+
 
 export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
     const baseURL = `/app-driver-invoices/unconfirm?PageSize=${pageSize}&CurrentPage=${currentPage}`;
@@ -21,20 +25,7 @@ export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
     }).then((res) => dataFormatter(res));
 };
 
-function percentFormatter(percent) {
-    if (percent) {
-        return (percent * 100) + '%';
-    }
-    return '0%';
 
-}
-
-function moneyFormatter(money) {
-    if (money) {
-        return numeral(money / 100).format('0,0.00');
-    }
-    return 0.00;
-}
 
 function dataFormatter(response = {}) {
     const result = {};

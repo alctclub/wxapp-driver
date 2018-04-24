@@ -1,5 +1,5 @@
 <!--pages/arrival/arrival.wxml-->
-
+<import src="../templates/bottomButton.wxml" />
 <!--
   src: image src
 -->
@@ -12,7 +12,7 @@
   </view>
 </template>
 
-<view class='container page__bd_spacing'>
+<view class='container'>
   <view class="headerTip">
     <text>上传卸货照片</text>
   </view>
@@ -22,19 +22,13 @@
       <image class="img_upload" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
 
     </block>
-    <block wx:elif='{{images.length == 1}}'>
-
-      <template is="img-view" data="{{src: images[0]}}" />
-      <image class="img_box" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
-    </block>
-    <block wx:elif='{{images.length == 2}}'>
-      <template is="img-view" data="{{ src: images[0]}}" />
-      <template is="img-view" data="{{ src: images[1]}}" />
+    <block wx:else>
+      <block wx:for="{{images }}" wx:for-item="image">
+        <template is="img-view" data="{{ src: image}}" />
+      </block>
+      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
     </block>
   </view>
 
-  <view class="bottomButton ">
-    <view class="button" bindtap='onClickCancel'>取消</view>
-    <view class="button button_main" bindtap='onClickUpload'>确认到货</view>
-  </view>
+  <template is="bottomButton" data="{{confimrText: '确认到货'}}" />
 </view>

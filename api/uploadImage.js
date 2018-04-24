@@ -1,5 +1,5 @@
-import fetch from './fetch.js';
-var bmap = require('../../libs/bmap-wx.js'); 
+import { URLTypes, buildURL, fetch } from './fetch.js';
+var bmap = require('../../libs/bmap-wx.min.js'); 
 
 //imageType: pickup(提货)、arrive(到货)、pod(签收)
 function uploadImage(imageType, data) {
@@ -9,11 +9,11 @@ function uploadImage(imageType, data) {
     data.fileData = reader.result;
     const picExt = fileName.substr(fileName.lastIndexOf(".") + 1);
 
-    const address = amapFunc
+    const address = BMAP
     wx.getLocation({
       success: function (res) {
-        return fetch(`/app-order-images/${imageType}`, {
-          urlType: 'trade',
+        const url = buildURL(`/app-order-images/${imageType}`, URLTypes.TRADE);
+        return fetch(url, {
           data: {
             shipmentCode: data.shipmentCode,
             enterpriseCode: data.enterpriseCode,

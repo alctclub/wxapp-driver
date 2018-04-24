@@ -1,0 +1,12 @@
+<!--
+    cancelText: string,
+    confimrText: string,
+    onClickCancel: func,
+    onClickComfirm: func,
+-->
+<template name="bottomButton">
+    <view class="bottomButton ">
+        <view class="button" bindtap='onClickCancel'>{{cancelText || "取消"}}</view>
+        <view class="button button_main" bindtap='onClickComfirm'>{{confimrText || "确认"}}</view>
+    </view>
+</template>

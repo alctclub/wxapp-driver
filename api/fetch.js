@@ -56,6 +56,10 @@ export const fetch = (url, options = {}) => {
 
     //失败处理
     finalOpts.fail = (error) => {
+      wx.showToast({
+        title: error.Message,
+        icon: 'none'
+      });
       reject(error);
     };
 

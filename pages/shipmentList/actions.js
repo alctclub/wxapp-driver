@@ -34,5 +34,5 @@ function shipmentFormatter(res = []) {
     shipmentConfirmDate: dateFormatter(item.shipmentConfirmDate),
     licensePlateNumber: item.licensePlateNumber,
     enterpriseName: item.enterpriseName,
-  }))
+  }));
 }

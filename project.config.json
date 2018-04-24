@@ -16,7 +16,7 @@
 		"enablePullDownRefresh": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.4",
+	"libVersion": "1.9.9",
 	"appid": "wxeda24e2782cf0130",
 	"projectname": "ALCT",
 	"condition": {

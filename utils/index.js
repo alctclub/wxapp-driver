@@ -1,5 +1,5 @@
 var numeral = require('../libs/numeral.min.js');
-var Moment = require('../libs/moment');
+var Day = require('../libs/day');
 
 const SHIPMENT_STATUS_LIST = [
   {
@@ -36,7 +36,7 @@ const SHIPMENT_STATUS_LIST = [
   },
   {
     code: 60,
-    status: "已签收"
+    status: "已签收" // It's "已回单" in server, but display "已签收" in app
   },
   {
     code: 70,
@@ -50,6 +50,13 @@ export function getShipmentDisplayStatus(code) {
     return status.status;
   }
   return '';
+}
+
+export function isOrderComplete(statusCode) {
+  if (Number(statusCode) && Number(statusCode) >= 60) {
+    return true;
+  }
+  return false;
 }
 
 export function percentFormatter(percent) {
@@ -71,5 +78,5 @@ export function dateFormatter(date) {
   if (!date) {
     return '';
   }
-  return Moment(date).format('YYYY/MM/DD');
+  return Day(date).format('YYYY/MM/DD');
 }

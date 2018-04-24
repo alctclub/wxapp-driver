@@ -1,8 +1,8 @@
-.shipment {
+.shipment_basic {
   color: #666666;
   display: flex;
-  padding: 20px;
-  margin: 10px 0px;
+  padding: 40rpx 36rpx;
+  margin-top: 20rpx;
   flex-direction: column;
   background-color: #ffffff;
 }
@@ -11,53 +11,17 @@
   color: #009141;
 }
 
-.img_arrow {
-  width: 40px;
-  height: 10px;
-  margin: 0 5px;
-}
-
-.row {
-  display: flex;
-  width: 100%;
-  align-items: center;
-}
-
-.row_between {
-  display: flex;
-  justify-content: space-between;
-  width: 100%
-}
-
-.step {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white
-}
-
-.step_start {
-  background-color: #d4661d;
-}
-
-.setp_end {
-  background-color: #49b631;
-}
-
 .signin {
   background-color: #009141;
   color: white;
-  border-radius: 50rpx;
-  height: 100rpx;
-  width: 100rpx;
+  font-size: 28rpx;
+  border-radius: 47.5rpx;
+  height: 95rpx;
+  width: 95rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  right: 50rpx;
-  bottom: 50rpx;
+  right: 34rpx;
+  bottom: 30rpx;
 }

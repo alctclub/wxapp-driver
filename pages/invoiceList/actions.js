@@ -25,7 +25,12 @@ export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
     }).then((res) => dataFormatter(res));
 };
 
-
+export function confirmDriverInvoice(enterpriseCode, driverInvoiceCode) {
+    const url = buildURL('/app-driver-invoices/confirm', URLTypes.TRADE);
+    return fetch(url,{
+        method: 'PUT'
+    });
+}
 
 function dataFormatter(response = {}) {
     const result = {};
@@ -33,6 +38,7 @@ function dataFormatter(response = {}) {
     result.totalPage = response.totalPage || 0;
     result.modelList = (response.modelList &&
         response.modelList.map((x) => ({
+            enterpriseCode: x.enterpriseCode,
             invoiceReceiverName: x.invoiceReceiverName,
             taxRate: percentFormatter(x.taxRate),
             taxAmount: moneyFormatter(x.taxAmount),

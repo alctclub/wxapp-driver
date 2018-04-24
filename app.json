@@ -12,6 +12,7 @@
     "backgroundTextStyle": "light",
     "navigationBarTitleText": "ALCT",
     "enablePullDownRefresh": true,
+    "onReachBottomDistance": 20,
     "navigationBarTextStyle": "white",
     "navigationBarBackgroundColor": "#009141",
     "backgroundColor": "#f2f2f2"
@@ -19,6 +20,7 @@
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#009141",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/shipmentList/shipmentList",

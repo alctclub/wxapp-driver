@@ -7,6 +7,7 @@ Page({
   data: {
     order: {},
     images: [],
+    imageLimit: 4,
   },
   onClickCancel:function() {
     wx.navigateBack();
@@ -16,8 +17,8 @@ Page({
 
   },
   selectImage: function() {
-    const { images } = this.data;
-    if (images.length >= 2) {
+    const { images, imageLimit } = this.data;
+    if (images.length >= imageLimit) {
       return;
     }
     wx.chooseImage({

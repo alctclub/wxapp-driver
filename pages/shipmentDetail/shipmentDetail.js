@@ -22,7 +22,7 @@ Page({
       enterprisecode
     } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../arrival/arrival?orderCode=${ordercode}&shipmentCode=${shipmentcode}&statusCode=${statuscode}`,
+      url: `../shipmentEvent/shipmentEvent?orderCode=${ordercode}&shipmentCode=${shipmentcode}&statusCode=${statuscode}`,
       complete: function (res) {
         wx.hideLoading();
       },

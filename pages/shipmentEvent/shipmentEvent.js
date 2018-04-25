@@ -1,4 +1,3 @@
-// pages/arrival/arrival.js
 import {
   ImageTypes,
   uploadImage,

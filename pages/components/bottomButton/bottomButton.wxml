@@ -1,5 +1,0 @@
-<!--pages/components/bottomButton/bottomButton.wxml-->
-<view>
-    <button></button>
-    <button></button>
-</view>

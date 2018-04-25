@@ -1,4 +1,3 @@
-<!--pages/arrival/arrival.wxml-->
 <import src="../templates/bottomButton.wxml" />
 <!--
   src: image src
@@ -24,7 +23,8 @@
       <block wx:for="{{images }}" wx:for-item="image">
         <template is="img-view" data="{{ src: image}}" />
       </block>
-      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/icon/upload_small.png' bindtap='selectImage' />
+      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/icon/upload_small.png' bindtap='selectImage'
+      />
     </block>
   </view>
 

@@ -46,7 +46,7 @@ Page({
       title: '加载中',
     })
     wx.navigateTo({
-      url: `../detail/detail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`,
+      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`,
       complete: function (res) {
         wx.hideLoading();
       },

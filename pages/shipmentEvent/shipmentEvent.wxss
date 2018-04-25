@@ -1,5 +1,3 @@
-/* pages/arrival/arrival.wxss */
-
 @import '../templates/bottomButton.wxss';
 page {
     height: auto;
@@ -22,7 +20,7 @@ page {
 .imageContainer {
     display: flex;
     justify-content: flex-start;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 }
 
 .img_upload {
@@ -31,7 +29,7 @@ page {
 }
 
 .img_box {
-    margin: 52rpx 16rpx  0 48rpx;
+    margin: 52rpx 16rpx 0 48rpx;
     width: 280rpx;
     height: 200rpx;
     position: relative;

@@ -1,7 +1,7 @@
 <template name="shipmentBasic">
     <view class="shipment_basic" data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
         <view class="row row_between">
-            <text>运单号:{{shipmentCode}}</text>
+            <text>运单号：{{shipmentCode}}</text>
             <text class="shipmetn_status">{{statusDisplay}}</text>
         </view>
         <view class="row step_row">
@@ -16,7 +16,8 @@
             <text>总体积（立方米）：{{totalVolume}}</text>
         </view>
         <view class="row">
-            <text>总重量（吨）：<text wx:if="{{isChangedWeightVolume}}" style="color: red">{{totalWeight}}</text>
+            <text>总重量（吨）：
+                <text wx:if="{{isChangedWeightVolume}}" style="color: red">{{totalWeight}}</text>
                 <text wx:else>{{totalWeight}}</text>
             </text>
         </view>

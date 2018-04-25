@@ -30,7 +30,7 @@ function getStatusDisplay(code) {
 var funcNames = {
   '20': '提货',
   '30': '到货',
-  '40': '签收',
+  '40': '回单',
 }
 function funcName(statusCode) {
   var functionName = funcNames[statusCode + '']

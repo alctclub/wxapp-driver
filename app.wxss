@@ -62,11 +62,13 @@ page {
 .step_text {
   margin-left: 10rpx;
   font-size: 32rpx;
+  flex-shrink: 1;
   color: #333333;
   white-space: nowrap;
   text-overflow: ellipsis;
   width: auto;
   max-width: 9rem;
+  text-align: start;
 }
 
 .setp_end {

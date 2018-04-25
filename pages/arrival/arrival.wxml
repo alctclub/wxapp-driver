@@ -5,30 +5,28 @@
 -->
 <template name="img-view">
   <view class="img_box">
-    <view class="deletebtn" data-src='{{src}}' bindtap='onDelete'>
-      <label>x</label>
-    </view>
+    <image class="deletebtn" src="../../assert/icon/close_image.png" data-src='{{src}}' bindtap='onDelete' />
     <image class="img_display" src='{{src}}' />
   </view>
 </template>
 
 <view class='container'>
   <view class="headerTip">
-    <text>上传卸货照片</text>
+    <text>{{headerTip}}</text>
   </view>
   <view class="imageContainer">
     <block wx:if='{{images.length == 0}}'>
 
-      <image class="img_upload" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
+      <image class="img_upload" src='../../assert/icon/upload_big.png' bindtap='selectImage' />
 
     </block>
     <block wx:else>
       <block wx:for="{{images }}" wx:for-item="image">
         <template is="img-view" data="{{ src: image}}" />
       </block>
-      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/bg_upload_picture.png' bindtap='selectImage' />
+      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/icon/upload_small.png' bindtap='selectImage' />
     </block>
   </view>
 
-  <template is="bottomButton" data="{{confimrText: '确认到货'}}" />
+  <template is="bottomButton" data="{{confimrText}}" />
 </view>

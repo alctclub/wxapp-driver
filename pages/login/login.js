@@ -1,6 +1,6 @@
 // pages/login/login.js
 import { Login } from './actions.js';
-
+var interval = null //倒计时函数
 Page({
 
   /**
@@ -17,6 +17,8 @@ Page({
   data: {
     username: '',
     password: '',
+    verificationCode: '获取验证码',
+    currentTime: 60,
     errorMessage: '',
   },
   bindinput: function (e) {
@@ -35,9 +37,37 @@ Page({
       wx.switchTab({
         url: '../shipmentList/shipmentList',
       })).catch((error) => {
-      this.setData({
-        errorMessage: error.errMsg,
+        this.setData({
+          errorMessage: error.errMsg,
+        });
       });
+  },
+  getVerificationCode: function (e) {
+    this.countDown();
+  },
+
+  countDown: function (options) {
+    var that = this;
+    var currentTime = that.data.currentTime;
+    that.setData({
+      disabled: true
+    })
+    that.setData({
+      verificationCode: currentTime + 's'
     });
-  }
+    interval = setInterval(function () {
+      currentTime--;
+      that.setData({
+        verificationCode: currentTime + 's'
+      });
+      if (currentTime <= 0) {
+        clearInterval(interval)
+        that.setData({
+          verificationCode: '获取验证码',
+          currentTime: 60,
+          disabled: false
+        })
+      }
+    }, 1000)
+  },
 })

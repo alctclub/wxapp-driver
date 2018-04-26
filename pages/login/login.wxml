@@ -17,6 +17,6 @@
   </div>
   <div>
     <text class="agree">点击验证，即同意</text>
-    <text class="userAgreement" >《安联程通用户协议及隐私条款》</text>
+    <text class="userAgreement" bindtap='userAgreement'>《安联程通用户协议及隐私条款》</text>
   </div>
 </view>

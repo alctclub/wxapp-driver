@@ -1,0 +1,3 @@
+<view class='container'>
+  <web-view src="https://x-staging.alct56.com/mobile/Agreement.html"></web-view>
+</view>

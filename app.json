@@ -4,7 +4,12 @@
     "pages/shipmentList/shipmentList",
     "pages/shipmentDetail/shipmentDetail",
     "pages/shipmentEvent/shipmentEvent",
-    "pages/invoiceList/invoiceList"
+    "pages/map/map",
+    "pages/detail/detail",
+    "pages/pickup/pickup",
+    "pages/arrival/arrival",
+    "pages/invoiceList/invoiceList",
+    "pages/userAgreement/userAgreement"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -70,4 +70,10 @@ Page({
       }
     }, 1000)
   },
+
+  userAgreement: function () {
+    wx.navigateTo({
+      url: '../userAgreement/userAgreement'
+    })
+  }
 })

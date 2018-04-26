@@ -4,10 +4,6 @@
     "pages/shipmentList/shipmentList",
     "pages/shipmentDetail/shipmentDetail",
     "pages/shipmentEvent/shipmentEvent",
-    "pages/map/map",
-    "pages/detail/detail",
-    "pages/pickup/pickup",
-    "pages/arrival/arrival",
     "pages/invoiceList/invoiceList",
     "pages/userAgreement/userAgreement"
   ],

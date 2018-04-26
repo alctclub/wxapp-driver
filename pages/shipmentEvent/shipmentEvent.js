@@ -2,6 +2,7 @@ import {
   ImageTypes,
   uploadImage,
   getImages,
+  getOrderItems,
 } from './actions';
 
 
@@ -13,8 +14,13 @@ Page({
   data: {
     order: {},
     images: [],
+    pickUpOrderItem: {
+      orderExpandItems: [],
+      orderUnexpandItems: [],
+    },
     imageLimit: 4,
     statusCode: '',
+    isExpand: false,
   },
   onClickCancel: function () {
     wx.navigateBack();
@@ -71,6 +77,18 @@ Page({
     }
   },
 
+  showMore: function() {
+    this.setData({
+      isExpand: true,
+    });
+  },
+
+  collapse: function() {
+    this.setData({
+      isExpand: false,
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -83,6 +101,16 @@ Page({
     const shipment = wx.getStorageSync(`${shipmentCode}`);
     const order = shipment.orders.find(x => x.orderCode === orderCode);
     const initData = this.initByStatusCode(statusCode);
+    if (initData.imageType === ImageTypes.PICKUP) {
+      getOrderItems(order).then((res) =>
+        this.setData({
+          pickUpOrderItem: {
+            orderExpandItems: res.orderDetailModelList,
+            orderUnexpandItems: res.orderDetailModelList.splice(0, 3),
+          },
+          isExpand:false,
+        }));
+    }
     getImages(initData.imageType, order);
     this.setData({
       order,
@@ -93,6 +121,9 @@ Page({
 
   initByStatusCode: function (statusCode) {
     if (`${statusCode}` === '30') {
+      wx.setNavigationBarTitle({
+        title: '到货',
+      });
       return {
         headerTip: '上传卸货照片',
         confimrText: '确认到货',
@@ -100,61 +131,25 @@ Page({
         imageType: ImageTypes.ARRIVE,
       };
     } else if (`${statusCode}` === '40') {
+      wx.setNavigationBarTitle({
+        title: '回单',
+      });
       return {
         headerTip: '上传回单照片',
         confimrText: '确认回单',
         imageLimit: 4,
         imageType: ImageTypes.POD,
       };
+    } else if (`${statusCode}` === '20') {
+      wx.setNavigationBarTitle({
+        title: '提货',
+      });
+      return {
+        headerTip: '上传提货照片',
+        confimrText: '确认提货',
+        imageLimit: 4,
+        imageType: ImageTypes.PICKUP,
+      };
     }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

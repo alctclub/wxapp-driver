@@ -99,3 +99,26 @@
 .active {
   color: #009141;
 }
+
+.phone {
+  display: flex;
+  align-items: center;
+}
+.phoneNumber {
+  border-bottom: none;
+}
+
+.active > .row > .phone > .phoneNumber{
+  border-bottom: 4rpx solid #009141;
+}
+
+.active > .row > .phone > .phoneIcon {
+  visibility: visible;
+}
+
+.phoneIcon {
+  visibility: hidden;
+  margin-left: 20rpx;
+  width: 30rpx;
+  height: 30rpx;
+}

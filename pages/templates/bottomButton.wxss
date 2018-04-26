@@ -5,6 +5,7 @@
     width: 100%;
     justify-content: space-between;
     position: fixed;
+    border-top: 1rpx #dcdcdc solid;
     bottom: 0;
     left: 0;
     right: 0;

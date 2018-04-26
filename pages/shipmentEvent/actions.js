@@ -118,9 +118,19 @@ export function getImages(imageType, data = {}) {
     const {
       imageNameList = [],
     } = result;
-    return Promise.all(...imageNameList.map((filename) =>
+    return Promise.all(imageNameList.map((filename) =>
       getImageByName(imageType, { ...data,
         filename
       })));
   });
+}
+
+export function getOrderItems(data) {
+  const {
+      orderCode,
+      enterpriseCode,
+      shipmentCode,
+  } = data;
+  const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.TRADE);
+  return fetch(url);
 }

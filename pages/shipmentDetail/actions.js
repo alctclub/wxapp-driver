@@ -16,6 +16,7 @@ function shipmentFormatter(res = {}) {
     let orders = res.orders || [];
     orders = orders.map((item) =>({
         shipmentCode: item.shipmentCode,
+        enterpriseCode: item.enterpriseCode,
         orderCode: item.orderCode,
         consignor: item.consignor,
         consignee: item.consignee,

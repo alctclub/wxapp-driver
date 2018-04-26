@@ -1,6 +1,6 @@
 @import '../templates/bottomButton.wxss';
 page {
-    height: auto;
+    height: 100%;
     min-height: 100%;
     background-color: #ffffff;
 }
@@ -35,6 +35,13 @@ page {
     position: relative;
 }
 
+.img_box_pickup {
+    margin: 32rpx 63rpx;
+    width: 100%;
+    height: 400rpx;
+    position: relative;
+}
+
 .img_display {
     width: 100%;
     height: 100%;
@@ -52,4 +59,54 @@ page {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.goods {
+    display: flex;
+    flex-direction: column;
+    color: #666666;
+    font-size: 24rpx;
+    padding: 40rpx 36rpx 6rpx 36rpx;
+}
+
+.tipMessage {
+    color: #999999;
+    font-size: 32rpx;
+}
+
+.goodList {
+    margin-top: 24rpx;
+    font-size: 28rpx;
+    border-top: 2rpx #e0e0e0 solid;
+    padding-top: 40rpx;
+    padding-bottom: 24rpx;
+    border-bottom: 2rpx #e0e0e0 solid;
+}
+
+.goodItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.goodItem +.goodItem {
+    margin-top: 40rpx;
+}
+
+.expand {
+    margin-top: 50rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expand > view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expandImage {
+    margin-left: 20rpx;
+    width: 30rpx;
+    height: 30rpx;
 }

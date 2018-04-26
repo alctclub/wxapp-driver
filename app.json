@@ -8,7 +8,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarTitleText": "ALCT",
+    "navigationBarTitleText": "货运通",
     "enablePullDownRefresh": true,
     "onReachBottomDistance": 20,
     "navigationBarTextStyle": "white",
@@ -19,7 +19,8 @@
     "color": "#999999",
     "selectedColor": "#009141",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/shipmentList/shipmentList",
         "text": "运单",
         "iconPath": "assert/icon/invoice.png",

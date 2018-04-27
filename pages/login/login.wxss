@@ -75,7 +75,7 @@ page {
   margin: 0 auto;
 }
 
-#btn_login {
+#btnLogin {
   width: 528rpx;
   background-color: #009141;
   color: #ffffff;

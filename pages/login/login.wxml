@@ -1,22 +1,22 @@
 <!--pages/login/login.wxml-->
 <view class='container'>
-  <div class="iconLoginView">
+  <view class="iconLoginView">
     <image mode="aspectFit" class="iconLogin" src="/assert/icon/login_title.png"></image>
-  </div>
-  <div class="usernameView">
+  </view>
+  <view class="usernameView">
     <input id='username' type='text' confirm-type='next' placeholder='手机号' bindinput='bindinput' />
-  </div>
-  <div class="passwordView">
+  </view>
+  <view class="passwordView">
     <input id='password' placeholder='短信验证码' password='true' bindinput='bindinput' />
-    <button id='buttonVerificationCode'  disabled='{{disabled}}' bindtap="getVerificationCode">{{verificationCode}}</button>
-  </div>
+    <button id='buttonVerificationCode' disabled='{{disabled}}' bindtap="getVerificationCode">{{verificationCode}}</button>
+  </view>
   <text class="useTip">使用手机获取验证码关联你的服务账号</text>
   <text class="errorMessage" wx:if="{{errorMessage !== ''}}">{{errorMessage}}</text>
-  <div class="btnLoginView">
-    <button id='btn_login' bindtap='login'>验证</button>
-  </div>
-  <div>
+  <view class="btnLoginView">
+    <button id='btnLogin' bindtap='login'>验证</button>
+  </view>
+  <view>
     <text class="agree">点击验证，即同意</text>
     <text class="userAgreement" bindtap='userAgreement'>《安联程通用户协议及隐私条款》</text>
-  </div>
+  </view>
 </view>

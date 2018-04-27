@@ -54,7 +54,7 @@ Page({
           imageURL: res.tempFilePaths[0],
         }
 
-        uploadImage(imageType, data);
+        // uploadImage(imageType, data);
 
         images.push(...res.tempFilePaths);
 

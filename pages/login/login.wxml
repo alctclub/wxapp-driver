@@ -1,18 +1,18 @@
 <!--pages/login/login.wxml-->
 <view class='container'>
-  <view class="iconLoginView">
+  <view class="iconLoginRow">
     <image mode="aspectFit" class="iconLogin" src="/assert/icon/login_title.png"></image>
   </view>
-  <view class="usernameView">
+  <view class="centerRow">
     <input id='username' type='text' confirm-type='next' placeholder='手机号' bindinput='bindinput' />
   </view>
-  <view class="passwordView">
+  <view class="centerRow">
     <input id='password' placeholder='短信验证码' password='true' bindinput='bindinput' />
     <button id='buttonVerificationCode' disabled='{{disabled}}' bindtap="getVerificationCode">{{verificationCode}}</button>
   </view>
   <text class="useTip">使用手机获取验证码关联你的服务账号</text>
   <text class="errorMessage" wx:if="{{errorMessage !== ''}}">{{errorMessage}}</text>
-  <view class="btnLoginView">
+  <view class="centerRow">
     <button id='btnLogin' bindtap='login'>验证</button>
   </view>
   <view>

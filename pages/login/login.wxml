@@ -8,7 +8,7 @@
   </view>
   <view class="centerRow">
     <input id='password' placeholder='短信验证码' password='true' bindinput='bindinput' />
-    <button id='buttonVerificationCode' disabled='{{disabled}}' bindtap="getVerificationCode">{{verificationCode}}</button>
+    <button id='buttonVerificationCode' disabled='{{disabled}}' style="opacity:{{opacity}}" bindtap="getVerificationCode">{{verificationCode}}</button>
   </view>
   <text class="useTip">使用手机获取验证码关联你的服务账号</text>
   <text class="errorMessage" wx:if="{{errorMessage !== ''}}">{{errorMessage}}</text>

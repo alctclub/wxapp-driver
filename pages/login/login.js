@@ -1,47 +1,30 @@
 // pages/login/login.js
 import { Login } from './actions.js';
 var interval = null //倒计时函数
+
 Page({
 
   /**
    * 页面的初始数据
    */
   onLoad: function (options) {
-    const accessToken = wx.getStorageSync('access_Token');
-    if (accessToken) {
-      wx.switchTab({
-        url: '../shipmentList/shipmentList'
-      })
-    }
+
   },
+
   data: {
-    username: '',
-    password: '',
     verificationCode: '获取验证码',
     currentTime: 60,
     errorMessage: '',
+    opacity: 1,
   },
+
   bindinput: function (e) {
     this.setData({
       [e.currentTarget.id]: e.detail.value,
       errorMessage: '',
     })
   },
-  login: function (e) {
 
-    let { username, password } = this.data;
-    Login({
-      username: 'D00000281',
-      password: 'e10adc3949ba59abbe56e057f20f883e',
-    }).then(() =>
-      wx.switchTab({
-        url: '../shipmentList/shipmentList',
-      })).catch((error) => {
-        this.setData({
-          errorMessage: error.errMsg,
-        });
-      });
-  },
   getVerificationCode: function (e) {
     this.countDown();
   },
@@ -50,7 +33,8 @@ Page({
     var that = this;
     var currentTime = that.data.currentTime;
     that.setData({
-      disabled: true
+      disabled: true,
+      opacity: 0.3
     })
     that.setData({
       verificationCode: currentTime + 's'
@@ -65,7 +49,8 @@ Page({
         that.setData({
           verificationCode: '获取验证码',
           currentTime: 60,
-          disabled: false
+          disabled: false,
+          opacity: 1
         })
       }
     }, 1000)

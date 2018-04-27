@@ -47,9 +47,6 @@ export const fetch = (url, options = {}) => {
         resolve(response.data);
       } else if (response.statusCode === 401) {
         wx.removeStorageSync('access_Token')
-        wx.redirectTo({
-          url: '/pages/login/login',
-        });
       }
       reject(response.data);
     };

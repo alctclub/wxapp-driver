@@ -1,29 +1,29 @@
 import { URLTypes, buildURL, fetch } from '../../api/fetch.js';
 
-export function Login(user) {
-  const url = buildURL('/login', URLTypes.DRIVER);
-  const { username, password } = user;
-  wx.clearStorageSync('access_Token');
+/**
+ * 获取验证码
+ */
+export function GetVerificationCode(phoneNumber) {
+  const url = buildURL('/verification-code', URLTypes.DRIVER);
   return fetch(url, {
     method: 'POST',
     data: {
-      loginIdentity: username,
-      // password: 'e397433ba52b69656be325c89581b13a',
-      password: password,
-      verificationCode: '',
-      isAuto: false,
-      deviceInfo: {
-      },
+      phoneNumber : phoneNumber,
     },
-  }).then((response) => onSuccess(response));
-};
+  });
+}
 
-function onSuccess(response) {
-  if (response.access_Token) {
-    wx.setStorageSync('access_Token', response.access_Token);
-  } else {
-    wx.clearStorageSync('access_Token');
-    const { errorResult } = response;
-    throw new Error(errorResult.message);
-  }
+/**
+ * 关联账号
+ */
+export function Bind(driver) {
+  const url = buildURL('/bind', URLTypes.DRIVER);
+  const { phoneNumber, smsVerificationCode } = driver;
+  return fetch(url, {
+    method: 'POST',
+    data: {
+      phoneNumber : phoneNumber,
+      smsVerificationCode : smsVerificationCode,
+    },
+  });
 }

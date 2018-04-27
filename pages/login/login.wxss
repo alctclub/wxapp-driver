@@ -76,10 +76,6 @@ page {
   font-family: Source Han Sans CN;
 }
 
-.errorMessage {
-  color: red;
-}
-
 .agree {
    margin-left: 110rpx;
    color: #9e9e9e;

@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "运单详情"
+  "navigationBarTitleText": "运单详情",
+  "enablePullDownRefresh": false
 }

@@ -4,7 +4,6 @@ import {
   fetch
 } from '../../api/fetch';
 var bmap = require('../../libs/bmap-wx.min.js');
-import Exif from '../../libs/exif';
 
 export const ImageTypes = {
   PICKUP: 'pickup',

@@ -1,6 +1,6 @@
 import {
   getRunningShipments,
-} from './actions.js';
+} from './actions';
 
 
 Page({

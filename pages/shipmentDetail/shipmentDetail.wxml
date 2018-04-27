@@ -21,14 +21,22 @@
       </view>
 
       <view class="col_right">
-        <view class="statusDisplay">
-          <text>{{util.getStatusDisplay(statusCode)}}</text>
-        </view>
-        <view class="evntContainer" wx:if='{{util.funcName(statusCode)}}'>
-          <view class="btn_event" bindtap='onEvent' data-shipmentcode='{{shipmentCode}}' data-ordercode='{{orderCode}}' data-statuscode='{{statusCode}}'>
-            {{util.funcName(statusCode)}}
+        <block wx:if="{{util.isComplete(statusCode, isSignException)}}">
+          <view class="completeIconContainer">
+            <image class="completeIcon" src="{{util.isComplete(statusCode, isSignException)}}" />
           </view>
-        </view>
+        </block>
+        <block wx:else>
+          <view class="statusDisplay">
+            <text>{{util.getStatusDisplay(statusCode)}}</text>
+          </view>
+          <view class="evntContainer" wx:if='{{util.funcName(statusCode)}}'>
+            <view class="btn_event" bindtap='onEvent' data-shipmentcode='{{shipmentCode}}' data-ordercode='{{orderCode}}' data-statuscode='{{statusCode}}'>
+              {{util.funcName(statusCode)}}
+            </view>
+          </view>
+        </block>
+
       </view>
     </view>
 
@@ -39,12 +47,14 @@
       <view class="row">
         <view class="phone">
           <text>联系电话：</text>
-          <view class="phoneNumber"><text>{{consignorPhoneNumber}}</text></view>
-          <image class="phoneIcon" src="../../assert/icon/phone.png" />
+          <view class="phoneNumber" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}"></view>
+          <text>{{consignorPhoneNumber}}</text>
         </view>
+        <image class="phoneIcon" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}"
+          src="../../assert/icon/phone.png" />
       </view>
       <view class="row">
-        <text>要求提货地址：{{requirePickupStartDate}} 至 {{requirePickupEndDate}}</text>
+        <text>要求提货时间：{{requirePickupStartDate}} 至 {{requirePickupEndDate}}</text>
       </view>
     </view>
 
@@ -55,12 +65,15 @@
       <view class="row">
         <view class="phone">
           <text>联系电话：</text>
-          <view class="phoneNumber"><text>{{consigneePhoneNumber}}</text></view>
-          <image class="phoneIcon" src="../../assert/icon/phone.png" />
+          <view class="phoneNumber" bindtap="callPhone" data-phonenumber="{{consigneePhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}">
+            <text>{{consigneePhoneNumber}}</text>
+          </view>
+          <image class="phoneIcon" bindtap="callPhone" data-phonenumber="{{consigneePhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}"
+            src="../../assert/icon/phone.png" />
         </view>
       </view>
       <view class="row">
-        <text>要求到货地址：{{requireArrivalStartDate}} 至 {{requireArrivalEndDate}}</text>
+        <text>要求到货时间：{{requireArrivalStartDate}} 至 {{requireArrivalEndDate}}</text>
       </view>
     </view>
   </view>

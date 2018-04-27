@@ -10,7 +10,7 @@
 	"window": {
 		"navigationBarBackgroundColor": ",",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "ALCT",
+		"navigationBarTitleText": "货运通",
 		"backgroundColor": "#eeeeee",
 		"backgroundTextStyle": "light",
 		"enablePullDownRefresh": true
@@ -18,7 +18,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.9",
 	"appid": "wxeda24e2782cf0130",
-	"projectname": "ALCT",
+	"projectname": "货运通",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -36,5 +36,16 @@
 			"current": -1,
 			"list": []
 		}
+	},
+	"packOptions": {
+		"ignore": [{
+				"type": "folder",
+				"value": ".vscode"
+			},
+			{
+				"type": "folder",
+				"value": "typings"
+			}
+		]
 	}
 }

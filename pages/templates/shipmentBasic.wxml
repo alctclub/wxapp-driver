@@ -1,3 +1,5 @@
+<wxs src="../../utils/index.wxs" module="util" />
+
 <template name="shipmentBasic">
     <view class="shipment_basic" data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
         <view class="row row_between">
@@ -6,10 +8,12 @@
         </view>
         <view class="row step_row">
             <view class="step step_start">起</view>
-            <view class="step_text">{{startAddress}}</view>
+            <view class="step_text">
+                <text>{{util.maxLengthFormatter(startAddress)}}</text>
+            </view>
             <image class="img_arrow" mode="aspectFit" src="/assert/icon/arrow.png"></image>
             <view class="step setp_end">终</view>
-            <view class="step_text">{{endAddress}}</view>
+            <text class="step_text">{{endAddress}}</text>
         </view>
 
         <view class="row">

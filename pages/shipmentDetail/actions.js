@@ -26,6 +26,7 @@ function shipmentFormatter(res = {}) {
         requirePickupStartDate: dateFormatter(item.requirePickupStartDate),
         requirePickupEndDate: dateFormatter(item.requirePickupEndDate),
         arrivalAddress: item.arrivalAddress,
+        isSignException: item.isSignException,
         consigneePhoneNumber: item.consigneePhoneNumber,
         requireArrivalStartDate: dateFormatter(item.requireArrivalStartDate),
         requireArrivalEndDate: dateFormatter(item.requireArrivalEndDate),

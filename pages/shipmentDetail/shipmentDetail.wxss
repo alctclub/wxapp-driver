@@ -1,5 +1,7 @@
 /* pages/detail/detail.wxss */
 
+@import '../templates/shipmentBasic.wxss';
+
 .shipment_basic {
   color: #666666;
   display: flex;
@@ -36,7 +38,7 @@
 .col_left {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 50%;
   height: 100%;
 }
 
@@ -48,7 +50,7 @@
 }
 
 .nameContainer {
-  margin: 20px 0;
+  margin-top: 48rpx;
   display: flex;
   flex-direction: column;
 }
@@ -56,7 +58,7 @@
 .col_right {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 50%;
 }
 
 .statusDisplay {
@@ -90,9 +92,6 @@
   display: flex;
   flex-direction: column;
   color: #666666;
-}
-
-.section + .section {
   margin-top: 40rpx;
 }
 
@@ -109,7 +108,7 @@
 }
 
 .active > .row > .phone > .phoneNumber{
-  border-bottom: 4rpx solid #009141;
+  border-bottom: 2rpx solid #009141;
 }
 
 .active > .row > .phone > .phoneIcon {
@@ -118,7 +117,19 @@
 
 .phoneIcon {
   visibility: hidden;
-  margin-left: 20rpx;
-  width: 30rpx;
-  height: 30rpx;
+  margin-left: 16rpx;
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.completeIconContainer {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.completeIcon {
+  width: 140rpx;
+  height: 140rpx;
 }

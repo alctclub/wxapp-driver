@@ -1,0 +1,38 @@
+.img_arrow {
+    flex-shrink: 0;
+    width: 40rpx;
+    height: 40rpx;
+    margin: 0 10rpx;
+  }
+  
+  .step {
+    width: 48rpx;
+    height: 48rpx;
+    border-radius: 24rpx;
+    font-size: 24rpx;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-shrink: 0;
+  }
+  
+  .step_row {
+    padding: 8rpx 0;
+  }
+  
+  .step_start {
+    background-color: #d4661d;
+  }
+  
+  .step_text {
+    color: #333333;
+    margin-left: 10rpx;
+    font-size: 32rpx;
+    flex-shrink: 1;      
+  }
+  
+  .setp_end {
+    background-color: #49b631;
+  }

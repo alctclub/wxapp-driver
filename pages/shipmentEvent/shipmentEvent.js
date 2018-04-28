@@ -3,6 +3,7 @@ import {
   uploadImage,
   getImages,
   getOrderItems,
+  onEvent,
 } from './actions';
 
 
@@ -24,6 +25,11 @@ Page({
   },
   onClickCancel: function () {
     wx.navigateBack();
+  },
+  onClickComfirm: function(event) {
+    const { order } = this.data;
+    const { formId } = event.detail;
+    onEvent(order);
   },
   onClickUpload: function () {
     const {

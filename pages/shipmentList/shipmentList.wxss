@@ -14,16 +14,21 @@
 }
 
 .signin {
+  position: fixed;
+  right: 34rpx;
+  bottom: 30rpx;
+}
+
+#signinBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:none;
+  padding:0;
+  color:white;
   background-color: #009141;
-  color: white;
   font-size: 28rpx;
   border-radius: 47.5rpx;
   height: 95rpx;
   width: 95rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  right: 34rpx;
-  bottom: 30rpx;
 }

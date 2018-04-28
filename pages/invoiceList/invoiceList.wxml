@@ -1,28 +1,29 @@
 <!--pages/invoiceList/invoiceList.wxml-->
 <template name="invoice">
     <view class="invoice">
-        <view>
+        <view class="row">
             <text>受票方：{{invoiceReceiverName}}</text>
         </view>
-        <view>
+        <view class="row">
             <text>税率：{{taxRate}}</text>
         </view>
-        <view>
+        <view class="row">
             <text>税额：{{taxAmount}}</text>
-        </view>
-        <view>
+        </view >
+        <view class="row">
             <text>金额：{{totalAmount}}</text>
         </view>
-        <view style="display: flex">
+        <view class="row" style="display: flex">
             <view class="col_left">
-                <text>总金额：{{totalAmountIncludeTax}}</text>
-                <text style="white-space: nowrap;">流水号：{{driverInvoiceCode}}</text>
+                <view class="row">
+                    <text>总金额：{{totalAmountIncludeTax}}</text>
+                </view>
+                <view class="row">
+                        <text style="white-space: nowrap;">流水号：{{driverInvoiceCode}}</text>
+                </view>
             </view>
             <view class="col_right">
-                <view class="btn_apply"
-                    data-enterprisecode="{{enterpriseCode}}"
-                    data-driverinvoicecode="{{driverInvoiceCode}}"
-                    bindtap="onComfirm" >
+                <view class="btn_apply" data-enterprisecode="{{enterpriseCode}}" data-driverinvoicecode="{{driverInvoiceCode}}" bindtap="onComfirm">
                     <text>确认</text>
                 </view>
             </view>
@@ -35,7 +36,7 @@
         <view wx:for="{{invoiceList.modelList}}" wx:key="driverInvoiceCode" wx:for-index="idx" wx:for-item="invoice">
             <template is="invoice" data="{{...invoice}}" />
         </view>
-        <view wx:if="{{isEnd}}" class="comment_end comment" >没有更多了</view>
+        <view wx:if="{{isEnd}}" class="comment_end comment">没有更多了</view>
     </block>
     <block wx:else>
         <view class="emptyContainer">

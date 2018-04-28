@@ -5,7 +5,9 @@
     <template is="shipmentBasic" data="{{...shipment}}" />
   </block>
 
-  <view class="signin" bindtap='signin'>
-    <text>签到</text>
-  </view>
+  <form class="signin" report-submit='true' bindsubmit="signin">
+      <button class="signin" id="signinBtn" size="mini" plain="true" form-type="submit">
+        签到
+      </button>
+  </form>
 </view>

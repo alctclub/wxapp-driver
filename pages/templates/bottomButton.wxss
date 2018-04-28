@@ -16,10 +16,12 @@
     height: 100%;
     width: 50%;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    border: none !important;
+    border-radius: 0;
 }
 
 .button_main {
-    color: white;
-    background-color: #1aad19;
+    color: white !important;
+    background-color: #1aad19 !important;
 }

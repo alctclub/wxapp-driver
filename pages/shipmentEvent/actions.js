@@ -133,3 +133,36 @@ export function getOrderItems(data) {
   const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.TRADE);
   return fetch(url);
 }
+
+//提货 到货 回单
+export function onEvent(data) {
+  const url = buildURL('/app-shipments/events', URLTypes.TRADE);
+  const BMAP = new bmap.BMapWX({
+    ak: 'yOO4a5RubTLXdWjdkRbbtEn500m02gzR'
+  });
+  return wx.getLocation({
+    success: function (res) {
+      const location = `${res.latitude},${res.longitude}`;
+      const regeocodingSuccess = (res) => {
+        const result = res.wxMarkerData[0].address;
+        fetch(url, {
+          method: 'PUT',
+          data: {
+            shipmentCode: data.shipmentCode,
+            orderCode: data.orderCode,
+            enterpriseCode: data.enterpriseCode,
+            latitudeValue: res.latitude,
+            longitudeValue: res.longitude,
+            location: result,
+            time: new Date().toISOString(),
+            statusCode: data.statusCode,
+          }
+        })
+      }
+      const address = BMAP.regeocoding({
+        location,
+        success: regeocodingSuccess,
+      });
+    }
+  });
+}

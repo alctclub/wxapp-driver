@@ -59,11 +59,25 @@ Page({
       },
     })
   },
-  signin: function () {
-    wx.showToast({
-      title: '签到成功',
-      icon: 'none'
-    });
+  signin: function (event) {
+    const { formId } = event.detail;
+    wx.getLocation({
+      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+      success: function(res){
+        // success
+        wx.showToast({
+          title: '签到成功',
+          icon: 'none'
+        });
+      },
+      fail: function() {
+        wx.showToast({
+          title: '签到失败',
+          icon: 'none'
+        });
+      }
+    })
+    
   },
 
   login: function (e) {

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "发票列表",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 20
+  "onReachBottomDistance": 20,
+  "backgroundTextStyle": "dark"
 }

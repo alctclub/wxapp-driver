@@ -5,8 +5,11 @@
     onClickComfirm: func,
 -->
 <template name="bottomButton">
-    <view class="bottomButton ">
-        <view class="button" bindtap='onClickCancel'>{{cancelText || "取消"}}</view>
-        <view class="button button_main" bindtap='onClickComfirm'>{{confimrText || "确认"}}</view>
-    </view>
+
+    <form eport-submit='true' bindsubmit="onClickComfirm">
+        <view class="bottomButton" r>
+            <button class="button" plain="true" bindtap='onClickCancel'>{{cancelText || "取消"}}</button>
+            <button class="button button_main" plain="true" form-type="submit">{{confimrText || "确认"}}</button>
+        </view>
+    </form>
 </template>

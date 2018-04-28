@@ -42,7 +42,6 @@ Page({
       })
     })
   },
-
   callPhone: function (event) {
     const {
       phonenumber,

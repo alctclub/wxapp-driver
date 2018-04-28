@@ -6,7 +6,7 @@
   </block>
 
   <form class="signin" report-submit='true' bindsubmit="signin">
-      <button class="signin" id="signinBtn" size="mini" plain="true" form-type="submit">
+      <button id="signinBtn" size="mini" plain="true" form-type="submit">
         签到
       </button>
   </form>

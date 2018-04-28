@@ -15,7 +15,7 @@
 
 .signin {
   position: fixed;
-  right: 34rpx;
+  right: 30rpx;
   bottom: 30rpx;
 }
 

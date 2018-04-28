@@ -47,11 +47,12 @@
       <view class="row">
         <view class="phone">
           <text>联系电话：</text>
-          <view class="phoneNumber" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}"></view>
-          <text>{{consignorPhoneNumber}}</text>
+          <view class="phoneNumber" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{util.isStartActive(statusCode)}}">
+            <text>{{consignorPhoneNumber}}</text>
+          </view>
+          <image class="phoneIcon" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{util.isStartActive(statusCode)}}"
+            src="../../assert/icon/phone.png" />
         </view>
-        <image class="phoneIcon" bindtap="callPhone" data-phonenumber="{{consignorPhoneNumber}}" data-active="{{!util.isStartActive(statusCode)}}"
-          src="../../assert/icon/phone.png" />
       </view>
       <view class="row">
         <text>要求提货时间：{{requirePickupStartDate}} 至 {{requirePickupEndDate}}</text>

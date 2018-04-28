@@ -126,9 +126,9 @@ export function getImages(imageType, data = {}) {
 
 export function getOrderItems(data) {
   const {
-      orderCode,
-      enterpriseCode,
-      shipmentCode,
+    orderCode,
+    enterpriseCode,
+    shipmentCode,
   } = data;
   const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.TRADE);
   return fetch(url);
@@ -137,32 +137,62 @@ export function getOrderItems(data) {
 //提货 到货 回单
 export function onEvent(data) {
   const url = buildURL('/app-shipments/events', URLTypes.TRADE);
+
+  return new Promise((resolve, reject) => {
+
+    wx.getLocation({
+      success: function (res) {
+        regeocoding(res.latitude, res.longitude).then((regResult) => {
+          console.log('详细地址', regResult.location);
+          console.log('精度', res.accuracy);
+          console.log('verticalAccuracy', res.verticalAccuracy);
+          console.log('horizontalAccuracy', res.horizontalAccuracy);
+          console.log('latitude', regResult.baiduLatitude);
+          console.log('longitude', regResult.baiduLongitude)
+          return fetch(url, {
+            method: 'PUT',
+            showLoading: true,
+            data: {
+              shipmentCode: data.shipmentCode,
+              orderCode: data.orderCode,
+              enterpriseCode: data.enterpriseCode,
+              latitudeValue: res.latitude,
+              longitudeValue: res.longitude,
+              location: regResult.location,
+              baiduLatitude: regResult.baiduLatitude,
+              baiduLongitude: regResult.baiduLongitude,
+              time: new Date().toISOString(),
+              statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
+            }
+        }).then((resp) => resolve(resp))
+        .catch(error => reject(error));
+      });
+      },
+      fail: (error) => reject(error),
+    });
+  });
+}
+
+function regeocoding(latitude, longitude) {
   const BMAP = new bmap.BMapWX({
     ak: 'yOO4a5RubTLXdWjdkRbbtEn500m02gzR'
   });
-  return wx.getLocation({
-    success: function (res) {
-      const location = `${res.latitude},${res.longitude}`;
-      const regeocodingSuccess = (res) => {
-        const result = res.wxMarkerData[0].address;
-        fetch(url, {
-          method: 'PUT',
-          data: {
-            shipmentCode: data.shipmentCode,
-            orderCode: data.orderCode,
-            enterpriseCode: data.enterpriseCode,
-            latitudeValue: res.latitude,
-            longitudeValue: res.longitude,
-            location: result,
-            time: new Date().toISOString(),
-            statusCode: data.statusCode,
-          }
-        })
+  const location = `${latitude},${longitude}`;
+
+  return new Promise((resolve, reject) => {
+
+    const onSuccess = (data) => {
+      debugger;
+      const result = {
+        location: data.wxMarkerData[0].address,
+        baiduLatitude: data.originalData.result.location.lat,
+        baiduLongitude: data.originalData.result.location.lng,
       }
-      const address = BMAP.regeocoding({
-        location,
-        success: regeocodingSuccess,
-      });
+      resolve(result);
     }
+    BMAP.regeocoding({
+      success: (res) => onSuccess(res),
+      fail: (error) => reject(error),
+    });
   });
 }

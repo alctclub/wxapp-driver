@@ -9,7 +9,9 @@ import {
 export function getShipmentDetail(enterpriseCode, shipmentCode) {
     const baseURL = `/app-shipments/${enterpriseCode}/${shipmentCode}`;
     const url = buildURL(baseURL, URLTypes.TRADE);
-    return fetch(url).then((res) => shipmentFormatter(res));
+    return fetch(url, {
+        showLoading: true,
+    }).then((res) => shipmentFormatter(res));
 }
 
 function shipmentFormatter(res = {}) {
@@ -21,6 +23,7 @@ function shipmentFormatter(res = {}) {
         consignor: item.consignor,
         consignee: item.consignee,
         statusCode: item.statusCode,
+        nextStatusCode: item.nextStatusCode,
         pickUpAddress: item.pickUpAddress,
         consignorPhoneNumber: item.consignorPhoneNumber,
         requirePickupStartDate: dateFormatter(item.requirePickupStartDate),

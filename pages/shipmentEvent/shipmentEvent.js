@@ -29,7 +29,7 @@ Page({
   onClickComfirm: function(event) {
     const { order } = this.data;
     const { formId } = event.detail;
-    onEvent(order);
+    onEvent(order).then(() => wx.navigateBack());
   },
   onClickUpload: function () {
     const {

@@ -27,8 +27,12 @@ export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
 
 export function confirmDriverInvoice(enterpriseCode, driverInvoiceCode) {
     const url = buildURL('/app-driver-invoices/confirm', URLTypes.TRADE);
-    return fetch(url,{
-        method: 'PUT'
+    return fetch(url, {
+        method: 'PUT',
+        data: [{
+            enterpriseCode: enterpriseCode,
+            driverInvoiceCode: driverInvoiceCode,
+        }]
     });
 }
 

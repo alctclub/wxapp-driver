@@ -152,7 +152,7 @@ export function onEvent(data) {
           console.log('wxlatitude', res.latitude);
           console.log('wxlongitude', res.longitude);
           const baiduLocation = gcoord.transform([res.latitude, res.longitude],
-            gcoord.WGS84, gcoord.Baidu)
+             gcoord.WGS84, gcoord.Baidu)
           return fetch(url, {
             method: 'PUT',
             showLoading: true,

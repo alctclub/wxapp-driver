@@ -8,15 +8,15 @@
             <text>税率：{{taxRate}}</text>
         </view>
         <view class="row">
-            <text>税额：{{taxAmount}}</text>
+            <text>税额（元）：{{taxAmount}}</text>
         </view >
         <view class="row">
-            <text>金额：{{totalAmount}}</text>
+            <text>金额（元）：{{totalAmount}}</text>
         </view>
         <view class="row" style="display: flex">
             <view class="col_left">
                 <view class="row">
-                    <text>总金额：{{totalAmountIncludeTax}}</text>
+                    <text>总金额（元）：{{totalAmountIncludeTax}}</text>
                 </view>
                 <view class="row">
                         <text style="white-space: nowrap;">流水号：{{driverInvoiceCode}}</text>
@@ -26,7 +26,7 @@
                 <form report-submit="true" bindsubmit="onComfirm">
                     <input style="display: none" name="enterpriseCode" value="{{enterpriseCode}}" />
                     <input style="display: none" name="driverInvoiceCode" value="{{driverInvoiceCode}}" />
-                    <button class="btn_apply" form-type="submit">确认</button>
+                    <button class="btn_apply" form-type="submit">同意</button>
                 </form>
             </view>
         </view>

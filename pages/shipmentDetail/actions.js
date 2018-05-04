@@ -49,7 +49,7 @@ function shipmentFormatter(res = {}) {
         licensePlateNumber: res.licensePlateNumber,
         enterpriseName: res.enterpriseName,
         orderTotal: orders.length,
-        completeOrderNumber: orders.filter((x) => isOrderComplete(x)).length,
+        completeOrderNumber: orders.filter((x) => isOrderComplete(x.statusCode)).length,
         orders,
       };
 }

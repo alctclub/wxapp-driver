@@ -3,6 +3,7 @@ import {
   uploadImage,
   getImages,
   getOrderItems,
+  sign,
   onEvent,
 } from './actions';
 
@@ -15,6 +16,7 @@ Page({
   data: {
     order: {},
     images: [],
+    orderItems: [],
     pickUpOrderItem: {
       orderExpandItems: [],
       orderUnexpandItems: [],
@@ -27,9 +29,16 @@ Page({
     wx.navigateBack();
   },
   onClickComfirm: function(event) {
-    const { order } = this.data;
+    const { order, orderItems } = this.data;
     const { formId } = event.detail;
-    onEvent(order).then(() => wx.navigateBack());
+    onEvent(order)
+    .then(() => {
+      if (`${order.statusCode}` === '30') {
+        return sign( {...order, ...{ goodsList: orderItems }});
+      }
+      return true;
+    })
+    .then(() => wx.navigateBack());
   },
   onClickUpload: function () {
     const {
@@ -116,6 +125,9 @@ Page({
           },
           isExpand:false,
         }));
+    } else if (initData.imageType === ImageTypes.ARRIVE) {
+      getOrderItems(order).then((res) => 
+      this.setData({ orderItems: res.orderDetailModelList }))
     }
     getImages(initData.imageType, order);
     this.setData({
@@ -136,7 +148,7 @@ Page({
         imageLimit: 2,
         imageType: ImageTypes.ARRIVE,
       };
-    } else if (`${statusCode}` === '40') {
+    } else if (`${statusCode}` === '50') {
       wx.setNavigationBarTitle({
         title: '回单',
       });

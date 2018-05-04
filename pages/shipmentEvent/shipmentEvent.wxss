@@ -21,6 +21,7 @@ page {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    margin-bottom: 140rpx;
 }
 
 .img_upload {
@@ -78,8 +79,7 @@ page {
     margin-top: 24rpx;
     font-size: 28rpx;
     border-top: 2rpx #e0e0e0 solid;
-    padding-top: 40rpx;
-    padding-bottom: 24rpx;
+    padding: 40rpx 20rpx 24rpx 20rpx;
     border-bottom: 2rpx #e0e0e0 solid;
 }
 

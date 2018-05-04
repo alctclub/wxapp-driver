@@ -12,7 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shipment: {}
+    shipment: {},
+    options: {},
   },
   onEvent: (event) => {
     const {
@@ -33,6 +34,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
+      const shipment = res;
+      shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
+      wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
+      this.setData({
+        shipment,
+        options,
+      })
+    })
+  },
+  onShow: function () {
+    const { options } = this.data;
+    if (! options.enterpriseCode || ! options.shipmentCode) return;
     getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
       const shipment = res;
       shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);

@@ -1,9 +1,17 @@
 <import  src="../templates/shipmentBasic.wxml"/>
 
 <view class="container">
-  <block wx:for="{{runningShipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">   
-    <template is="shipmentBasic" data="{{...shipment}}" />
+  <block wx:if="{{runningShipments.length > 0}}">
+      <block wx:for="{{runningShipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">   
+          <template is="shipmentBasic" data="{{...shipment}}" />
+        </block>
   </block>
+  <block wx:else>
+      <view class="emptyContainer">
+          <text class="comment">暂无信息</text>
+      </view>
+  </block>
+ 
 
   <form class="signin" report-submit='true' bindsubmit="signin">
       <button id="signinBtn" form-type="submit">

@@ -176,18 +176,41 @@ export function onEvent(data) {
     });
   });
 }
+// 签收
+export function sign(data) {
+  const url = buildURL('/app-shipments/sign', URLTypes.TRADE);
+  return regeocoding().then((res) => fetch(url, {
+    method: 'PUT',
+    data: {
+      shipmentCode: data.shipmentCode,
+      orderCode: data.orderCode,
+      enterpriseCode: data.enterpriseCode,
+      signCode: '',
+      receivedBy: data.receivedBy,
+      receivedRemark: data.receivedRemark,
+      location: res.location,
+      latitudeValue: res.latitudeValue,
+      longitudeValue: res.longitudeValue,
+      baiduLatitude: res.baiduLatitude,
+      baiduLongitude: res.baiduLongitude,
+      time: new Date().toISOString(),
+      goodsList: data.goodsList,
+    }
+  }));
 
-function regeocoding(latitude, longitude) {
+}
+
+function regeocoding() {
   const BMAP = new bmap.BMapWX({
     ak: 'yOO4a5RubTLXdWjdkRbbtEn500m02gzR'
   });
-  const location = `${latitude},${longitude}`;
-
   return new Promise((resolve, reject) => {
 
     const onSuccess = (data) => {
       const result = {
         location: data.wxMarkerData[0].address,
+        latitudeValue: data.wxMarkerData[0].latitude,
+        longitudeValue: data.wxMarkerData[0].longitude,
         baiduLatitude: data.originalData.result.location.lat,
         baiduLongitude: data.originalData.result.location.lng,
       }

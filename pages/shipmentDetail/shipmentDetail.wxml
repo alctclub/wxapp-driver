@@ -8,7 +8,7 @@
     <view class='userInfo'>
       <view class="col_left">
         <view class="shipmentCodeDisplay">
-          <text>订单号：{{shipmentCode}}</text>
+          <text>订单号：{{orderCode}}</text>
         </view>
         <view class="nameContainer">
           <view class="row {{util.isStartActive(statusCode) ? 'active' : ''}}">

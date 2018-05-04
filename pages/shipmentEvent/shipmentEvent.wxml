@@ -15,7 +15,7 @@
       <text>{{orderItem.goodsName}}</text>
     </view>
     <view>
-      <text>{{orderItem.sequence}}{{orderItem.transportUnitName}}</text>
+      <text>{{orderItem.quantity}}{{orderItem.transportUnitName}}</text>
     </view>
   </view>
 </template>

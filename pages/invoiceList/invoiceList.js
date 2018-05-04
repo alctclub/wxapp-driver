@@ -2,7 +2,6 @@
 
 import {
   getUnconfirmInvoiceList,
-  getConfirmedInvoiceList,
   confirmDriverInvoice,
 } from './actions.js';
 
@@ -30,33 +29,16 @@ Page({
         () => wx.stopPullDownRefresh())
       .catch(() => wx.stopPullDownRefresh());
   },
-  onReachBottom: function () {
-    const {
-      invoiceList,
-    } = this.data;
-
-    if (invoiceList.currentPage < invoiceList.totalPage) {
-      getConfirmedInvoiceList(invoiceList.currentPage + 1).then(
-        (res) => this.setData({
-          invoiceList: {
-            modelList: [...invoiceList.modelList, ...res.modelList],
-            currentPage: res.currentPage,
-            totalPage: res.totalPage,
-          },
-        }));
-    } else {
-      this.setData({
-        isEnd: true,
-      });
-    }
-  },
   onComfirm: function (event) {
     const {
-      enterprisecode,
-      driverinvoicecode
-    } = event.currentTarget.dataset;
+      value: {
+        enterpriseCode,
+        driverInvoiceCode,
+      },
+      formId
+    } = event.detail;
 
-    confirmDriverInvoice(enterprisecode, driverinvoicecode)
+    confirmDriverInvoice(enterpriseCode, driverInvoiceCode)
       .then(() =>
         getUnconfirmInvoiceList(1));
   },

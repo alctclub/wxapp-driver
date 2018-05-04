@@ -1,11 +1,12 @@
+import config  from './config';
 export const URLTypes = {
   DRIVER: 'driver',
   TRADE: 'trade',
 };
 
 const baseURL = {
-  [URLTypes.DRIVER]: 'https://dapi-staging.alct56.com/api/v1/driver',
-  [URLTypes.TRADE]: 'https://xapi-staging.alct56.com/api/v1/trade',
+  [URLTypes.DRIVER]: config.driver,
+  [URLTypes.TRADE]: config.trade,
 };
 
 export const buildURL = (url, urlType) => `${baseURL[urlType]}${url}`;

@@ -23,9 +23,11 @@
                 </view>
             </view>
             <view class="col_right">
-                <view class="btn_apply" data-enterprisecode="{{enterpriseCode}}" data-driverinvoicecode="{{driverInvoiceCode}}" bindtap="onComfirm">
-                    <text>确认</text>
-                </view>
+                <form report-submit="true" bindsubmit="onComfirm">
+                    <input style="display: none" name="enterpriseCode" value="{{enterpriseCode}}" />
+                    <input style="display: none" name="driverInvoiceCode" value="{{driverInvoiceCode}}" />
+                    <button class="btn_apply" form-type="submit">确认</button>
+                </form>
             </view>
         </view>
     </view>

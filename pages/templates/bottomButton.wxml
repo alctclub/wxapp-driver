@@ -6,7 +6,7 @@
 -->
 <template name="bottomButton">
 
-    <form eport-submit='true' bindsubmit="onClickComfirm">
+    <form report-submit="true" bindsubmit="onClickComfirm">
         <view class="bottomButton" r>
             <button class="button" plain="true" bindtap='onClickCancel'>{{cancelText || "取消"}}</button>
             <button class="button button_main" plain="true" form-type="submit">{{confimrText || "确认"}}</button>

@@ -87,7 +87,9 @@
     <text style="color: #333333"> {{shipment.orderTotal}} </text>个，已完成
     <text style="color: #333333"> {{shipment.completeOrderNumber}} </text>个
   </view>
+  <view class="orderContainer" >
   <block wx:for="{{shipment.orders}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="order">
     <template is="order" data="{{...order}}" />
   </block>
+</view>
 </view>

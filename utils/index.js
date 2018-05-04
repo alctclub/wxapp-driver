@@ -80,3 +80,12 @@ export function dateFormatter(date) {
   }
   return Day(date).format('YYYY/MM/DD');
 }
+
+
+export function transformToServerTime(date, formate) {
+  if (! date) {
+    return '';
+  }
+
+  return Day(date).format(formate || 'YYYY/MM/DD');
+}

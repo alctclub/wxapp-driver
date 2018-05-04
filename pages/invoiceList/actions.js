@@ -14,7 +14,7 @@ export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
     const url = buildURL(baseURL, URLTypes.TRADE);
     return fetch(url, {
         method: 'GET',
-    });
+    }).then((res) => dataFormatter(res));
 };
 
 export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {

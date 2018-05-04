@@ -1,15 +1,21 @@
 /* pages/invoiceList/invoiceList.wxss */
 
 page {
+    min-height: 100%;
     height: 100%;
 }
+
 .invoice {
     color: #666666;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    padding: 20px;
-    margin-top: 10px;
+    padding: 40rpx;
+    margin-top: 20rpx;
+}
+
+.hide {
+    visibility: hidden;
 }
 
 .col_left {
@@ -20,14 +26,17 @@ page {
 
 .col_right {
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content:flex-end;
+    align-items: flex-end;
 }
 
 .btn_apply {
-    width: 80px;
-    height: 30px;
-    border-radius: 10px;
+    width: 180rpx;
+    height: 60rpx;
+    border-radius: 10rpx;
+    font-size: 28rpx;
     background-color: #009141;
     color: #ffffff;
     display: flex;
@@ -48,7 +57,9 @@ page {
 }
 
 .comment_end {
+    height: 60rpx;
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: center;
 }

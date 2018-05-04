@@ -29,7 +29,7 @@ text {
 }
 
 .row+.row {
-  margin-top: 20rpx;
+  margin-top: 40rpx;
 }
 
 .row_between {

@@ -23,12 +23,22 @@
   align-items: center;
 }
 
-.order {
+.orderContainer {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
   color: #666666;
-  padding: 36rpx;
+  padding: 0 36rpx;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  padding: 36rpx 0;
+}
+
+.order + .order {
+  border-top: 2rpx #e0e0e0 solid;
 }
 
 .userInfo {
@@ -78,8 +88,8 @@
 }
 
 .btn_event {
-  width: 100px;
-  height: 40px;
+  width: 200rpx;
+  height: 80rpx;
   background-color: #009141;
   color: #ffffff;
   border-radius: 5px;

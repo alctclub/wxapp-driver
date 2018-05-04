@@ -1,5 +1,9 @@
 @import '../templates/shipmentBasic.wxss';
 
+.container {
+  padding-bottom: 40rpx;
+}
+
 .shipment_basic {
   color: #666666;
   display: flex;

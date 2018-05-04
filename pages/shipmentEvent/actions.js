@@ -4,6 +4,7 @@ import {
   fetch
 } from '../../api/fetch';
 var bmap = require('../../libs/bmap-wx.min.js');
+var gcoord = require('../../libs/gcoord.js');
 
 export const ImageTypes = {
   PICKUP: 'pickup',
@@ -11,7 +12,7 @@ export const ImageTypes = {
   POD: 'pod',
 };
 
-//imageType: pickup(提货)、arrive(到货)、pod(签收)
+//imageType: pickup(提货)、arrive(到货)、pod(回单)
 export function uploadImage(imageType, data) {
   const {
     shipmentCode,
@@ -49,7 +50,6 @@ export function uploadImage(imageType, data) {
         const location = `${res.latitude},${res.longitude}`;
         const regeocodingSuccess = (data) => {
           wxMarkerData = data.wxMarkerData;
-          debugger;
         }
         const address = BMAP.regeocoding({
           location,
@@ -147,8 +147,12 @@ export function onEvent(data) {
           console.log('精度', res.accuracy);
           console.log('verticalAccuracy', res.verticalAccuracy);
           console.log('horizontalAccuracy', res.horizontalAccuracy);
-          console.log('latitude', regResult.baiduLatitude);
-          console.log('longitude', regResult.baiduLongitude)
+          console.log('reglatitude', regResult.baiduLatitude);
+          console.log('reglongitude', regResult.baiduLongitude);
+          console.log('wxlatitude', res.latitude);
+          console.log('wxlongitude', res.longitude);
+          const baiduLocation = gcoord.transform([res.latitude, res.longitude],
+            gcoord.WGS84, gcoord.Baidu)
           return fetch(url, {
             method: 'PUT',
             showLoading: true,
@@ -159,8 +163,8 @@ export function onEvent(data) {
               latitudeValue: res.latitude,
               longitudeValue: res.longitude,
               location: regResult.location,
-              baiduLatitude: regResult.baiduLatitude,
-              baiduLongitude: regResult.baiduLongitude,
+              baiduLatitude: baiduLocation[0],
+              baiduLongitude: baiduLocation[1],
               time: new Date().toISOString(),
               statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
             }
@@ -182,7 +186,6 @@ function regeocoding(latitude, longitude) {
   return new Promise((resolve, reject) => {
 
     const onSuccess = (data) => {
-      debugger;
       const result = {
         location: data.wxMarkerData[0].address,
         baiduLatitude: data.originalData.result.location.lat,

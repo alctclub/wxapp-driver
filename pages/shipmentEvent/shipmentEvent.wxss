@@ -54,8 +54,8 @@ page {
     background-color: #1aad19;
     color: white;
     position: absolute;
-    top: -10rpx;
-    right: -6rpx;
+    top: -18rpx;
+    right: -20rpx;
     display: flex;
     justify-content: center;
     align-items: center;

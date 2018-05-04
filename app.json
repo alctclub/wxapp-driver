@@ -34,5 +34,11 @@
         "selectedIconPath": "assert/icon/shipment_selected.png"
       }
     ]
-  }
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "debug": false
 }

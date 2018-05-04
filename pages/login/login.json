@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "货运通",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "disableScroll": true
 }

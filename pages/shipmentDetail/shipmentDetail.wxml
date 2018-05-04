@@ -84,8 +84,8 @@
   <template is="shipmentBasic" data="{{...shipment}}" />
   <view class="comment">
     <text>所运订单，共</text>
-    <text style="color: #333333"> {{shipment.orderTotal}} </text>个，已完成
-    <text style="color: #333333"> {{shipment.completeOrderNumber}} </text>个
+    <text style="color: #333333" space='ensp' decode> {{shipment.orderTotal}} </text>个，已完成
+    <text style="color: #333333" space='ensp' decode> {{shipment.completeOrderNumber}} </text>个
   </view>
   <view class="orderContainer" >
   <block wx:for="{{shipment.orders}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="order">

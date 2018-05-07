@@ -5,6 +5,10 @@ page {
     height: 100%;
 }
 
+.container {
+    padding-bottom: 40rpx;
+}
+
 .invoice {
     color: #666666;
     display: flex;
@@ -45,6 +49,7 @@ page {
 }
 
 .emptyContainer {
+    color: #666666;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,14 +57,3 @@ page {
     height: 100%;
 }
 
-.comment {
-    color: #666666;
-}
-
-.comment_end {
-    height: 60rpx;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}

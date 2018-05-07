@@ -1,4 +1,5 @@
 <import src="../templates/bottomButton.wxml" />
+<wxs src="../../utils/index.wxs" module="util" />
 <!--
   src: image src
 -->
@@ -12,7 +13,7 @@
 <template name="orderItem">
   <view class="goodItem">
     <view>
-      <text>{{orderItem.goodsName}}</text>
+      <text>{{util.maxLengthFormatter(orderItem.goodsName, 20)}}</text>
     </view>
     <view>
       <text>{{orderItem.quantity}}{{orderItem.transportUnitName}}</text>

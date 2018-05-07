@@ -38,11 +38,10 @@
         <view wx:for="{{invoiceList.modelList}}" wx:key="driverInvoiceCode" wx:for-index="idx" wx:for-item="invoice">
             <template is="invoice" data="{{...invoice}}" />
         </view>
-        <view wx:if="{{isEnd}}" class="comment_end comment">没有更多了</view>
     </block>
     <block wx:else>
         <view class="emptyContainer">
-            <text class="comment">暂无信息</text>
+            <text>暂无信息</text>
         </view>
     </block>
 </view>

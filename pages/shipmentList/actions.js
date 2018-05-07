@@ -64,3 +64,21 @@ function onSuccess(response) {
     throw new Error(errorResult.code);
   }
 }
+
+export function signin(formId) {
+  wx.getLocation({
+    success: function (res) {
+      // success
+      wx.showToast({
+        title: '签到成功',
+        icon: 'none'
+      });
+    },
+    fail: function () {
+      wx.showToast({
+        title: '签到失败',
+        icon: 'none'
+      })
+    }
+  });
+}

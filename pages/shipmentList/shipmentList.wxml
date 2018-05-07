@@ -2,9 +2,9 @@
 
 <view class="container">
   <block wx:if="{{runningShipments.length > 0}}">
-      <block wx:for="{{runningShipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">   
+      <view wx:for="{{runningShipments}}" wx:key="shipmentCode" wx:for-index="idx" wx:for-item="shipment">   
           <template is="shipmentBasic" data="{{...shipment}}" />
-        </block>
+        </view>
   </block>
   <block wx:else>
       <view class="emptyContainer">

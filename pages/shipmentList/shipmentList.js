@@ -1,6 +1,7 @@
 import {
   getRunningShipments,
   Login,
+  signin,
 } from './actions';
 
 Page({
@@ -24,6 +25,17 @@ Page({
    */
   onLoad: function () {
 
+    const accessToken = wx.getStorageSync('access_Token');
+    if (accessToken) {
+      getRunningShipments().then(
+        (res) => this.setData({
+          runningShipments: res
+        }));
+    } else {
+      this.login();
+    }
+  },
+  onShow: function() {
     const accessToken = wx.getStorageSync('access_Token');
     if (accessToken) {
       getRunningShipments().then(
@@ -64,23 +76,40 @@ Page({
     const {
       formId
     } = event.detail;
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        // success
-        wx.showToast({
-          title: '签到成功',
-          icon: 'none'
-        });
-      },
-      fail: function () {
-        wx.showToast({
-          title: '签到失败',
-          icon: 'none'
-        });
-      }
-    })
 
+    wx.getSetting({
+      success: function(res) {
+        if ('scope.userLocation' in res.authSetting) {
+          if (res.authSetting['scope.userLocation']) {
+            signin(formId);
+          } else {
+            wx.showToast({
+              title: '请打开地理位置信息',
+              icon: 'none',
+              success: function() {
+                wx.openSetting();
+              }
+            })
+           
+          }
+
+        } else {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: function() {
+              signin(formId);
+            },
+            fail:function() {
+              wx.showToast({
+                title: '未授权位置信息',
+                icon: 'none'
+              })
+            }
+          })
+        }
+      }
+
+    })
   },
 
   login: function (e) {

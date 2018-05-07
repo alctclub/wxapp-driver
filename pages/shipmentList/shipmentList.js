@@ -23,18 +23,6 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
-
-    const accessToken = wx.getStorageSync('access_Token');
-    if (accessToken) {
-      getRunningShipments().then(
-        (res) => this.setData({
-          runningShipments: res
-        }));
-    } else {
-      this.login();
-    }
-  },
   onShow: function() {
     const accessToken = wx.getStorageSync('access_Token');
     if (accessToken) {

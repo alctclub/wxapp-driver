@@ -60,9 +60,7 @@ export const fetch = (url, options = {}) => {
       });
       reject(error);
     };
-
-
-
+    
     wx.request(finalOpts);
   });
 }

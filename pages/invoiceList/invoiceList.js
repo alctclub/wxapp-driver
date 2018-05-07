@@ -19,6 +19,12 @@ Page({
         invoiceList: res
       }));
   },
+  onShow: function() {
+    getUnconfirmInvoiceList(this.data.invoiceList.currentPage)
+    .then((res) => this.setData({
+      invoiceList: res
+    }));
+  },
   onPullDownRefresh: function () {
     getUnconfirmInvoiceList(1).then(
       (res) => this.setData({

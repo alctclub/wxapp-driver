@@ -1,0 +1,42 @@
+<wxs src="../../utils/index.wxs" module="util" />
+
+<template name="shipmentBasic">
+    <view class="shipment_basic" data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
+        <view class="row row_between">
+            <text>运单号：{{shipmentCode}}</text>
+            <text class="shipmetn_status">{{statusDisplay}}</text>
+        </view>
+        <view class="row step_row">
+            <view class="step step_start">起</view>
+            <view class="step_text">
+                <text>{{util.maxLengthFormatter(startAddress)}}</text>
+            </view>
+            <image class="img_arrow" mode="aspectFit" src="/assert/icon/arrow.png"></image>
+            <view class="step setp_end">终</view>
+            <text class="step_text">{{endAddress}}</text>
+        </view>
+
+        <view class="row">
+            <text>总体积（立方米）：{{totalVolume}}</text>
+        </view>
+        <view class="row">
+            <text>
+                <text>总重量（吨）：</text>
+                <text wx:if="{{isChangedWeightVolume}}" style="color: red">{{totalWeight}}</text>
+                <text wx:else>{{totalWeight}}</text>
+            </text>
+        </view>
+        <view class="row">
+            <text>运费（元）：{{shipmentCharge}}</text>
+        </view>
+        <view class="row">
+            <text>运单确认时间：{{shipmentConfirmDate}}</text>
+        </view>
+        <view class="row">
+            <text>车牌号：{{licensePlateNumber}}</text>
+        </view>
+        <view class="row">
+            <text>委托方：{{enterpriseName}}</text>
+        </view>
+    </view>
+</template>

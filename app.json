@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/shipmentList/shipmentList",
+    "pages/login/login",
+    "pages/shipmentDetail/shipmentDetail",
+    "pages/shipmentEvent/shipmentEvent",
+    "pages/invoiceList/invoiceList",
+    "pages/userAgreement/userAgreement"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "货运通",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 20,
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#009141",
+    "backgroundColor": "#f2f2f2"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#009141",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/shipmentList/shipmentList",
+        "text": "运单",
+        "iconPath": "assert/icon/invoice.png",
+        "selectedIconPath": "assert/icon/invoice_selected.png"
+      },
+      {
+        "pagePath": "pages/invoiceList/invoiceList",
+        "text": "发票",
+        "iconPath": "assert/icon/shipment.png",
+        "selectedIconPath": "assert/icon/shipment_selected.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "debug": false
+}

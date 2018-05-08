@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.postcss": "less",
+        "*.wpy": "vue",
+        "*.wxss": "css",
+        "*.jsx": "javascriptreact",
+        "*.wxml": "html",
+        "*.wxs": "javascript"
+    }
+}

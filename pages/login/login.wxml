@@ -1,0 +1,20 @@
+<view class='container'>
+  <view class="iconLoginRow">
+    <image mode="aspectFit" class="iconLogin" src="/assert/icon/login_title.png"></image>
+  </view>
+  <view class="centerRow">
+    <input class='phoneNumber' type='number' confirm-type='next' placeholder='手机号' bindinput='inputPhoneNumber' maxlength="11"/>
+  </view>
+  <view class="centerRow">
+    <input class='smsVerificationCode' type='number' placeholder='短信验证码' bindinput='inputSmsVerificationCode' maxlength="6" />
+    <button class='buttonVerificationCode' disabled='{{disabled}}' style="opacity:{{opacity}}" bindtap="getVerificationCode">{{labelVerificationCode}}</button>
+  </view>
+  <text class="useTip">使用手机获取验证码关联你的服务账号</text>
+  <view class="centerRow">
+    <button class='btnLogin' bindtap='verify'>验证</button>
+  </view>
+  <view>
+    <text class="textAgree">点击验证，即同意</text>
+    <text class="userAgreement" bindtap='userAgreement'>《安联程通用户协议及隐私条款》</text>
+  </view>
+</view>

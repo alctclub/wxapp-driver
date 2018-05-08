@@ -1,0 +1,51 @@
+@import '../templates/shipmentBasic.wxss';
+
+page {
+  min-height: 100%;
+  height: 100%;
+}
+.container {
+  padding-bottom: 40rpx;
+}
+
+.shipment_basic {
+  color: #666666;
+  display: flex;
+  padding: 40rpx 36rpx;
+  margin-top: 20rpx;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.shipmetn_status {
+  color: #009141;
+}
+
+.signin {
+  position: fixed;
+  right: 30rpx;
+  bottom: 30rpx;
+}
+
+#signinBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:none;
+  padding:0;
+  color:white;
+  background-color: #009141;
+  font-size: 28rpx;
+  border-radius: 47.5rpx;
+  height: 95rpx;
+  width: 95rpx;
+}
+
+.emptyContainer {
+  color: #666666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

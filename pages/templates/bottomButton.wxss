@@ -1,0 +1,27 @@
+.bottomButton {
+    display: flex;
+    height: 100rpx;
+    background-color: white;
+    width: 100%;
+    justify-content: space-between;
+    position: fixed;
+    border-top: 1rpx #dcdcdc solid;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.button {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    border: none !important;
+    border-radius: 0;
+}
+
+.button_main {
+    color: white !important;
+    background-color: #1aad19 !important;
+}

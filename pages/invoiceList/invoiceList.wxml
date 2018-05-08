@@ -1,0 +1,47 @@
+<!--pages/invoiceList/invoiceList.wxml-->
+<template name="invoice">
+    <view class="invoice">
+        <view class="row">
+            <text>受票方：{{invoiceReceiverName}}</text>
+        </view>
+        <view class="row">
+            <text>税率：{{taxRate}}</text>
+        </view>
+        <view class="row">
+            <text>税额（元）：{{taxAmount}}</text>
+        </view >
+        <view class="row">
+            <text>金额（元）：{{totalAmount}}</text>
+        </view>
+        <view class="row" style="display: flex">
+            <view class="col_left">
+                <view class="row">
+                    <text>总金额（元）：{{totalAmountIncludeTax}}</text>
+                </view>
+                <view class="row">
+                        <text style="white-space: nowrap;">流水号：{{driverInvoiceCode}}</text>
+                </view>
+            </view>
+            <view class="col_right">
+                <form report-submit="true" bindsubmit="onComfirm">
+                    <input style="display: none" name="enterpriseCode" value="{{enterpriseCode}}" />
+                    <input style="display: none" name="driverInvoiceCode" value="{{driverInvoiceCode}}" />
+                    <button class="btn_apply" form-type="submit">同意</button>
+                </form>
+            </view>
+        </view>
+    </view>
+</template>
+
+<view class="container">
+    <block wx:if="{{invoiceList.modelList.length > 0}}">
+        <view wx:for="{{invoiceList.modelList}}" wx:key="driverInvoiceCode" wx:for-index="idx" wx:for-item="invoice">
+            <template is="invoice" data="{{...invoice}}" />
+        </view>
+    </block>
+    <block wx:else>
+        <view class="emptyContainer">
+            <text>暂无信息</text>
+        </view>
+    </block>
+</view>

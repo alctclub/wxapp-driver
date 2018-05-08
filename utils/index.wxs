@@ -1,0 +1,79 @@
+var dateFormatter = function (date) {
+  var result = getDate(date);
+  var m = result.getMonth();
+  var d = result.getDay()
+  return result.getFullYear() + '/' + m + '/' + d;
+}
+
+var status = {
+  '10': "新建",
+  '20': "已确认",
+  '25': "部分提货",
+  '30': "已提货",
+  '35': "部分到货",
+  '40': "已到货",
+  '45': '部分签收',
+  '50': '已签收',
+  '60': '已签收', // It's "已回单" in server, but display "已签收" in app
+  '70': '已结算'
+};
+
+function getStatusDisplay(code) {
+  var statusName = status[code + '']
+  if (statusName) {
+    return statusName;
+  }
+  return '';
+}
+
+//提货 到货 回单
+var funcNames = {
+  '20': '提货',
+  '30': '到货',
+  '50': '回单',
+}
+
+function funcName(statusCode) {
+  var functionName = funcNames[statusCode + '']
+  if (functionName) {
+    return functionName;
+  }
+  return '';
+}
+
+function isStartActive(statusCode) {
+  if ((statusCode + '') == '20') {
+    return true;
+  }
+  return false;
+}
+
+function isComplete(statusCode, isSignException) {
+  if ((statusCode + '') == '60') {
+    if (isSignException) {
+      return '../../assert/icon/complete_error.png';
+    }
+    return '../../assert/icon/complete.png';
+  }
+  return '';
+}
+
+function maxLengthFormatter(text, length) {
+  var maxlegth = 8;
+  if (length) {
+    maxlegth = length;
+  }
+  if (text && text.length > maxlegth) {
+    return text.slice(0, maxlegth - 1) + '...';
+  }
+  return text;
+}
+
+module.exports = {
+  dateFormatter: dateFormatter,
+  getStatusDisplay: getStatusDisplay,
+  funcName: funcName,
+  isComplete: isComplete,
+  maxLengthFormatter: maxLengthFormatter,
+  isStartActive: isStartActive,
+}

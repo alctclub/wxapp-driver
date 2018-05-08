@@ -1,0 +1,59 @@
+/* pages/invoiceList/invoiceList.wxss */
+
+page {
+    min-height: 100%;
+    height: 100%;
+}
+
+.container {
+    padding-bottom: 40rpx;
+}
+
+.invoice {
+    color: #666666;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 40rpx;
+    margin-top: 20rpx;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.col_left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.col_right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content:flex-end;
+    align-items: flex-end;
+}
+
+.btn_apply {
+    width: 180rpx;
+    height: 60rpx;
+    border-radius: 10rpx;
+    font-size: 28rpx;
+    background-color: #009141;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyContainer {
+    color: #666666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+

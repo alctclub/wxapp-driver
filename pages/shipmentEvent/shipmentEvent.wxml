@@ -1,0 +1,85 @@
+<import src="../templates/bottomButton.wxml" />
+<wxs src="../../utils/index.wxs" module="util" />
+<!--
+  src: image src
+-->
+<template name="img-view">
+  <view class="{{isPuckUp ? 'img_box_pickup' : 'img_box'}}">
+    <image class="deletebtn" src="../../assert/icon/close_image.png" data-src='{{src}}' bindtap='onDelete' />
+    <image class="img_display" src='{{src}}' />
+  </view>
+</template>
+
+<template name="orderItem">
+  <view class="goodItem">
+    <view>
+      <text>{{util.maxLengthFormatter(orderItem.goodsName, 20)}}</text>
+    </view>
+    <view>
+      <text>{{orderItem.quantity}}{{orderItem.transportUnitName}}</text>
+    </view>
+  </view>
+</template>
+
+<template name="pickupView">
+  <view class="goods">
+    <view class="tipMessage">
+      <text>请先确认货品信息</text>
+    </view>
+    <view class="goodList">
+      <block wx:for="{{orderUnexpandItems}}" wx:key="{{orderDetailId}}" wx:for-index="idx" wx:for-item="orderItem">
+        <template is="orderItem" data="{{orderItem}}" />
+      </block>
+
+      <block wx:if="{{orderExpandItems.length > 0}}">
+        <block wx:if="{{isExpand}}">
+          <block wx:for="{{orderExpandItems}}" wx:key="{{orderDetailId}}" wx:for-index="idx" wx:for-item="orderItem">
+            <template is="orderItem" data="{{orderItem}}" />
+          </block>
+          <view class="expand">
+            <view bindtap="collapse">
+              <text>点击收起</text>
+              <image class="expandImage" mode="aspectFit" src="../../assert/icon/collapse.png" />
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="expand" bintap="showMore">
+            <view bindtap="showMore">
+              <text>查看更多</text>
+              <image class="expandImage" mode="aspectFit" src="../../assert/icon/showMore.png" />
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+</template>
+
+<view class='container'>
+  <block wx:if="{{imageType == 'pickup'}}">
+    <template is="pickupView" data="{{ ...pickUpOrderItem, isExpand }}" />
+  </block>
+  <view class="headerTip">
+    <text>{{headerTip}}</text>
+  </view>
+  <view class="imageContainer">
+    <block wx:if='{{images.length == 0}}'>
+
+      <image class="img_upload" src='../../assert/icon/upload_big.png' bindtap='selectImage' />
+
+    </block>
+    <block wx:elif="{{imageType == 'pickup'}}">
+        <template is="img-view" data="{{ src: images[0], isPuckUp: true}}" />
+    </block>
+    <block wx:else>
+      <block wx:for="{{images }}" wx:for-item="image">
+        <template is="img-view" data="{{ src: image}}" />
+      </block>
+      <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/icon/upload_small.png' bindtap='selectImage'
+      />
+    </block>
+  </view>
+
+  <template is="bottomButton" data="{{confimrText}}" />
+</view>

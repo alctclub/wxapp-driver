@@ -1,0 +1,145 @@
+/* pages/detail/detail.wxss */
+
+@import '../templates/shipmentBasic.wxss';
+
+.shipment_basic {
+  color: #666666;
+  display: flex;
+  padding: 40rpx 36rpx;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.shipmetn_status {
+  color: #009141;
+}
+
+.comment {
+  height: 110rpx;
+  color: #666666;
+  font-size: 30rpx;
+  padding: 0 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orderContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  color: #666666;
+  padding: 0 36rpx;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  padding: 36rpx 0;
+}
+
+.order + .order {
+  border-top: 2rpx #e0e0e0 solid;
+}
+
+.userInfo {
+  display: flex;
+}
+
+.col_left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+.shipmentCodeDisplay {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  color: #333333;
+}
+
+.nameContainer {
+  margin-top: 48rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.col_right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.statusDisplay {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: #333333;
+  flex-shrink:0;
+}
+
+.evntContainer {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+.btn_event {
+  width: 200rpx;
+  height: 80rpx;
+  background-color: #009141;
+  color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  color: #666666;
+  margin-top: 40rpx;
+}
+
+.active {
+  color: #009141;
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+}
+.phoneNumber {
+  border-bottom: none;
+}
+
+.active > .row > .phone > .phoneNumber{
+  border-bottom: 2rpx solid #009141;
+}
+
+.active > .row > .phone > .phoneIcon {
+  visibility: visible;
+}
+
+.phoneIcon {
+  visibility: hidden;
+  margin-left: 16rpx;
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.completeIconContainer {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.completeIcon {
+  width: 140rpx;
+  height: 140rpx;
+}

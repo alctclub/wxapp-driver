@@ -31,14 +31,45 @@ Page({
   onClickComfirm: function(event) {
     const { order, orderItems } = this.data;
     const { formId } = event.detail;
-    onEvent(order)
-    .then(() => {
-      if (`${order.statusCode}` === '30') {
-        return sign( {...order, ...{ goodsList: orderItems }});
+
+    wx.getSetting({
+      success: function (res) {
+        if ('scope.userLocation' in res.authSetting) {
+          if (res.authSetting['scope.userLocation']) {
+            onEvent(order)
+              .then(() => {
+                if (`${order.statusCode}` === '30') {
+                  return sign({ ...order, ...{ goodsList: orderItems } });
+                }
+                return true;
+              })
+              .then(() => wx.navigateBack());
+          } else {
+            wx.showToast({
+              title: '请打开地理位置信息',
+              icon: 'none',
+              success: function () {
+                wx.openSetting();
+              }
+            })
+          }
+        } else {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: function () {
+              signin(formId);
+            },
+            fail: function () {
+              wx.showToast({
+                title: '未授权位置信息',
+                icon: 'none'
+              })
+            }
+          })
+        }
       }
-      return true;
     })
-    .then(() => wx.navigateBack());
+
   },
   onClickUpload: function () {
     const {

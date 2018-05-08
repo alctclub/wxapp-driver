@@ -7,7 +7,7 @@
   </view>
   <view class="centerRow">
     <input class='smsVerificationCode' type='number' placeholder='短信验证码' bindinput='inputSmsVerificationCode' maxlength="6" />
-    <button class='buttonVerificationCode' disabled='{{disabled}}' style="opacity:{{opacity}}" bindtap="getVerificationCode">{{labelVerificationCode}}</button>
+    <button class='buttonVerificationCode' disabled='{{disabled}}' style="opacity:{{opacity}};color:{{color}}" bindtap="getVerificationCode">{{labelVerificationCode}}</button>
   </view>
   <text class="useTip">使用手机获取验证码关联你的服务账号</text>
   <view class="centerRow">

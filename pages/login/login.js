@@ -6,6 +6,7 @@ Page({
     labelVerificationCode: '获取验证码',
     currentTime: 60,
     opacity: 1,
+    color: '#009141',
     phoneNumber: '',
     smsVerificationCode: ''
   },
@@ -63,7 +64,7 @@ Page({
     var currentTime = that.data.currentTime;
     that.setData({
       disabled: true,
-      opacity: 0.3
+      opacity: 0.4
     })
     that.setData({
       labelVerificationCode: currentTime + 's'

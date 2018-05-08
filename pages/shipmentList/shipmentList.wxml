@@ -13,7 +13,7 @@
   </block>
  
 
-  <form class="signin" report-submit='true' bindsubmit="signin">
+  <form class="signin" report-submit='true' bindsubmit="signin" hidden='true'>
       <button id="signinBtn" form-type="submit">
         <text>签到</text>
       </button>

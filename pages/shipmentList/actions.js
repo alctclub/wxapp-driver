@@ -28,7 +28,6 @@ function shipmentFormatter(res = []) {
     endAddress: item.endAddress,
     totalVolume: item.totalVolume,
     totalWeight: item.totalWeight,
-    isChangedWeightVolume: item.isChangedWeightVolume,
     enterpriseCode: item.enterpriseCode,
     shipmentCharge: moneyFormatter(item.shipmentCharge),
     shipmentConfirmDate: dateFormatter(item.shipmentConfirmDate),

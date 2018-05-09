@@ -7,8 +7,8 @@ import {
   } from '../../utils/index';
 
 export function getShipmentDetail(enterpriseCode, shipmentCode) {
-    const baseURL = `/app-shipments/${enterpriseCode}/${shipmentCode}`;
-    const url = buildURL(baseURL, URLTypes.TRADE);
+    const baseURL = `/shipments/detail/${shipmentCode}`;
+    const url = buildURL(baseURL, URLTypes.MINIPROGRAM);
     return fetch(url, {
         showLoading: true,
     }).then((res) => shipmentFormatter(res));
@@ -62,7 +62,7 @@ function startAddressFormatter(startAddress) {
 
 //提货
 export function onPickup(data) {
-  const url = buildURL('/app-shipments/events', URLTypes.TRADE);
+  const url = buildURL('/shipments/events/pickup', URLTypes.MINIPROGRAM);
 
   return new Promise((resolve, reject) => {
 

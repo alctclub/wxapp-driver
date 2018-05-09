@@ -44,6 +44,14 @@ const SHIPMENT_STATUS_LIST = [
   },
 ];
 
+export function getOperation(code) {
+  if (code == 40) {
+    return 'unload';
+  } else {
+    return 'pod';
+  }
+}
+
 export function getShipmentDisplayStatus(code) { 
   const status =  SHIPMENT_STATUS_LIST.find((x) => `${x.code}` === `${code}`);
   if (status) {

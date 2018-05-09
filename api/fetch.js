@@ -51,7 +51,6 @@ export const fetch = (url, options = {}) => {
       if (response.statusCode === 200) {
         resolve(response.data);
       } else if (response.statusCode === 401) {
-        wx.removeStorageSync('sessionId')
       }
       reject(response.data);
     };

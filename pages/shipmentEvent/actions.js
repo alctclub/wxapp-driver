@@ -3,6 +3,10 @@ import {
   buildURL,
   fetch
 } from '../../api/fetch';
+import {
+  getOperation
+} from '../../utils/index';
+
 var bmap = require('../../libs/bmap-wx.min.js');
 var gcoord = require('../../libs/gcoord.js');
 
@@ -136,7 +140,7 @@ export function getOrderItems(data) {
 
 //到货 回单
 export function onEvent(data) {
-  const url = buildURL('/app-shipments/events', URLTypes.TRADE);
+  const url = buildURL('/shipments/events/' + getOperation(data.nextStatusCode), URLTypes.MINIPROGRAM);
 
   return new Promise((resolve, reject) => {
 
@@ -154,7 +158,7 @@ export function onEvent(data) {
           const baiduLocation = gcoord.transform([res.latitude, res.longitude],
              gcoord.WGS84, gcoord.Baidu)
           return fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             showLoading: true,
             data: {
               shipmentCode: data.shipmentCode,
@@ -178,9 +182,9 @@ export function onEvent(data) {
 }
 // 签收
 export function sign(data) {
-  const url = buildURL('/app-shipments/sign', URLTypes.TRADE);
+  const url = buildURL('/shipments/events/sign', URLTypes.MINIPROGRAM);
   return regeocoding().then((res) => fetch(url, {
-    method: 'PUT',
+    method: 'POST',
     data: {
       shipmentCode: data.shipmentCode,
       orderCode: data.orderCode,

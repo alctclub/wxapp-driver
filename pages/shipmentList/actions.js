@@ -78,7 +78,7 @@ export function GetSessionId() {
             data: {
               weixinCode: res.code
             },
-          }).then((response) => getSessionIdSuccess(response)).catch(error => reject(error));
+          }).then((response) => getSessionIdSuccess(response).then(response => resolve())).catch(error => reject(error));
         } else {
           console.log('登录失败！' + res.errMsg)
         }

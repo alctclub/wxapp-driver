@@ -57,7 +57,14 @@ Page({
           wx.authorize({
             scope: 'scope.userLocation',
             success: function () {
-              signin(formId);
+              onEvent(order)
+                .then(() => {
+                  if (`${order.statusCode}` === '30') {
+                    return sign({ ...order, ...{ goodsList: orderItems } });
+                  }
+                  return true;
+                })
+                .then(() => wx.navigateBack());
             },
             fail: function () {
               wx.showToast({
@@ -79,6 +86,7 @@ Page({
 
   },
   selectImage: function () {
+    var that = this;
     const {
       images,
       imageLimit,
@@ -100,7 +108,42 @@ Page({
           imageURL: res.tempFilePaths[0],
         }
 
-        // uploadImage(imageType, data);
+        wx.getSetting({
+          success: function (res) {
+            if ('scope.userLocation' in res.authSetting) {
+              if (res.authSetting['scope.userLocation']) {
+                // uploadImage(imageType, data);
+                that.getLocation();
+              } else {
+                wx.showModal({
+                  content: '获取不到位置信息，请打开地理位置信息权限后重试',
+                  confirmText: '确定',
+                  showCancel: false,
+                  success: function (res) {
+                    wx.openSetting();
+                  }
+                })
+              }
+
+            } else {
+              wx.authorize({
+                scope: 'scope.userLocation',
+                success: function () {
+                  // uploadImage(imageType, data);
+                  that.getLocation();
+                },
+                fail: function () {
+                  wx.showToast({
+                    title: '未授权位置信息',
+                    icon: 'none'
+                  })
+                }
+              })
+            }
+          }
+
+        })
+        
 
         images.push(...res.tempFilePaths);
 
@@ -110,6 +153,24 @@ Page({
       },
     })
   },
+
+  getLocation : function () {
+    var that = this;
+    wx.getLocation({
+      success: function (res) {
+        if (res && res.latitude && res.longitude) {
+          console.log('latitude: ' + res.latitude + ' longitude: ' + res.longitude);
+        } else {
+          wx.showModal({
+            content: '获取不到位置信息, 拍摄的照片无法满足开票要求, 建议重试',
+            confirmText: '确定',
+            showCancel: false,
+          })
+        }
+      }
+    })
+  },
+
   onDelete: function (event) {
     let {
       images = []

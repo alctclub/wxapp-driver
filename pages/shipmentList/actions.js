@@ -6,7 +6,7 @@ import {
 } from '../../utils/index';
 
 export function getRunningShipments() {
-  const url = buildURL('/app-shipments', URLTypes.TRADE);
+  const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
   return fetch(url, {
     method: 'GET',
   }).then((res) => shipmentFormatter(res));;
@@ -62,6 +62,42 @@ function onSuccess(response) {
     const { errorResult } = response;
     throw new Error(errorResult.code);
   }
+}
+
+export function GetSessionId() {
+  const url = buildURL('/auth/login', URLTypes.MINIPROGRAM);
+  wx.clearStorageSync('sessionId');
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          console.log(res.code);
+          //发起网络请求
+          return fetch(url, {
+            method: 'POST',
+            data: {
+              weixinCode: res.code
+            },
+          }).then((response) => getSessionIdSuccess(response)).catch(error => reject(error));
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });
+  })
+};
+
+function getSessionIdSuccess(response) {
+  return new Promise((resolve, reject) => {
+    if (response.sessionId) {
+      wx.setStorageSync('sessionId', response.sessionId);
+      console.log('sessionId: ' + response.sessionId);
+      resolve();
+    } else {
+      wx.clearStorageSync('sessionId');
+      reject(response);
+    }
+  })
 }
 
 export function signin(formId) {

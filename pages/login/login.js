@@ -46,13 +46,13 @@ Page({
     } else {
       this.countDown();
       //调用server接口
-      /*let phoneNumber = this.data.phoneNumber;
+      const phoneNumber = this.data.phoneNumber;
       GetVerificationCode(phoneNumber).then(() => {
         wx.showToast({
           title: '发送成功',
           icon: 'none'
         });
-      })*/
+      })
     }
   },
 
@@ -107,12 +107,12 @@ Page({
       });
     } else {
       //调用server接口
-      /*let { phoneNumber, smsVerificationCode } = this.data;
+      let { phoneNumber, smsVerificationCode } = this.data;
       Bind({ phoneNumber, smsVerificationCode }).then(() => {
         wx.switchTab({
           url: '../shipmentList/shipmentList'
         })
-      })*/
+      })
     }
   },
 

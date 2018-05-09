@@ -2,11 +2,13 @@ import config  from './config';
 export const URLTypes = {
   DRIVER: 'driver',
   TRADE: 'trade',
+  MINIPROGRAM: 'miniprogram',
 };
 
 const baseURL = {
   [URLTypes.DRIVER]: config.driver,
   [URLTypes.TRADE]: config.trade,
+  [URLTypes.MINIPROGRAM]: config.miniprogram,
 };
 
 export const buildURL = (url, urlType) => `${baseURL[urlType]}${url}`;
@@ -21,6 +23,7 @@ export const fetch = (url, options = {}) => {
       showLoading = false,
   } = options;
 
+  const sessionId = wx.getStorageSync('sessionId');
   const accessToken = wx.getStorageSync('access_Token');
   const finalOpts = {
     url: url,
@@ -29,6 +32,7 @@ export const fetch = (url, options = {}) => {
     header: Object.assign({}, {
       'Authorization': `Bearer ${accessToken}`,
       'AccessToken': `Bearer ${accessToken}`,
+      'SessionId': `${sessionId}`,
     }, options.header),
     data: options.data || null,
   };
@@ -47,7 +51,7 @@ export const fetch = (url, options = {}) => {
       if (response.statusCode === 200) {
         resolve(response.data);
       } else if (response.statusCode === 401) {
-        wx.removeStorageSync('access_Token')
+        wx.removeStorageSync('sessionId')
       }
       reject(response.data);
     };

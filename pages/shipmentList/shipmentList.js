@@ -2,6 +2,7 @@ import {
   getRunningShipments,
   Login,
   signin,
+  GetSessionId,
 } from './actions';
 
 Page({
@@ -24,15 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function() {
-    const accessToken = wx.getStorageSync('access_Token');
-    if (accessToken) {
-      getRunningShipments().then(
-        (res) => this.setData({
-          runningShipments: res
-        }));
-    } else {
-      this.login();
-    }
+    this.getSessionId();
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -115,6 +108,23 @@ Page({
         }));
     }).catch((error) => {
       // 如果server返回的code表示司机未绑定，则跳转到绑定页
+    });
+  },
+
+  getSessionId: function (e) {
+    GetSessionId().then(() => {
+      debugger
+      getRunningShipments().then(
+        (res) => this.setData({
+          runningShipments: res
+        }));
+    }).catch((error) => {
+      // 如果server返回的code表示司机未绑定，则跳转到绑定页
+      if (error.code === 100001) {
+        wx.redirectTo({
+          url: '../login/login'
+        })
+      }
     });
   },
 })

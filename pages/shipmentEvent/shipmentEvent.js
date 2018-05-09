@@ -6,7 +6,7 @@ import {
   sign,
   onEvent,
 } from './actions';
-
+import config from '../../api/config';
 
 Page({
 
@@ -108,18 +108,20 @@ Page({
           imageURL: res.tempFilePaths[0],
         }
 
+        const imageData = res;
+
         wx.getSetting({
           success: function (res) {
             if ('scope.userLocation' in res.authSetting) {
               if (res.authSetting['scope.userLocation']) {
                 // uploadImage(imageType, data);
-                that.getLocation();
+                that.getLocation(imageData);
               } else {
                 wx.showModal({
                   content: '获取不到位置信息，请打开地理位置信息权限后重试',
                   confirmText: '确定',
                   showCancel: false,
-                  success: function (res) {
+                  success: function (imageData) {
                     wx.openSetting();
                   }
                 })
@@ -130,7 +132,7 @@ Page({
                 scope: 'scope.userLocation',
                 success: function () {
                   // uploadImage(imageType, data);
-                  that.getLocation();
+                  that.getLocation(res);
                 },
                 fail: function () {
                   wx.showToast({
@@ -154,12 +156,38 @@ Page({
     })
   },
 
-  getLocation : function () {
-    var that = this;
+  getLocation : function (data) {
+    const that = this;
+    const {
+      order,
+    } = this.data;
     wx.getLocation({
       success: function (res) {
         if (res && res.latitude && res.longitude) {
           console.log('latitude: ' + res.latitude + ' longitude: ' + res.longitude);
+          const tempFilePaths = data.tempFilePaths
+          const sessionId = wx.getStorageSync('sessionId');
+          wx.uploadFile({
+            url: config.image,
+            filePath: tempFilePaths[0],
+            header: {
+              SessionId: sessionId
+            },
+            name: 'myImage',
+            formData: {
+              orderCode: order.orderCode,
+              shipmentCode: order.shipmentCode,
+              fileName: tempFilePaths[0].substring(11),
+              fileExt: 'jpg',
+              latitude: res.latitude,
+              longitude: res.longitude,
+              imageTakenDate: new Date().toISOString()
+            },
+            success: function (res) {
+              //do something
+            }
+          })
+
         } else {
           wx.showModal({
             content: '获取不到位置信息, 拍摄的照片无法满足开票要求, 建议重试',

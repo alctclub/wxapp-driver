@@ -50,9 +50,6 @@ function isStartActive(statusCode) {
 
 function isComplete(statusCode, isSignException) {
   if ((statusCode + '') == '60') {
-    if (isSignException) {
-      return '../../assert/icon/complete_error.png';
-    }
     return '../../assert/icon/complete.png';
   }
   return '';

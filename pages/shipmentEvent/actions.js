@@ -134,7 +134,7 @@ export function getOrderItems(data) {
   return fetch(url);
 }
 
-//提货 到货 回单
+//到货 回单
 export function onEvent(data) {
   const url = buildURL('/app-shipments/events', URLTypes.TRADE);
 

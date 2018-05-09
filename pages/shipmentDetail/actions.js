@@ -59,3 +59,31 @@ function startAddressFormatter(startAddress) {
     }
     return startAddress;
 }
+
+//提货
+export function onPickup(data) {
+  const url = buildURL('/app-shipments/events', URLTypes.TRADE);
+
+  return new Promise((resolve, reject) => {
+
+    wx.getLocation({
+      success: function (res) {
+        return fetch(url, {
+          method: 'PUT',
+          showLoading: true,
+          data: {
+            shipmentCode: data.shipmentCode,
+            orderCode: data.orderCode,
+            enterpriseCode: data.enterpriseCode,
+            latitudeValue: res.latitude,
+            longitudeValue: res.longitude,
+            time: new Date().toISOString(),
+            statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
+          }
+        }).then((resp) => resolve(resp))
+          .catch(error => reject(error));
+      },
+      fail: (error) => reject(error),
+    });
+  });
+}

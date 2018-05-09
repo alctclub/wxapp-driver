@@ -113,7 +113,6 @@ Page({
 
   getSessionId: function (e) {
     GetSessionId().then(() => {
-      debugger
       getRunningShipments().then(
         (res) => this.setData({
           runningShipments: res

@@ -21,7 +21,7 @@ export function getHistoryShipments(currentPage = 1, pageSize = 10) {
 };
 
 function shipmentFormatter(res = []) {
-  return res.map((item) =>({
+  return res.shipments.map((item) =>({
     shipmentCode: item.shipmentCode,
     statusDisplay: getShipmentDisplayStatus(item.statusCode),
     startAddress: item.startAddress,

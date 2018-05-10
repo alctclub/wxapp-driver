@@ -245,11 +245,8 @@ Page({
           },
           isExpand:false,
         }));
-    } else if (initData.imageType === ImageTypes.ARRIVE) {
-      getOrderItems(order).then((res) => 
-      this.setData({ orderItems: res.orderDetailModelList }))
-    }
-    getImages(initData.imageType, order);
+    } 
+    //getImages(initData.imageType, order);
     this.setData({
       order,
       statusCode,

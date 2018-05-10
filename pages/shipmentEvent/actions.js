@@ -169,7 +169,7 @@ export function onEvent(data) {
               location: regResult.location,
               baiduLatitude: baiduLocation[0],
               baiduLongitude: baiduLocation[1],
-              time: new Date().toISOString(),
+              traceDate: new Date().toISOString(),
               statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
             }
         }).then((resp) => resolve(resp))
@@ -197,7 +197,7 @@ export function sign(data) {
       longitudeValue: res.longitudeValue,
       baiduLatitude: res.baiduLatitude,
       baiduLongitude: res.baiduLongitude,
-      time: new Date().toISOString(),
+      traceDate: new Date().toISOString(),
       goodsList: data.goodsList,
     }
   }));

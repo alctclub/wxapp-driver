@@ -83,8 +83,19 @@ export function uploadImage(imageType, data) {
   }
 }
 
-export function deleteImage(imageType, data) {
-  const url = buildURL(`/app-order-images/{UploadSubType}`, URLTypes.TRADE)
+export function deleteImage(fileName, imageType, data = {}) {
+  const {
+    orderCode = '',
+    shipmentCode = '',
+   } = data;
+  const url = buildURL(`/images/${imageType}?orderCode=${orderCode}&shipmentCode=${shipmentCode}&fileName=${fileName}`, URLTypes.MINIPROGRAM);
+  return new Promise((resolve, reject) => {
+    return fetch(url, {
+      method: 'DELETE',
+      showLoading: true,
+    }).then((resp) => resolve(resp))
+      .catch(error => reject(error));
+  })
 }
 
 export function getImageNames(imageType, data = {}) {

@@ -5,6 +5,7 @@ import {
   getOrderItems,
   sign,
   onEvent,
+  deleteImage,
 } from './actions';
 import config from '../../api/config';
 
@@ -196,10 +197,14 @@ Page({
 
   onDelete: function (event) {
     let {
-      images = []
+      images = [],
+      order,
+      imageType,
     } = this.data;
     const deleteSrc = event.currentTarget.dataset.src;
     if (deleteSrc) {
+      const fileName = deleteSrc.substring(11);
+      deleteImage(fileName, imageType, order);
       images = images.filter((x => x !== deleteSrc));
       this.setData({
         images

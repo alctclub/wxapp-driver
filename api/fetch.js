@@ -46,7 +46,7 @@ export const fetch = (url, options = {}) => {
     // 成功的处理
     finalOpts.success = (response) => {
       if (response.statusCode === 200) {
-        if (response.data.code !== 0) {
+        if (response.data.code !== 0 && response.data.code !== 100001) {
           wx.showToast({
             title: response.data.message || '由于网络等原因导致异常，请检查后重试',
             icon: 'none'

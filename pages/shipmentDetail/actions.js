@@ -69,7 +69,7 @@ export function onPickup(data) {
     wx.getLocation({
       success: function (res) {
         return fetch(url, {
-          method: 'PUT',
+          method: 'POST',
           showLoading: true,
           data: {
             shipmentCode: data.shipmentCode,

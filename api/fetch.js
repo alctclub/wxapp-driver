@@ -24,14 +24,11 @@ export const fetch = (url, options = {}) => {
   } = options;
 
   const sessionId = wx.getStorageSync('sessionId');
-  const accessToken = wx.getStorageSync('access_Token');
   const finalOpts = {
     url: url,
     method: options.method,
     dataType: options.dataType,
     header: Object.assign({}, {
-      'Authorization': `Bearer ${accessToken}`,
-      'AccessToken': `Bearer ${accessToken}`,
       'SessionId': `${sessionId}`,
     }, options.header),
     data: options.data || null,

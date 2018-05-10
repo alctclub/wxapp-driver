@@ -1,6 +1,5 @@
 import {
   getRunningShipments,
-  Login,
   signin,
   GetSessionId,
 } from './actions';
@@ -91,24 +90,6 @@ Page({
       }
 
     })
-  },
-
-  login: function (e) {
-    let {
-      username,
-      password
-    } = this.data;
-    Login({
-      username: 'D00000281',
-      password: 'e10adc3949ba59abbe56e057f20f883e',
-    }).then(() => {
-      getRunningShipments().then(
-        (res) => this.setData({
-          runningShipments: res
-        }));
-    }).catch((error) => {
-      // 如果server返回的code表示司机未绑定，则跳转到绑定页
-    });
   },
 
   getSessionId: function (e) {

@@ -36,42 +36,6 @@ function shipmentFormatter(res = []) {
   }));
 }
 
-export function GetSessionId() {
-  const url = buildURL('/auth/login', URLTypes.MINIPROGRAM);
-  wx.clearStorageSync('sessionId');
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          console.log(res.code);
-          //发起网络请求
-          return fetch(url, {
-            method: 'POST',
-            data: {
-              weixinCode: res.code
-            },
-          }).then((response) => getSessionIdSuccess(response).then(response => resolve())).catch(error => reject(error));
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    });
-  })
-};
-
-function getSessionIdSuccess(response) {
-  return new Promise((resolve, reject) => {
-    if (response.sessionId) {
-      wx.setStorageSync('sessionId', response.sessionId);
-      console.log('sessionId: ' + response.sessionId);
-      resolve();
-    } else {
-      wx.clearStorageSync('sessionId');
-      reject(response);
-    }
-  })
-}
-
 export function signin(formId) {
   wx.getLocation({
     success: function (res) {

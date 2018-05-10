@@ -58,6 +58,9 @@ export const fetch = (url, options = {}) => {
           title: '登录已过期，请关闭小程序后重新打开',
           icon: 'none'
         });
+        GetSessionId().then(() => {
+
+        })
       } else {
         wx.showToast({
           title: response.data.message || '由于网络等原因导致异常，请检查后重试',
@@ -79,4 +82,40 @@ export const fetch = (url, options = {}) => {
     
     wx.request(finalOpts);
   });
+};
+
+export const GetSessionId = () => {
+  const url = buildURL('/auth/login', URLTypes.MINIPROGRAM);
+  wx.clearStorageSync('sessionId');
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          console.log(res.code);
+          //发起网络请求
+          return fetch(url, {
+            method: 'POST',
+            data: {
+              weixinCode: res.code
+            },
+          }).then((response) => getSessionIdSuccess(response).then(response => resolve())).catch(error => reject(error));
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });
+  })
+};
+
+function getSessionIdSuccess(response) {
+  return new Promise((resolve, reject) => {
+    if (response.sessionId) {
+      wx.setStorageSync('sessionId', response.sessionId);
+      console.log('sessionId: ' + response.sessionId);
+      resolve();
+    } else {
+      wx.clearStorageSync('sessionId');
+      reject(response);
+    }
+  })
 }

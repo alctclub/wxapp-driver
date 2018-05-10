@@ -1,9 +1,8 @@
 import {
   getRunningShipments,
   signin,
-  GetSessionId,
 } from './actions';
-
+import { GetSessionId } from '../../api/fetch.js';
 Page({
 
   /**

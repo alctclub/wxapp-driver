@@ -4,6 +4,7 @@ import {
     moneyFormatter,
     dateFormatter,
     isOrderComplete,
+    transformToServerTime
   } from '../../utils/index';
 
 export function getShipmentDetail(enterpriseCode, shipmentCode) {
@@ -76,7 +77,7 @@ export function onPickup(data) {
             orderCode: data.orderCode,
             latitudeValue: res.latitude,
             longitudeValue: res.longitude,
-            traceDate: new Date().toISOString(),
+            traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
           }
         }).then((resp) => resolve(resp))
           .catch(error => reject(error));

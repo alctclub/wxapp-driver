@@ -8,6 +8,9 @@ import {
   deleteImage,
 } from './actions';
 import config from '../../api/config';
+import {
+  transformToServerTime
+} from '../../utils/index';
 
 Page({
 
@@ -176,7 +179,7 @@ Page({
               fileExt: 'jpg',
               latitude: res.latitude,
               longitude: res.longitude,
-              imageTakenDate: new Date().toISOString(),
+              imageTakenDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
               imageType: imageType
             },
             success: function (res) {

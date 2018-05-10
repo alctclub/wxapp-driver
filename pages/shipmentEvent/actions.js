@@ -4,7 +4,8 @@ import {
   fetch
 } from '../../api/fetch';
 import {
-  getOperation
+  getOperation,
+  transformToServerTime
 } from '../../utils/index';
 
 var bmap = require('../../libs/bmap-wx.min.js');
@@ -75,7 +76,7 @@ export function uploadImage(imageType, data) {
             longitudeValue: res.longitude,
             location: res.location,
             fromCamera: true,
-            imageTakenDate: new Date().toISOString(),
+            imageTakenDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
           }
         })
       }
@@ -168,7 +169,7 @@ export function onEvent(data) {
               orderCode: data.orderCode,
               latitudeValue: res.latitude,
               longitudeValue: res.longitude,
-              traceDate: new Date().toISOString(),
+              traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
             }
         }).then((resp) => resolve(resp))
         .catch(error => reject(error));
@@ -189,7 +190,7 @@ export function sign(data) {
       orderCode: data.orderCode,
       latitudeValue: res.latitudeValue,
       longitudeValue: res.longitudeValue,
-      traceDate: new Date().toISOString(),
+      traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
     }
   }));
 

@@ -9,6 +9,7 @@ export function getRunningShipments() {
   const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
   return fetch(url, {
     method: 'GET',
+    showLoading: true
   }).then((res) => shipmentFormatter(res));;
 };
 

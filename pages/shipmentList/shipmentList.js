@@ -41,14 +41,8 @@ Page({
       enterprisecode,
       shipmentcode
     } = event.currentTarget.dataset;
-    wx.showLoading({
-      title: '加载中',
-    })
     wx.navigateTo({
-      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`,
-      complete: function (res) {
-        wx.hideLoading();
-      },
+      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`
     })
   },
   signin: function (event) {

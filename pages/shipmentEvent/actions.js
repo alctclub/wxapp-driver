@@ -147,14 +147,6 @@ export function onEvent(data) {
     wx.getLocation({
       success: function (res) {
         regeocoding(res.latitude, res.longitude).then((regResult) => {
-          console.log('详细地址', regResult.location);
-          console.log('精度', res.accuracy);
-          console.log('verticalAccuracy', res.verticalAccuracy);
-          console.log('horizontalAccuracy', res.horizontalAccuracy);
-          console.log('reglatitude', regResult.baiduLatitude);
-          console.log('reglongitude', regResult.baiduLongitude);
-          console.log('wxlatitude', res.latitude);
-          console.log('wxlongitude', res.longitude);
           const baiduLocation = gcoord.transform([res.latitude, res.longitude],
              gcoord.WGS84, gcoord.Baidu)
           return fetch(url, {
@@ -163,14 +155,9 @@ export function onEvent(data) {
             data: {
               shipmentCode: data.shipmentCode,
               orderCode: data.orderCode,
-              enterpriseCode: data.enterpriseCode,
               latitudeValue: res.latitude,
               longitudeValue: res.longitude,
-              location: regResult.location,
-              baiduLatitude: baiduLocation[0],
-              baiduLongitude: baiduLocation[1],
               traceDate: new Date().toISOString(),
-              statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
             }
         }).then((resp) => resolve(resp))
         .catch(error => reject(error));
@@ -185,20 +172,13 @@ export function sign(data) {
   const url = buildURL('/shipments/events/sign', URLTypes.MINIPROGRAM);
   return regeocoding().then((res) => fetch(url, {
     method: 'POST',
+    showLoading: true,
     data: {
       shipmentCode: data.shipmentCode,
       orderCode: data.orderCode,
-      enterpriseCode: data.enterpriseCode,
-      signCode: '',
-      receivedBy: data.receivedBy,
-      receivedRemark: data.receivedRemark,
-      location: res.location,
       latitudeValue: res.latitudeValue,
       longitudeValue: res.longitudeValue,
-      baiduLatitude: res.baiduLatitude,
-      baiduLongitude: res.baiduLongitude,
       traceDate: new Date().toISOString(),
-      goodsList: data.goodsList,
     }
   }));
 

@@ -74,11 +74,9 @@ export function onPickup(data) {
           data: {
             shipmentCode: data.shipmentCode,
             orderCode: data.orderCode,
-            enterpriseCode: data.enterpriseCode,
             latitudeValue: res.latitude,
             longitudeValue: res.longitude,
-            time: new Date().toISOString(),
-            statusCode: data.nextStatusCode, // It is the same with "nextStatusCode" in model
+            traceDate: new Date().toISOString(),
           }
         }).then((resp) => resolve(resp))
           .catch(error => reject(error));

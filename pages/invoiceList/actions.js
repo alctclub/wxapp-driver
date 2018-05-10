@@ -8,10 +8,9 @@ import {
     moneyFormatter,
 } from '../../utils/index';
 
-
 export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
-    const baseURL = `/app-driver-invoices/unconfirm?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-    const url = buildURL(baseURL, URLTypes.TRADE);
+    const baseURL = `/invoices`;
+    const url = buildURL(baseURL, URLTypes.MINIPROGRAM);
     return fetch(url, {
         method: 'GET',
     }).then((res) => dataFormatter(res));
@@ -26,13 +25,12 @@ export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
 };
 
 export function confirmDriverInvoice(enterpriseCode, driverInvoiceCode) {
-    const url = buildURL('/app-driver-invoices/confirm', URLTypes.TRADE);
+    const url = buildURL('/invoices/confirm', URLTypes.MINIPROGRAM);
     return fetch(url, {
         method: 'PUT',
-        data: [{
-            enterpriseCode: enterpriseCode,
+        data: {
             driverInvoiceCode: driverInvoiceCode,
-        }]
+        }
     });
 }
 

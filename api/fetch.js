@@ -49,16 +49,32 @@ export const fetch = (url, options = {}) => {
     // 成功的处理
     finalOpts.success = (response) => {
       if (response.statusCode === 200) {
+        if (response.data.code !== 0) {
+          wx.showToast({
+            title: response.data.message || '由于网络等原因导致异常，请检查后重试',
+            icon: 'none'
+          });
+        }
         resolve(response.data);
       } else if (response.statusCode === 401) {
+        wx.showToast({
+          title: '登录已过期，请关闭小程序后重新打开',
+          icon: 'none'
+        });
+      } else {
+        wx.showToast({
+          title: response.data.message || '由于网络等原因导致异常，请检查后重试',
+          icon: 'none'
+        });
+        reject(response.data);
       }
-      reject(response.data);
+     
     };
 
     //失败处理
     finalOpts.fail = (error) => {
       wx.showToast({
-        title: error.Message,
+        title: '由于网络等原因导致异常，请检查后重试',
         icon: 'none'
       });
       reject(error);

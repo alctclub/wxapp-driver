@@ -32,8 +32,7 @@ export function Bind(driver) {
               verificationCode: smsVerificationCode,
               weixinCode: res.code
             },
-          });
-          resolve();
+          }).then(() => (resolve()));
         } else {
           console.log('登录失败！' + res.errMsg)
         }

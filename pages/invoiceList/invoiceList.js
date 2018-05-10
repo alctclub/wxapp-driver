@@ -8,7 +8,7 @@ import {
 Page({
   data: {
     invoiceList: {
-      modelList: [],
+      driverInvoices: [],
       currentPage: 1,
       totalPage: 1,
     },

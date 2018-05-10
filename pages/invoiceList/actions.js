@@ -38,8 +38,8 @@ function dataFormatter(response = {}) {
     const result = {};
     result.currentPage = response.currentPage || 0;
     result.totalPage = response.totalPage || 0;
-    result.modelList = (response.modelList &&
-        response.modelList.map((x) => ({
+    result.driverInvoices = (response.driverInvoices &&
+      response.driverInvoices.map((x) => ({
             enterpriseCode: x.enterpriseCode,
             invoiceReceiverName: x.invoiceReceiverName,
             taxRate: percentFormatter(x.taxRate),

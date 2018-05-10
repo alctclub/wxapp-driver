@@ -78,13 +78,7 @@ Page({
     })
 
   },
-  onClickUpload: function () {
-    const {
-      order,
-      images
-    } = this.data;
 
-  },
   selectImage: function () {
     var that = this;
     const {
@@ -132,7 +126,7 @@ Page({
                 scope: 'scope.userLocation',
                 success: function () {
                   // uploadImage(imageType, data);
-                  that.getLocation(res);
+                  that.getLocation(imageData);
                 },
                 fail: function () {
                   wx.showToast({
@@ -146,7 +140,6 @@ Page({
 
         })
         
-
         images.push(...res.tempFilePaths);
 
         this.setData({
@@ -156,16 +149,17 @@ Page({
     })
   },
 
-  getLocation : function (data) {
+  getLocation: function (imageData) {
     const that = this;
     const {
       order,
+      imageType,
     } = this.data;
     wx.getLocation({
       success: function (res) {
         if (res && res.latitude && res.longitude) {
           console.log('latitude: ' + res.latitude + ' longitude: ' + res.longitude);
-          const tempFilePaths = data.tempFilePaths
+          const tempFilePaths = imageData.tempFilePaths
           const sessionId = wx.getStorageSync('sessionId');
           wx.uploadFile({
             url: config.image,
@@ -181,7 +175,8 @@ Page({
               fileExt: 'jpg',
               latitude: res.latitude,
               longitude: res.longitude,
-              imageTakenDate: new Date().toISOString()
+              imageTakenDate: new Date().toISOString(),
+              imageType: imageType
             },
             success: function (res) {
               //do something

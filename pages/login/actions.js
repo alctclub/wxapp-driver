@@ -1,4 +1,5 @@
 import { URLTypes, buildURL, fetch } from '../../api/fetch.js';
+var Promise = require('../../libs/es6-promise.min.js');
 
 /**
  * 获取验证码

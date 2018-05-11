@@ -7,6 +7,7 @@ import {
   getOperation,
   transformToServerTime
 } from '../../utils/index';
+var Promise = require('../../libs/es6-promise.min.js');
 
 var bmap = require('../../libs/bmap-wx.min.js');
 var gcoord = require('../../libs/gcoord.js');

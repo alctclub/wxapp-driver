@@ -1,4 +1,5 @@
 import config  from './config';
+var Promise = require('../libs/es6-promise.min.js');
 export const URLTypes = {
   DRIVER: 'driver',
   TRADE: 'trade',

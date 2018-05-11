@@ -6,7 +6,7 @@ import {
     isOrderComplete,
     transformToServerTime
   } from '../../utils/index';
-
+var Promise = require('../../libs/es6-promise.min.js');
 export function getShipmentDetail(enterpriseCode, shipmentCode) {
     const baseURL = `/shipments/detail/${shipmentCode}`;
     const url = buildURL(baseURL, URLTypes.MINIPROGRAM);

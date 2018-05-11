@@ -11,6 +11,7 @@ import config from '../../api/config';
 import {
   transformToServerTime
 } from '../../utils/index';
+var Promise = require('../../libs/es6-promise.min.js');
 
 Page({
 

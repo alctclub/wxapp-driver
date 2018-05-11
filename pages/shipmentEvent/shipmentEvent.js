@@ -112,7 +112,6 @@ Page({
           success: function (res) {
             if ('scope.userLocation' in res.authSetting) {
               if (res.authSetting['scope.userLocation']) {
-                // uploadImage(imageType, data);
                 that.getLocation(imageData);
               } else {
                 wx.showModal({
@@ -129,7 +128,6 @@ Page({
               wx.authorize({
                 scope: 'scope.userLocation',
                 success: function () {
-                  // uploadImage(imageType, data);
                   that.getLocation(imageData);
                 },
                 fail: function () {

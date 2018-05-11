@@ -36,13 +36,12 @@ Page({
   onComfirm: function (event) {
     const {
       value: {
-        enterpriseCode,
         driverInvoiceCode,
       },
       formId
     } = event.detail;
 
-    confirmDriverInvoice(enterpriseCode, driverInvoiceCode)
+    confirmDriverInvoice(driverInvoiceCode, formId)
       .then(() =>
         getUnconfirmInvoiceList(1))
       .then(

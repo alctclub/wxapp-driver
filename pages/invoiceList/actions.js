@@ -25,13 +25,14 @@ export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
     }).then((res) => dataFormatter(res));
 };
 
-export function confirmDriverInvoice(enterpriseCode, driverInvoiceCode) {
+export function confirmDriverInvoice(driverInvoiceCode, formId) {
     const url = buildURL('/invoices/confirm', URLTypes.MINIPROGRAM);
     return fetch(url, {
         method: 'PUT',
         showLoading: true,
         data: {
             driverInvoiceCode: driverInvoiceCode,
+            formId: formId
         }
     });
 }

@@ -152,7 +152,7 @@ export function getOrderItems(data) {
 }
 
 //到货 回单
-export function onEvent(data) {
+export function onEvent(data, formId) {
   const url = buildURL('/shipments/events/' + getOperation(data.nextStatusCode), URLTypes.MINIPROGRAM);
 
   return new Promise((resolve, reject) => {
@@ -171,6 +171,7 @@ export function onEvent(data) {
               latitudeValue: res.latitude,
               longitudeValue: res.longitude,
               traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
+              formId: formId
             }
         }).then((resp) => resolve(resp))
         .catch(error => reject(error));
@@ -181,7 +182,7 @@ export function onEvent(data) {
   });
 }
 // 签收
-export function sign(data) {
+export function sign(data, formId) {
   const url = buildURL('/shipments/events/sign', URLTypes.MINIPROGRAM);
   return regeocoding().then((res) => fetch(url, {
     method: 'POST',
@@ -192,6 +193,7 @@ export function sign(data) {
       latitudeValue: res.latitudeValue,
       longitudeValue: res.longitudeValue,
       traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
+      formId: formId
     }
   }));
 

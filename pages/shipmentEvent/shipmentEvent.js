@@ -29,14 +29,17 @@ Page({
     imageLimit: 4,
     statusCode: '',
     isExpand: false,
+    formId:''
   },
   onClickCancel: function () {
     wx.navigateBack();
   },
   onClickComfirm: function(event) {
     const { order, orderItems } = this.data;
-    const { formId } = event.detail;
     const that = this;
+    this.setData({
+      formId: event.detail.formId
+    })
 
     wx.getSetting({
       success: function (res) {
@@ -129,6 +132,7 @@ Page({
     const {
       order,
       imageType,
+      formId,
     } = this.data;
     const sessionId = wx.getStorageSync('sessionId');
     const promises = tempFilePaths.map(function (tempFilePath) {
@@ -141,9 +145,9 @@ Page({
       });
     });
     return Promise.all(promises).then(() => {
-      onEvent(order).then(() => {
+      onEvent(order, formId).then(() => {
           if (`${order.statusCode}` === '30') {
-            return sign({ ...order, ...{ goodsList: orderItems } });
+            return sign({ ...order, ...{ goodsList: orderItems } }, formId);
           }
           return true;
         }).then(() => wx.navigateBack());

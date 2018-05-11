@@ -182,21 +182,20 @@ export function onEvent(data, formId) {
   });
 }
 // 签收
-export function sign(data, formId) {
+export function sign(data, formId, res) {
   const url = buildURL('/shipments/events/sign', URLTypes.MINIPROGRAM);
-  return regeocoding().then((res) => fetch(url, {
+  return fetch(url, {
     method: 'POST',
     showLoading: true,
     data: {
       shipmentCode: data.shipmentCode,
       orderCode: data.orderCode,
-      latitudeValue: res.latitudeValue,
-      longitudeValue: res.longitudeValue,
+      latitudeValue: res.latitude,
+      longitudeValue: res.longitude,
       traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
       formId: formId
     }
-  }));
-
+  });
 }
 
 function regeocoding() {

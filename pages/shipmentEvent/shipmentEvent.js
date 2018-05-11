@@ -154,14 +154,14 @@ Page({
         res
       });
     });
-    return Promise.all(promises).then(() => {
-      onEvent(order, formId).then(() => {
+    return Promise.all(promises).then(() => onEvent(order, formId))
+      .then(() => {
           if (`${order.statusCode}` === '30') {
-            return sign({ ...order, ...{ goodsList: orderItems } }, formId);
+            return sign(order, formId, res);
+          } else {
+            return true;
           }
-          return true;
         }).then(() => wx.navigateBack());
-    })
   },
 
   uploadFile: function (tempData) {

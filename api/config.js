@@ -30,4 +30,4 @@ const product = {
   agreement: "https://x-staging.alct56.com/mobile/Agreement.html"
 }
 
-export default dev
+export default staging

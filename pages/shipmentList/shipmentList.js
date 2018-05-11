@@ -108,9 +108,17 @@ Page({
     }).catch((error) => {
       // 如果server返回的code表示司机未绑定，则跳转到绑定页
       if (error.code === 100001) {
-        wx.redirectTo({
-          url: '../login/login'
+        wx.showLoading({
+          title: '加载中',
         })
+        setTimeout(function () {
+          wx.redirectTo({
+            url: '../login/login',
+            complete: function () {
+              wx.hideLoading()
+            }
+          })
+        }, 1000)
       }
     });
   },

@@ -14,7 +14,7 @@ var gcoord = require('../../libs/gcoord.js');
 
 export const ImageTypes = {
   PICKUP: 'pickup',
-  ARRIVE: 'arrive',
+  ARRIVE: 'unload',
   POD: 'pod',
 };
 

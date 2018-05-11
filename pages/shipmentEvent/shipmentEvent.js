@@ -196,6 +196,15 @@ Page({
         },
         success: function (response) {
           if (response.statusCode === 200) {
+            const resData = JSON.parse(response.data);
+            
+            if (resData.code !== 0) {
+              wx.showToast({
+                title: resData.message || '由于网络等原因导致异常，请检查后重试',
+                icon: 'none'
+              });
+              reject();
+            }
             resolve();
           } else if (response.statusCode === 401) {
             wx.showToast({

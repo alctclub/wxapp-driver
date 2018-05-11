@@ -1,4 +1,5 @@
 import config  from './config';
+import appConfig from './appConfig';
 var Promise = require('../libs/es6-promise.min.js');
 export const URLTypes = {
   DRIVER: 'driver',
@@ -50,7 +51,8 @@ export const fetch = (url, options = {}) => {
         if (response.data.code !== 0 && response.data.code !== 100001) {
           wx.showToast({
             title: response.data.message || '由于网络等原因导致异常，请检查后重试',
-            icon: 'none'
+            icon: 'none',
+            duration: appConfig.duration
           });
           reject(response.data);
         }
@@ -58,7 +60,8 @@ export const fetch = (url, options = {}) => {
       } else if (response.statusCode === 401) {
         wx.showToast({
           title: '登录已过期，请关闭小程序后重新打开',
-          icon: 'none'
+          icon: 'none',
+          duration: appConfig.duration
         });
         GetSessionId().then(() => {
 
@@ -67,7 +70,8 @@ export const fetch = (url, options = {}) => {
       } else {
         wx.showToast({
           title: response.data.message || '由于网络等原因导致异常，请检查后重试',
-          icon: 'none'
+          icon: 'none',
+          duration: appConfig.duration
         });
         reject(response.data);
       }
@@ -78,7 +82,8 @@ export const fetch = (url, options = {}) => {
     finalOpts.fail = (error) => {
       wx.showToast({
         title: '由于网络等原因导致异常，请检查后重试',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
       reject(error);
     };

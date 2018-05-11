@@ -3,6 +3,7 @@ import {
   signin,
 } from './actions';
 import { GetSessionId } from '../../api/fetch.js';
+import appConfig from '../../api/appConfig';
 Page({
 
   /**
@@ -73,6 +74,7 @@ Page({
             wx.showToast({
               title: '请打开地理位置信息',
               icon: 'none',
+              duration: appConfig.duration,
               success: function() {
                 wx.openSetting();
               }
@@ -89,7 +91,8 @@ Page({
             fail:function() {
               wx.showToast({
                 title: '未授权位置信息',
-                icon: 'none'
+                icon: 'none',
+                duration: appConfig.duration
               })
             }
           })

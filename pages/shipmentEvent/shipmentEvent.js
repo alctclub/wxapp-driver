@@ -12,6 +12,7 @@ import {
   transformToServerTime
 } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
+import appConfig from '../../api/appConfig';
 
 Page({
 
@@ -42,7 +43,7 @@ Page({
       wx.showToast({
         title: '请上传至少一张照片',
         icon: 'none',
-        duration: 2000,
+        duration: appConfig.duration
       })
       return;
     }
@@ -76,7 +77,8 @@ Page({
             fail: function () {
               wx.showToast({
                 title: '未授权位置信息',
-                icon: 'none'
+                icon: 'none',
+                duration: appConfig.duration
               })
             }
           })
@@ -201,7 +203,8 @@ Page({
             if (resData.code !== 0) {
               wx.showToast({
                 title: resData.message || '由于网络等原因导致异常，请检查后重试',
-                icon: 'none'
+                icon: 'none',
+                duration: appConfig.duration
               });
               reject();
             }
@@ -209,7 +212,8 @@ Page({
           } else if (response.statusCode === 401) {
             wx.showToast({
               title: '登录已过期，请关闭小程序后重新打开',
-              icon: 'none'
+              icon: 'none',
+              duration: appConfig.duration
             });
             GetSessionId().then(() => {
 
@@ -218,7 +222,8 @@ Page({
           } else {
             wx.showToast({
               title: '照片上传失败',
-              icon: 'none'
+              icon: 'none',
+              duration: appConfig.duration
             });
             reject();
           }
@@ -226,7 +231,8 @@ Page({
         fail: function () {
           wx.showToast({
             title: '由于网络等原因导致异常，请检查后重试',
-            icon: 'none'
+            icon: 'none',
+            duration: appConfig.duration
           });
           reject();
         },

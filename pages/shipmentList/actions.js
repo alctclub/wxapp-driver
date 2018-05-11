@@ -4,6 +4,7 @@ import {
   moneyFormatter,
   dateFormatter,
 } from '../../utils/index';
+import appConfig from '../../api/appConfig';
 
 export function getRunningShipments() {
   const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
@@ -43,13 +44,15 @@ export function signin(formId) {
       // success
       wx.showToast({
         title: '签到成功',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     },
     fail: function () {
       wx.showToast({
         title: '签到失败',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       })
     }
   });

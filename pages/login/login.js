@@ -1,4 +1,5 @@
 import { Login, GetVerificationCode, Bind } from './actions.js';
+import appConfig from '../../api/appConfig';
 var interval = null //倒计时函数
 
 Page({
@@ -36,12 +37,14 @@ Page({
     if (this.data.phoneNumber === '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.phoneNumber.length !== 11) {
       wx.showToast({
         title: '无效的手机号，请重新输入',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else {
       this.countDown();
@@ -50,7 +53,8 @@ Page({
       GetVerificationCode(phoneNumber).then(() => {
         wx.showToast({
           title: '发送成功',
-          icon: 'none'
+          icon: 'none',
+          duration: appConfig.duration
         });
       })
     }
@@ -93,17 +97,20 @@ Page({
     if (this.data.phoneNumber === '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.phoneNumber.length !== 11) {
       wx.showToast({
         title: '无效的手机号，请重新输入',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.smsVerificationCode === '') {
       wx.showToast({
         title: '请输入验证码',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else {
       //调用server接口

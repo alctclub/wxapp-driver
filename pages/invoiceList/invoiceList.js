@@ -4,6 +4,7 @@ import {
   getUnconfirmInvoiceList,
   confirmDriverInvoice,
 } from './actions.js';
+import appConfig from '../../api/appConfig';
 
 Page({
   data: {
@@ -48,7 +49,7 @@ Page({
         (res) => this.setData({
           invoiceList: res,
         }))
-      .then(() => wx.showToast({ title: '成功', icon: 'success' }))
-      .catch(() => wx.showToast({ title: '失败', icon: 'none' }));
+      .then(() => wx.showToast({ title: '成功', icon: 'success', duration: appConfig.duration }))
+      .catch(() => wx.showToast({ title: '失败', icon: 'none', duration: appConfig.duration }));
   },
 })

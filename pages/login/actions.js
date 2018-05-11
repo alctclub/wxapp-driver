@@ -8,6 +8,7 @@ export function GetVerificationCode(phoneNumber) {
   const url = buildURL('/auth/verification-code/' + phoneNumber, URLTypes.MINIPROGRAM);
   return fetch(url, {
     method: 'GET',
+    showLoading: true,
     data: {
     },
   });
@@ -28,6 +29,7 @@ export function Bind(driver) {
           //发起网络请求
           fetch(url, {
             method: 'POST',
+            showLoading: true,
             data: {
               phoneNumber: phoneNumber,
               verificationCode: smsVerificationCode,

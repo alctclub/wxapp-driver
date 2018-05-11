@@ -1,6 +1,5 @@
 import {
   ImageTypes,
-  uploadImage,
   getImages,
   getOrderItems,
   sign,
@@ -8,6 +7,7 @@ import {
   deleteImage,
 } from './actions';
 import config from '../../api/config';
+import { GetSessionId } from '../../api/fetch';
 import {
   transformToServerTime
 } from '../../utils/index';
@@ -36,40 +36,29 @@ Page({
   onClickComfirm: function(event) {
     const { order, orderItems } = this.data;
     const { formId } = event.detail;
+    const that = this;
 
     wx.getSetting({
       success: function (res) {
         if ('scope.userLocation' in res.authSetting) {
           if (res.authSetting['scope.userLocation']) {
-            onEvent(order)
-              .then(() => {
-                if (`${order.statusCode}` === '30') {
-                  return sign({ ...order, ...{ goodsList: orderItems } });
-                }
-                return true;
-              })
-              .then(() => wx.navigateBack());
+            that.getLocation();
           } else {
-            wx.showToast({
-              title: '请打开地理位置信息',
-              icon: 'none',
-              success: function () {
+            wx.showModal({
+              content: '获取不到位置信息，请打开地理位置信息权限后重试',
+              confirmText: '确定',
+              showCancel: false,
+              success: function (imageData) {
                 wx.openSetting();
               }
             })
           }
+
         } else {
           wx.authorize({
             scope: 'scope.userLocation',
             success: function () {
-              onEvent(order)
-                .then(() => {
-                  if (`${order.statusCode}` === '30') {
-                    return sign({ ...order, ...{ goodsList: orderItems } });
-                  }
-                  return true;
-                })
-                .then(() => wx.navigateBack());
+              that.getLocation();
             },
             fail: function () {
               wx.showToast({
@@ -80,8 +69,8 @@ Page({
           })
         }
       }
-    })
 
+    })
   },
 
   selectImage: function () {
@@ -107,42 +96,6 @@ Page({
           imageURL: res.tempFilePaths[0],
         }
 
-        const imageData = res;
-
-        wx.getSetting({
-          success: function (res) {
-            if ('scope.userLocation' in res.authSetting) {
-              if (res.authSetting['scope.userLocation']) {
-                that.getLocation(imageData);
-              } else {
-                wx.showModal({
-                  content: '获取不到位置信息，请打开地理位置信息权限后重试',
-                  confirmText: '确定',
-                  showCancel: false,
-                  success: function (imageData) {
-                    wx.openSetting();
-                  }
-                })
-              }
-
-            } else {
-              wx.authorize({
-                scope: 'scope.userLocation',
-                success: function () {
-                  that.getLocation(imageData);
-                },
-                fail: function () {
-                  wx.showToast({
-                    title: '未授权位置信息',
-                    icon: 'none'
-                  })
-                }
-              })
-            }
-          }
-
-        })
-        
         images.push(...res.tempFilePaths);
 
         this.setData({
@@ -152,40 +105,14 @@ Page({
     })
   },
 
-  getLocation: function (imageData) {
+  getLocation: function () {
     const that = this;
-    const {
-      order,
-      imageType,
-    } = this.data;
+    const { images } = this.data;
     wx.getLocation({
       success: function (res) {
         if (res && res.latitude && res.longitude) {
           console.log('latitude: ' + res.latitude + ' longitude: ' + res.longitude);
-          const tempFilePaths = imageData.tempFilePaths
-          const sessionId = wx.getStorageSync('sessionId');
-          wx.uploadFile({
-            url: config.image,
-            filePath: tempFilePaths[0],
-            header: {
-              SessionId: sessionId
-            },
-            name: 'myImage',
-            formData: {
-              orderCode: order.orderCode,
-              shipmentCode: order.shipmentCode,
-              fileName: tempFilePaths[0].substring(11),
-              fileExt: 'jpg',
-              latitude: res.latitude,
-              longitude: res.longitude,
-              imageTakenDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
-              imageType: imageType
-            },
-            success: function (res) {
-              //do something
-            }
-          })
-
+          that.uploadImage(images, res);
         } else {
           wx.showModal({
             content: '获取不到位置信息, 拍摄的照片无法满足开票要求, 建议重试',
@@ -197,6 +124,90 @@ Page({
     })
   },
 
+  uploadImage: function (tempFilePaths, res) {
+    const that = this;
+    const {
+      order,
+      imageType,
+    } = this.data;
+    const sessionId = wx.getStorageSync('sessionId');
+    const promises = tempFilePaths.map(function (tempFilePath) {
+      return that.uploadFile({
+        order,
+        imageType,
+        sessionId,
+        tempFilePath,
+        res
+      });
+    });
+    return Promise.all(promises).then(() => {
+      onEvent(order).then(() => {
+          if (`${order.statusCode}` === '30') {
+            return sign({ ...order, ...{ goodsList: orderItems } });
+          }
+          return true;
+        }).then(() => wx.navigateBack());
+    })
+  },
+
+  uploadFile: function (tempData) {
+    const {
+      order,
+      imageType,
+      sessionId,
+      tempFilePath,
+      res
+    } = tempData;
+
+    return new Promise((resolve, reject) => {
+      wx.uploadFile({
+        url: config.image,
+        filePath: tempFilePath,
+        header: {
+          SessionId: sessionId
+        },
+        name: 'myImage',
+        formData: {
+          orderCode: order.orderCode,
+          shipmentCode: order.shipmentCode,
+          fileName: tempFilePath.substring(11),
+          fileExt: 'jpg',
+          latitude: res.latitude,
+          longitude: res.longitude,
+          imageTakenDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
+          imageType: imageType
+        },
+        success: function (response) {
+          if (response.statusCode === 200) {
+            resolve();
+          } else if (response.statusCode === 401) {
+            wx.showToast({
+              title: '登录已过期，请关闭小程序后重新打开',
+              icon: 'none'
+            });
+            GetSessionId().then(() => {
+
+            })
+            reject();
+          } else {
+            wx.showToast({
+              title: '照片上传失败',
+              icon: 'none'
+            });
+            reject();
+          }
+        },
+        fail: function () {
+          wx.showToast({
+            title: '由于网络等原因导致异常，请检查后重试',
+            icon: 'none'
+          });
+          reject();
+        }
+      })
+    })
+  },
+
   onDelete: function (event) {
     let {
       images = [],
@@ -205,8 +216,8 @@ Page({
     } = this.data;
     const deleteSrc = event.currentTarget.dataset.src;
     if (deleteSrc) {
-      const fileName = deleteSrc.substring(11);
-      deleteImage(fileName, imageType, order);
+      //const fileName = deleteSrc.substring(11);
+      //deleteImage(fileName, imageType, order);
       images = images.filter((x => x !== deleteSrc));
       this.setData({
         images

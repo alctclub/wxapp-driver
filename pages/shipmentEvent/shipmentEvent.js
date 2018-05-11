@@ -35,8 +35,18 @@ Page({
     wx.navigateBack();
   },
   onClickComfirm: function(event) {
-    const { order, orderItems } = this.data;
+    const { order, orderItems, images} = this.data;
     const that = this;
+
+    if (images && images.length == 0) {
+      wx.showToast({
+        title: '请上传至少一张照片',
+        icon: 'none',
+        duration: 2000,
+      })
+      return;
+    }
+
     this.setData({
       formId: event.detail.formId
     })

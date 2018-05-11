@@ -164,6 +164,9 @@ Page({
     } = tempData;
 
     return new Promise((resolve, reject) => {
+      wx.showLoading({
+        title: '加载中',
+      });
       wx.uploadFile({
         url: config.image,
         filePath: tempFilePath,
@@ -207,6 +210,9 @@ Page({
             icon: 'none'
           });
           reject();
+        },
+        complete: function () {
+          wx.hideLoading();
         }
       })
     })

@@ -9,81 +9,11 @@ import {
 } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
 
-var bmap = require('../../libs/bmap-wx.min.js');
-var gcoord = require('../../libs/gcoord.js');
-
 export const ImageTypes = {
   PICKUP: 'pickup',
   ARRIVE: 'unload',
   POD: 'pod',
 };
-
-//imageType: pickup(提货)、arrive(到货)、pod(回单)
-export function uploadImage(imageType, data) {
-  const {
-    shipmentCode,
-    enterpriseCode,
-    orderCode,
-    imageURL,
-  } = data;
-
-  const picExt = imageURL.substr(imageURL.lastIndexOf(".") + 1);
-  let reader = new FileReader();
-  const BMAP = new bmap.BMapWX({
-    ak: 'yOO4a5RubTLXdWjdkRbbtEn500m02gzR'
-  });
-  wx.getLocation({
-    success: function (res) {
-      const location = `${res.latitude},${res.longitude}`;
-      const regeocodingSuccess = (res) => {
-        const result = res.wxMarkerData[0].address;
-      }
-      const address = BMAP.regeocoding({
-        location,
-        success: regeocodingSuccess,
-      })
-    }
-  });
-
-  reader.onloadend = () => {
-    data.fileData = reader.result;
-    const picExt = fileName.substr(fileName.lastIndexOf(".") + 1);
-
-
-    wx.getLocation({
-      success: function (res) {
-        const url = buildURL(`/app-order-images/${imageType}`, URLTypes.TRADE);
-        const location = `${res.latitude},${res.longitude}`;
-        const regeocodingSuccess = (data) => {
-          wxMarkerData = data.wxMarkerData;
-        }
-        const address = BMAP.regeocoding({
-          location,
-          success: regeocodingSuccess,
-        })
-
-        return fetch(url, {
-          data: {
-            shipmentCode: shipmentCode,
-            enterpriseCode: enterpriseCode,
-            uploadType: 'order',
-            orderCode: orderCode,
-            uploadSubType: imageType, //pickup, arrive, pod
-            fileName: Date.now(),
-            fileExt: picExt,
-            isUnique: true,
-            fileData: data.fileData,
-            latitudeValue: res.latitude,
-            longitudeValue: res.longitude,
-            location: res.location,
-            fromCamera: true,
-            imageTakenDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
-          }
-        })
-      }
-    });
-  }
-}
 
 export function deleteImage(fileName, imageType, data = {}) {
   const {
@@ -190,28 +120,5 @@ export function sign(data, formId, res) {
       traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
       formId: formId
     }
-  });
-}
-
-function regeocoding() {
-  const BMAP = new bmap.BMapWX({
-    ak: 'yOO4a5RubTLXdWjdkRbbtEn500m02gzR'
-  });
-  return new Promise((resolve, reject) => {
-
-    const onSuccess = (data) => {
-      const result = {
-        location: data.wxMarkerData[0].address,
-        latitudeValue: data.wxMarkerData[0].latitude,
-        longitudeValue: data.wxMarkerData[0].longitude,
-        baiduLatitude: data.originalData.result.location.lat,
-        baiduLongitude: data.originalData.result.location.lng,
-      }
-      resolve(result);
-    }
-    BMAP.regeocoding({
-      success: (res) => onSuccess(res),
-      fail: (error) => reject(error),
-    });
   });
 }

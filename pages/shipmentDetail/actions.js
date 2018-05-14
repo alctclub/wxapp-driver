@@ -66,7 +66,47 @@ export function onPickup(data) {
   const url = buildURL('/shipments/events/pickup', URLTypes.MINIPROGRAM);
 
   return new Promise((resolve, reject) => {
+   wx.getSetting({
+      success: function (res) {
+        if ('scope.userLocation' in res.authSetting) {
+          if (res.authSetting['scope.userLocation']) {
+            getLocation(data, url).then((resp) => resolve(resp))
+              .catch(error => reject(error));
+          } else {
+            wx.showModal({
+              content: '获取不到位置信息，请打开地理位置信息权限后重试',
+              confirmText: '确定',
+              showCancel: false,
+              success: function (imageData) {
+                wx.openSetting();
+              }
+            })
+          }
 
+        } else {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: function () {
+              getLocation(data, url).then((resp) => resolve(resp))
+                .catch(error => reject(error));
+            },
+            fail: function () {
+              wx.showToast({
+                title: '未授权位置信息',
+                icon: 'none',
+                duration: appConfig.duration
+              })
+            }
+          })
+        }
+      }
+
+    })
+  });
+}
+
+function getLocation(data, url) {
+  return new Promise((resolve, reject) => {
     wx.getLocation({
       success: function (res) {
         return fetch(url, {
@@ -90,6 +130,6 @@ export function onPickup(data) {
         })
         reject(error);
       }
-    });
-  });
+    })
+  })
 }

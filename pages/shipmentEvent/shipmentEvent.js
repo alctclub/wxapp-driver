@@ -156,7 +156,7 @@ Page({
         res
       });
     });
-    return Promise.all(promises).then(() => onEvent(order, formId))
+    return Promise.all(promises).then(() => onEvent(order, formId, res))
       .then(() => {
           if (`${order.statusCode}` === '30') {
             return sign(order, formId, res);

@@ -39,21 +39,9 @@ function shipmentFormatter(res = []) {
 }
 
 export function signin(formId) {
-  wx.getLocation({
-    success: function (res) {
-      // success
-      wx.showToast({
-        title: '签到成功',
-        icon: 'none',
-        duration: appConfig.duration
-      });
-    },
-    fail: function () {
-      wx.showToast({
-        title: '签到失败',
-        icon: 'none',
-        duration: appConfig.duration
-      })
-    }
+  wx.showToast({
+    title: '签到成功',
+    icon: 'none',
+    duration: appConfig.duration
   });
 }

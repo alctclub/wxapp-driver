@@ -82,28 +82,20 @@ export function getOrderItems(data) {
 }
 
 //到货 回单
-export function onEvent(data, formId) {
+export function onEvent(data, formId, res) {
   const url = buildURL('/shipments/events/' + getOperation(data.nextStatusCode), URLTypes.MINIPROGRAM);
 
-  return new Promise((resolve, reject) => {
-   wx.getLocation({
-      success: function (res) {
-          return fetch(url, {
-            method: 'POST',
-            showLoading: true,
-            data: {
-              shipmentCode: data.shipmentCode,
-              orderCode: data.orderCode,
-              latitudeValue: res.latitude,
-              longitudeValue: res.longitude,
-              traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
-              formId: formId
-            }
-        }).then((resp) => resolve(resp))
-          .catch(error => reject(error));
-      },
-      fail: (error) => reject(error),
-    });
+  return fetch(url, {
+    method: 'POST',
+    showLoading: true,
+    data: {
+      shipmentCode: data.shipmentCode,
+      orderCode: data.orderCode,
+      latitudeValue: res.latitude,
+      longitudeValue: res.longitude,
+      traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
+      formId: formId
+    }
   })
 }
 // 签收

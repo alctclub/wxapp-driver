@@ -209,39 +209,40 @@ Page({
             const resData = JSON.parse(response.data);
             
             if (resData.code !== 0) {
-              wx.showToast({
-                title: resData.message || '由于网络等原因导致异常，请检查后重试',
-                icon: 'none',
-                duration: appConfig.duration
-              });
+              wx.showModal({
+                content: resData.message || '由于网络或其它原因导致系统异常，请检查后重试',
+                showCancel: false,
+                confirmText: '确定'
+              })
               reject();
             }
             resolve();
           } else if (response.statusCode === 401) {
-            wx.showToast({
-              title: '登录已过期，请关闭小程序后重新打开',
-              icon: 'none',
-              duration: appConfig.duration
-            });
+            wx.showModal({
+              content: '登录已过期，请关闭小程序后重新打开',
+              showCancel: false,
+              confirmText: '确定'
+            })
             GetSessionId().then(() => {
 
             })
             reject();
           } else {
-            wx.showToast({
-              title: '照片上传失败',
-              icon: 'none',
-              duration: appConfig.duration
-            });
+            wx.showModal({
+              content: '照片上传失败',
+              showCancel: false,
+              confirmText: '确定'
+            })
             reject();
           }
         },
         fail: function () {
-          wx.showToast({
-            title: '由于网络等原因导致异常，请检查后重试',
-            icon: 'none',
-            duration: appConfig.duration
-          });
+          wx.showModal({
+            content: '由于网络或其它原因导致系统异常，请检查后重试',
+            showCancel: false,
+            confirmText: '确定'
+          })
+          
           reject();
         },
         complete: function () {

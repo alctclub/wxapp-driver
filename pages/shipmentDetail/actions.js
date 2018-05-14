@@ -82,7 +82,14 @@ export function onPickup(data) {
         }).then((resp) => resolve(resp))
           .catch(error => reject(error));
       },
-      fail: (error) => reject(error),
+      fail: function (error) {
+        wx.showModal({
+          content: '获取定位失败，请检查地理位置信息权限或GPS开关是否为启用状态后重试',
+          showCancel: false,
+          confirmText: '确定',
+        })
+        reject(error);
+      }
     });
   });
 }

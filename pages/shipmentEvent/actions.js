@@ -155,13 +155,8 @@ export function getOrderItems(data) {
 export function onEvent(data, formId) {
   const url = buildURL('/shipments/events/' + getOperation(data.nextStatusCode), URLTypes.MINIPROGRAM);
 
-  return new Promise((resolve, reject) => {
-
     wx.getLocation({
       success: function (res) {
-        regeocoding(res.latitude, res.longitude).then((regResult) => {
-          const baiduLocation = gcoord.transform([res.latitude, res.longitude],
-             gcoord.WGS84, gcoord.Baidu)
           return fetch(url, {
             method: 'POST',
             showLoading: true,
@@ -173,13 +168,9 @@ export function onEvent(data, formId) {
               traceDate: transformToServerTime(new Date(), 'YYYY-MM-DDTHH:mm:ss'),
               formId: formId
             }
-        }).then((resp) => resolve(resp))
-        .catch(error => reject(error));
-      });
+        })
       },
-      fail: (error) => reject(error),
     });
-  });
 }
 // 签收
 export function sign(data, formId, res) {

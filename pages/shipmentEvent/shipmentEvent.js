@@ -52,6 +52,21 @@ Page({
       formId: event.detail.formId
     })
 
+    wx.getNetworkType({
+      success: function (res) {
+        // 返回网络类型, 有效值：
+        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+        var networkType = res.networkType
+        if (networkType === 'none') {
+          wx.showModal({
+            content: '由于网络或其它原因导致系统异常，请检查后重试',
+            showCancel: false,
+            confirmText: '确定'
+          })
+        }
+      }
+    })
+
     wx.getSetting({
       success: function (res) {
         if ('scope.userLocation' in res.authSetting) {

@@ -24,6 +24,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     this.getSessionId();
   },
 
@@ -40,6 +44,9 @@ Page({
     }
   },
 
+  onReady: function () {
+    wx.hideLoading();
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

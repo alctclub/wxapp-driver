@@ -33,7 +33,7 @@ Page({
   onShow: function () {
     const sessionId = wx.getStorageSync('sessionId');
     if (sessionId) {
-      getRunningShipments().then(
+      getRunningShipments(true).then(
         (res) => this.setData({
           runningShipments: res
         }));
@@ -44,7 +44,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    getRunningShipments().then(
+    getRunningShipments(false).then(
         (res) => this.setData({
           runningShipments: res
         })).then(
@@ -104,7 +104,7 @@ Page({
 
   getSessionId: function (e) {
     GetSessionId().then(() => {
-      getRunningShipments().then(
+      getRunningShipments(true).then(
         (res) => this.setData({
           runningShipments: res
         }));

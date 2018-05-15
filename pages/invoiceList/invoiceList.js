@@ -14,20 +14,14 @@ Page({
       totalPage: 1,
     },
   },
-  onLoad: function () {
-    getUnconfirmInvoiceList(this.data.invoiceList.currentPage)
-      .then((res) => this.setData({
-        invoiceList: res
-      }));
-  },
   onShow: function() {
-    getUnconfirmInvoiceList(this.data.invoiceList.currentPage)
+    getUnconfirmInvoiceList(true)
     .then((res) => this.setData({
       invoiceList: res
     }));
   },
   onPullDownRefresh: function () {
-    getUnconfirmInvoiceList(1).then(
+    getUnconfirmInvoiceList(false).then(
       (res) => this.setData({
         invoiceList: res,
       })).then(
@@ -44,7 +38,7 @@ Page({
 
     confirmDriverInvoice(driverInvoiceCode, formId)
       .then(() =>
-        getUnconfirmInvoiceList(1))
+        getUnconfirmInvoiceList(false))
       .then(
         (res) => this.setData({
           invoiceList: res,

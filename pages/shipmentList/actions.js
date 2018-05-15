@@ -6,9 +6,10 @@ import {
 } from '../../utils/index';
 import appConfig from '../../api/appConfig';
 
-export function getRunningShipments() {
+export function getRunningShipments(isLoading) {
   const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
   return fetch(url, {
+    showLoading: isLoading,
     method: 'GET',
   }).then((res) => shipmentFormatter(res));;
 };

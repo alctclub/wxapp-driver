@@ -8,10 +8,11 @@ import {
     moneyFormatter,
 } from '../../utils/index';
 
-export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
+export function getUnconfirmInvoiceList(isLoading) {
     const baseURL = `/invoices`;
     const url = buildURL(baseURL, URLTypes.MINIPROGRAM);
     return fetch(url, {
+        showLoading: isLoading,
         method: 'GET',
     }).then((res) => dataFormatter(res));
 };

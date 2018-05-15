@@ -64,6 +64,9 @@ function startAddressFormatter(startAddress) {
 //提货
 export function onPickup(data) {
   const url = buildURL('/shipments/events/pickup', URLTypes.MINIPROGRAM);
+  wx.showLoading({
+    title: '加载中',
+  })
   wx.getNetworkType({
     success: function (res) {
       // 返回网络类型, 有效值：
@@ -112,7 +115,10 @@ export function onPickup(data) {
             }
           })
         }
-      }
+     },
+     complete: function () {
+       wx.hideLoading();
+     }
 
     })
   });

@@ -47,6 +47,10 @@ Page({
       return;
     }
 
+    wx.showLoading({
+      title: '加载中',
+    })
+
     this.setData({
       formId: event.detail.formId
     })
@@ -97,8 +101,11 @@ Page({
             }
           })
         }
+      },
+      complete: function () {
+        wx.hideLoading();
       }
-
+      
     })
   },
 
@@ -137,6 +144,9 @@ Page({
   getLocation: function () {
     const that = this;
     const { images } = this.data;
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.getLocation({
       success: function (res) {
         if (res && res.latitude && res.longitude) {
@@ -157,6 +167,9 @@ Page({
           confirmText: '确定',
         })
         reject(error);
+      },
+      complete: function () {
+        wx.hideLoading();
       }
     })
   },

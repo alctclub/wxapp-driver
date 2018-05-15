@@ -36,6 +36,7 @@ export const fetch = (url, options = {}) => {
     if (showLoading) {
       wx.showLoading({
         title: '加载中',
+        mask: true
       });
       // 请求完成
       finalOpts.complete = () => wx.hideLoading();
@@ -44,7 +45,8 @@ export const fetch = (url, options = {}) => {
     // 成功的处理
     finalOpts.success = (response) => {
       if (response.statusCode === 200) {
-        if (response.data.code !== 0 && response.data.code !== 100001) {
+        if (response.data.code !== 0 && response.data.code !== 100001 
+          && response.data.code !== 300001 && response.data.code !== 200003) {
           wx.showModal({
             content: response.data.message || '由于网络或其它原因导致系统异常，请检查后重试',
             showCancel: false,

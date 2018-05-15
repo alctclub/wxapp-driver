@@ -49,6 +49,7 @@ Page({
 
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
 
     this.setData({
@@ -146,6 +147,7 @@ Page({
     const { images } = this.data;
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
     wx.getLocation({
       success: function (res) {
@@ -213,6 +215,7 @@ Page({
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '加载中',
+        mask: true
       });
       wx.uploadFile({
         url: config.image,

@@ -113,6 +113,7 @@ Page({
       if (error.code === 100001) {
         wx.showLoading({
           title: '加载中',
+          mask: true
         })
         setTimeout(function () {
           wx.redirectTo({

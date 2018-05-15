@@ -23,6 +23,7 @@ App({
     const updateManager = wx.getUpdateManager();
     wx.showLoading({
       title: '加载中',
+      mask: true
     })
     updateManager.onCheckForUpdate(function (res) {
       wx.hideLoading();
@@ -31,6 +32,7 @@ App({
       if (res && res.hasUpdate) {
         wx.showLoading({
           title: '加载中',
+          mask: true
         })
       }
     })

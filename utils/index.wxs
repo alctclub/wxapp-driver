@@ -13,8 +13,8 @@ var status = {
   '35': "部分到货",
   '40': "已到货",
   '45': '部分签收',
-  '50': '已签收',
-  '60': '已签收', // It's "已回单" in server, but display "已签收" in app
+  '50': '已到货', // It's "已签收" in server, but display "已到货" in app
+  '60': '已到货', // It's "已回单" in server, but display "已到货" in app
   '70': '已结算'
 };
 

@@ -32,11 +32,11 @@ const SHIPMENT_STATUS_LIST = [
   },
   {
     code: 50,
-    status: "已签收"
+    status: "已到货" // It's "已签收" in server, but display "已到货" in app
   },
   {
     code: 60,
-    status: "已签收" // It's "已回单" in server, but display "已签收" in app
+    status: "已到货" // It's "已回单" in server, but display "已到货" in app
   },
   {
     code: 70,

@@ -20,7 +20,10 @@ export function GetVerificationCode(phoneNumber) {
 export function Bind(driver) {
   const url = buildURL('/auth/bind', URLTypes.MINIPROGRAM);
   const { phoneNumber, smsVerificationCode } = driver;
-
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
   return new Promise((resolve, reject) => {
     wx.login({
       success: function (res) {
@@ -39,6 +42,9 @@ export function Bind(driver) {
         } else {
           console.log('登录失败！' + res.errMsg)
         }
+      },
+      complete: function () {
+        wx.hideLoading();
       }
     });
   })

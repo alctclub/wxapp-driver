@@ -16,14 +16,6 @@ export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
     }).then((res) => dataFormatter(res));
 };
 
-export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
-    const baseURL = `/app-driver-invoices/confirmed?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-    const url = buildURL(baseURL, URLTypes.TRADE);
-    return fetch(url, {
-        method: 'GET',
-    }).then((res) => dataFormatter(res));
-};
-
 export function confirmDriverInvoice(driverInvoiceCode, formId) {
     const url = buildURL('/invoices/confirm', URLTypes.MINIPROGRAM);
     return fetch(url, {

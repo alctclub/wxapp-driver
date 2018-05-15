@@ -1,6 +1,5 @@
 import {
   ImageTypes,
-  getImages,
   getOrderItems,
   sign,
   onEvent,
@@ -318,7 +317,7 @@ Page({
           isExpand:false,
         }));
     } 
-    //getImages(initData.imageType, order);
+
     this.setData({
       order,
       statusCode,

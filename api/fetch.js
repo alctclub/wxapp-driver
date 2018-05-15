@@ -2,14 +2,10 @@ import config  from './config';
 import appConfig from './appConfig';
 var Promise = require('../libs/es6-promise.min.js');
 export const URLTypes = {
-  DRIVER: 'driver',
-  TRADE: 'trade',
   MINIPROGRAM: 'miniprogram',
 };
 
 const baseURL = {
-  [URLTypes.DRIVER]: config.driver,
-  [URLTypes.TRADE]: config.trade,
   [URLTypes.MINIPROGRAM]: config.miniprogram,
 };
 

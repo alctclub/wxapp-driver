@@ -30,54 +30,13 @@ export function deleteImage(fileName, imageType, data = {}) {
   })
 }
 
-export function getImageNames(imageType, data = {}) {
-  const {
-    orderCode = '',
-      shipmentCode = '',
-      enterpriseCode = '',
-  } = data;
-  const url = buildURL(`/app-order-images/${imageType}/names?orderCode=${orderCode}&shipmentCode=${shipmentCode}&enterpriseCode=${enterpriseCode}`, URLTypes.TRADE);
-  return fetch(url);
-}
-
-export function getImageByName(imageType, data = {}) {
-  const {
-    orderCode = '',
-      shipmentCode = '',
-      enterpriseCode = '',
-      filename = '',
-  } = data;
-  const url = buildURL(`/app-order-images/${imageType}/image?
-    orderCode=${orderCode}&shipmentCode=${shipmentCode}&enterpriseCode=
-      ${enterpriseCode}&filename=${filename}`, URLTypes.TRADE);
-  return fetch(url);
-}
-
-export function getImages(imageType, data = {}) {
-  const {
-    orderCode = '',
-      shipmentCode = '',
-      enterpriseCode = '',
-  } = data;
-  const result = [];
-  return getImageNames(imageType, data).then((result = {}) => {
-    const {
-      imageNameList = [],
-    } = result;
-    return Promise.all(imageNameList.map((filename) =>
-      getImageByName(imageType, { ...data,
-        filename
-      })));
-  });
-}
-
 export function getOrderItems(data) {
   const {
     orderCode,
     enterpriseCode,
     shipmentCode,
   } = data;
-  const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.TRADE);
+  const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.MINIPROGRAM);
   return fetch(url);
 }
 

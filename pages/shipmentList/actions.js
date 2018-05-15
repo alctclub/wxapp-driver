@@ -13,14 +13,6 @@ export function getRunningShipments() {
   }).then((res) => shipmentFormatter(res));;
 };
 
-export function getHistoryShipments(currentPage = 1, pageSize = 10) {
-  const baseURL = `/app-shipments/history?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-  const url = buildURL(baseURL, URLTypes.TRADE);
-  return fetch(url, {
-    method: 'GET',
-  });
-};
-
 function shipmentFormatter(res = []) {
   return res.shipments.map((item) =>({
     shipmentCode: item.shipmentCode,

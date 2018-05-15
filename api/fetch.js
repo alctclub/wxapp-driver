@@ -92,6 +92,10 @@ export const fetch = (url, options = {}) => {
 
 export const GetSessionId = () => {
   const url = buildURL('/auth/login', URLTypes.MINIPROGRAM);
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
   wx.clearStorageSync('sessionId');
   return new Promise((resolve, reject) => {
     wx.login({
@@ -101,6 +105,7 @@ export const GetSessionId = () => {
           //发起网络请求
           return fetch(url, {
             method: 'POST',
+            showLoading: true,
             data: {
               weixinCode: res.code
             },
@@ -108,6 +113,9 @@ export const GetSessionId = () => {
         } else {
           console.log('登录失败！' + res.errMsg)
         }
+      },
+      complete: function () {
+        wx.hideLoading();
       }
     });
   })

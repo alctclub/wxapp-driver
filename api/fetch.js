@@ -122,6 +122,10 @@ export const GetSessionId = () => {
 };
 
 function getSessionIdSuccess(response) {
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
   return new Promise((resolve, reject) => {
     if (response.sessionId) {
       wx.setStorageSync('sessionId', response.sessionId);
@@ -131,5 +135,7 @@ function getSessionIdSuccess(response) {
       wx.clearStorageSync('sessionId');
       reject(response);
     }
+
+    wx.hideLoading();
   })
 }

@@ -1,6 +1,14 @@
 App({
 
+  onLaunch: function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+  },
+
   onShow: function (options) {
+    wx.hideLoading();
     wx.showLoading({
       title: '加载中',
       mask: true

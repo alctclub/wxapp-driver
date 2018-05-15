@@ -17,18 +17,27 @@ App({
 
   updateMiniprogram: function () {
     const updateManager = wx.getUpdateManager();
-
+    wx.showLoading({
+      title: '加载中',
+    })
     updateManager.onCheckForUpdate(function (res) {
+      wx.hideLoading();
       // 请求完新版本信息的回调
       console.log(res.hasUpdate)
+      if (res && res.hasUpdate) {
+        wx.showLoading({
+          title: '加载中',
+        })
+      }
     })
 
     updateManager.onUpdateReady(function () {
+      wx.hideLoading();
       wx.showModal({
         title: '更新提示',
-        content: '新版本已经准备好，即将重启应用',
+        content: '新版本已经准备好，即将启用',
         showCancel: false,
-        success: function (res) {
+        complete: function (res) {
             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
             updateManager.applyUpdate()
         }

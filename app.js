@@ -1,7 +1,10 @@
 App({
 
   onShow: function (options) {
-    
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     /**
      * 接口兼容性检测
      * 基础库 1.9.90 开始支持接口： wx.getUpdateManager
@@ -10,6 +13,7 @@ App({
     if (wx.getUpdateManager) {
       this.updateMiniprogram();
     } else {
+      wx.hideLoading();
       wx.showModal({
         title: '温馨提示',
         content: '当前微信版本过低，建议升级到最新版本的微信后再使用本程序',
@@ -21,6 +25,7 @@ App({
 
   updateMiniprogram: function () {
     const updateManager = wx.getUpdateManager();
+    wx.hideLoading();
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -52,6 +57,7 @@ App({
     })
 
     updateManager.onUpdateFailed(function () {
+      wx.hideLoading();
       // 新的版本下载失败
       wx.showModal({
         title: '更新提示',

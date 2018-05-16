@@ -86,7 +86,7 @@ export function dateFormatter(date) {
   if (!date) {
     return '';
   }
-  return Day(date).format('YYYY/MM/DD');
+  return Day(date.substring(0, 10)).format('YYYY/MM/DD');
 }
 
 export function transformToServerTime(date, formate) {

@@ -16,9 +16,9 @@
 		"enablePullDownRefresh": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.9",
+	"libVersion": "1.9.90",
 	"appid": "wxf8895fd6a463c5f6",
-	"projectname": "%E8%B4%A7%E8%BF%90%E9%80%9A",
+	"projectname": "货运通",
 	"packOptions": {
 		"ignore": [
 			{

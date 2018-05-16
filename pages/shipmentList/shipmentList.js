@@ -1,9 +1,9 @@
 import {
   getRunningShipments,
-  Login,
   signin,
 } from './actions';
-
+import { GetSessionId } from '../../api/fetch.js';
+import appConfig from '../../api/appConfig';
 Page({
 
   /**
@@ -23,22 +23,33 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function() {
-    const accessToken = wx.getStorageSync('access_Token');
-    if (accessToken) {
-      getRunningShipments().then(
+  onLoad: function() {
+    this.getSessionId();
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    const sessionId = wx.getStorageSync('sessionId');
+    if (sessionId) {
+      getRunningShipments(true).then(
         (res) => this.setData({
           runningShipments: res
         }));
-    } else {
-      this.login();
     }
+    wx.hideLoading();
   },
+
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    getRunningShipments().then(
+    getRunningShipments(false).then(
         (res) => this.setData({
           runningShipments: res
         })).then(
@@ -50,14 +61,8 @@ Page({
       enterprisecode,
       shipmentcode
     } = event.currentTarget.dataset;
-    wx.showLoading({
-      title: '加载中',
-    })
     wx.navigateTo({
-      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`,
-      complete: function (res) {
-        wx.hideLoading();
-      },
+      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`
     })
   },
   signin: function (event) {
@@ -74,6 +79,7 @@ Page({
             wx.showToast({
               title: '请打开地理位置信息',
               icon: 'none',
+              duration: appConfig.duration,
               success: function() {
                 wx.openSetting();
               }
@@ -90,7 +96,8 @@ Page({
             fail:function() {
               wx.showToast({
                 title: '未授权位置信息',
-                icon: 'none'
+                icon: 'none',
+                duration: appConfig.duration
               })
             }
           })
@@ -100,21 +107,28 @@ Page({
     })
   },
 
-  login: function (e) {
-    let {
-      username,
-      password
-    } = this.data;
-    Login({
-      username: 'D00000281',
-      password: 'e10adc3949ba59abbe56e057f20f883e',
-    }).then(() => {
-      getRunningShipments().then(
+  getSessionId: function (e) {
+    GetSessionId().then(() => {
+      getRunningShipments(true).then(
         (res) => this.setData({
           runningShipments: res
         }));
     }).catch((error) => {
       // 如果server返回的code表示司机未绑定，则跳转到绑定页
+      if (error.code === 100001) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
+        setTimeout(function () {
+          wx.redirectTo({
+            url: '../login/login',
+            complete: function () {
+              wx.hideLoading()
+            }
+          })
+        }, 1000)
+      }
     });
   },
 })

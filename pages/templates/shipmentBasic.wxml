@@ -21,9 +21,7 @@
         </view>
         <view class="row">
             <text>
-                <text>总重量（吨）：</text>
-                <text wx:if="{{isChangedWeightVolume}}" style="color: red">{{totalWeight}}</text>
-                <text wx:else>{{totalWeight}}</text>
+                <text>总重量（吨）：{{totalWeight}}</text>
             </text>
         </view>
         <view class="row">

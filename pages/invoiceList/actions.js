@@ -8,31 +8,24 @@ import {
     moneyFormatter,
 } from '../../utils/index';
 
-
-export function getUnconfirmInvoiceList(currentPage = 1, pageSize = 10) {
-    const baseURL = `/app-driver-invoices/unconfirm?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-    const url = buildURL(baseURL, URLTypes.TRADE);
+export function getUnconfirmInvoiceList(isLoading) {
+    const baseURL = `/invoices`;
+    const url = buildURL(baseURL, URLTypes.MINIPROGRAM);
     return fetch(url, {
+        showLoading: isLoading,
         method: 'GET',
     }).then((res) => dataFormatter(res));
 };
 
-export function getConfirmedInvoiceList(currentPage = 1, pageSize = 10) {
-    const baseURL = `/app-driver-invoices/confirmed?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-    const url = buildURL(baseURL, URLTypes.TRADE);
-    return fetch(url, {
-        method: 'GET',
-    }).then((res) => dataFormatter(res));
-};
-
-export function confirmDriverInvoice(enterpriseCode, driverInvoiceCode) {
-    const url = buildURL('/app-driver-invoices/confirm', URLTypes.TRADE);
+export function confirmDriverInvoice(driverInvoiceCode, formId) {
+    const url = buildURL('/invoices/confirm', URLTypes.MINIPROGRAM);
     return fetch(url, {
         method: 'PUT',
-        data: [{
-            enterpriseCode: enterpriseCode,
+        showLoading: true,
+        data: {
             driverInvoiceCode: driverInvoiceCode,
-        }]
+            formId: formId
+        }
     });
 }
 
@@ -40,8 +33,8 @@ function dataFormatter(response = {}) {
     const result = {};
     result.currentPage = response.currentPage || 0;
     result.totalPage = response.totalPage || 0;
-    result.modelList = (response.modelList &&
-        response.modelList.map((x) => ({
+    result.driverInvoices = (response.driverInvoices &&
+      response.driverInvoices.map((x) => ({
             enterpriseCode: x.enterpriseCode,
             invoiceReceiverName: x.invoiceReceiverName,
             taxRate: percentFormatter(x.taxRate),

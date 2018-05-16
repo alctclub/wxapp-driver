@@ -32,17 +32,25 @@ const SHIPMENT_STATUS_LIST = [
   },
   {
     code: 50,
-    status: "已签收"
+    status: "已到货" // It's "已签收" in server, but display "已到货" in app
   },
   {
     code: 60,
-    status: "已签收" // It's "已回单" in server, but display "已签收" in app
+    status: "已到货" // It's "已回单" in server, but display "已到货" in app
   },
   {
     code: 70,
     status: "已结算"
   },
 ];
+
+export function getOperation(code) {
+  if (code == 40) {
+    return 'unload';
+  } else {
+    return 'pod';
+  }
+}
 
 export function getShipmentDisplayStatus(code) { 
   const status =  SHIPMENT_STATUS_LIST.find((x) => `${x.code}` === `${code}`);
@@ -81,9 +89,8 @@ export function dateFormatter(date) {
   return Day(date).format('YYYY/MM/DD');
 }
 
-
 export function transformToServerTime(date, formate) {
-  if (! date) {
+  if (!date) {
     return '';
   }
 

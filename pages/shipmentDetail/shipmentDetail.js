@@ -3,7 +3,7 @@ import {
   getShipmentDisplayStatus
 } from '../../utils/index';
 import {
-  getShipmentDetail
+  getShipmentDetail , onPickup
 } from './actions';
 
 Page({
@@ -15,19 +15,38 @@ Page({
     shipment: {},
     options: {},
   },
-  onEvent: (event) => {
+  onEvent: function(event) {
+    const that = this;
     const {
       ordercode,
       statuscode,
       shipmentcode,
       enterprisecode
     } = event.currentTarget.dataset;
-    wx.navigateTo({
-      url: `../shipmentEvent/shipmentEvent?orderCode=${ordercode}&shipmentCode=${shipmentcode}&statusCode=${statuscode}`,
-      complete: function (res) {
-        wx.hideLoading();
-      },
-    })
+    if (statuscode === 20) {
+      onPickup({
+        shipmentCode: shipmentcode,
+        orderCode: ordercode,
+        enterpriseCode: enterprisecode,
+        nextStatusCode: 30
+      }).then(() => {
+        getShipmentDetail(enterprisecode, shipmentcode).then((res) => {
+          const shipment = res;
+          shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
+          wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
+          that.setData({
+            shipment
+          })
+        })
+        })
+    } else{
+      wx.navigateTo({
+        url: `../shipmentEvent/shipmentEvent?orderCode=${ordercode}&shipmentCode=${shipmentcode}&statusCode=${statuscode}`,
+        complete: function (res) {
+          wx.hideLoading();
+        },
+      })
+    }
   },
   toDetail: function () {},
   /**

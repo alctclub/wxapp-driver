@@ -1,4 +1,5 @@
 import { Login, GetVerificationCode, Bind } from './actions.js';
+import appConfig from '../../api/appConfig';
 var interval = null //倒计时函数
 
 Page({
@@ -6,6 +7,7 @@ Page({
     labelVerificationCode: '获取验证码',
     currentTime: 60,
     opacity: 1,
+    color: '#009141',
     phoneNumber: '',
     smsVerificationCode: ''
   },
@@ -35,23 +37,26 @@ Page({
     if (this.data.phoneNumber === '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.phoneNumber.length !== 11) {
       wx.showToast({
         title: '无效的手机号，请重新输入',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else {
       this.countDown();
       //调用server接口
-      /*let phoneNumber = this.data.phoneNumber;
+      const phoneNumber = this.data.phoneNumber;
       GetVerificationCode(phoneNumber).then(() => {
         wx.showToast({
           title: '发送成功',
-          icon: 'none'
+          icon: 'none',
+          duration: appConfig.duration
         });
-      })*/
+      })
     }
   },
 
@@ -63,7 +68,7 @@ Page({
     var currentTime = that.data.currentTime;
     that.setData({
       disabled: true,
-      opacity: 0.3
+      opacity: 0.4
     })
     that.setData({
       labelVerificationCode: currentTime + 's'
@@ -92,26 +97,29 @@ Page({
     if (this.data.phoneNumber === '') {
       wx.showToast({
         title: '请输入手机号',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.phoneNumber.length !== 11) {
       wx.showToast({
         title: '无效的手机号，请重新输入',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else if (this.data.smsVerificationCode === '') {
       wx.showToast({
         title: '请输入验证码',
-        icon: 'none'
+        icon: 'none',
+        duration: appConfig.duration
       });
     } else {
       //调用server接口
-      /*let { phoneNumber, smsVerificationCode } = this.data;
+      let { phoneNumber, smsVerificationCode } = this.data;
       Bind({ phoneNumber, smsVerificationCode }).then(() => {
         wx.switchTab({
           url: '../shipmentList/shipmentList'
         })
-      })*/
+      })
     }
   },
 

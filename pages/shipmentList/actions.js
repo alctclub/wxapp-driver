@@ -4,31 +4,24 @@ import {
   moneyFormatter,
   dateFormatter,
 } from '../../utils/index';
+import appConfig from '../../api/appConfig';
 
-export function getRunningShipments() {
-  const url = buildURL('/app-shipments', URLTypes.TRADE);
+export function getRunningShipments(isLoading) {
+  const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
   return fetch(url, {
+    showLoading: isLoading,
     method: 'GET',
   }).then((res) => shipmentFormatter(res));;
 };
 
-export function getHistoryShipments(currentPage = 1, pageSize = 10) {
-  const baseURL = `/app-shipments/history?PageSize=${pageSize}&CurrentPage=${currentPage}`;
-  const url = buildURL(baseURL, URLTypes.TRADE);
-  return fetch(url, {
-    method: 'GET',
-  });
-};
-
 function shipmentFormatter(res = []) {
-  return res.map((item) =>({
+  return res.shipments.map((item) =>({
     shipmentCode: item.shipmentCode,
     statusDisplay: getShipmentDisplayStatus(item.statusCode),
     startAddress: item.startAddress,
     endAddress: item.endAddress,
     totalVolume: item.totalVolume,
     totalWeight: item.totalWeight,
-    isChangedWeightVolume: item.isChangedWeightVolume,
     enterpriseCode: item.enterpriseCode,
     shipmentCharge: moneyFormatter(item.shipmentCharge),
     shipmentConfirmDate: dateFormatter(item.shipmentConfirmDate),
@@ -37,48 +30,10 @@ function shipmentFormatter(res = []) {
   }));
 }
 
-export function Login(user) {
-  const url = buildURL('/login', URLTypes.DRIVER);
-  const { username, password } = user;
-  wx.clearStorageSync('access_Token');
-  return fetch(url, {
-    method: 'POST',
-    data: {
-      loginIdentity: username,
-      // password: 'e397433ba52b69656be325c89581b13a',
-      password: password,
-      verificationCode: '',
-      isAuto: false,
-      deviceInfo: {
-      },
-    },
-  }).then((response) => onSuccess(response));
-};
-
-function onSuccess(response) {
-  if (response.access_Token) {
-    wx.setStorageSync('access_Token', response.access_Token);
-  } else {
-    wx.clearStorageSync('access_Token');
-    const { errorResult } = response;
-    throw new Error(errorResult.code);
-  }
-}
-
 export function signin(formId) {
-  wx.getLocation({
-    success: function (res) {
-      // success
-      wx.showToast({
-        title: '签到成功',
-        icon: 'none'
-      });
-    },
-    fail: function () {
-      wx.showToast({
-        title: '签到失败',
-        icon: 'none'
-      })
-    }
+  wx.showToast({
+    title: '签到成功',
+    icon: 'none',
+    duration: appConfig.duration
   });
 }

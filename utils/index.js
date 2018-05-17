@@ -83,17 +83,26 @@ export function moneyFormatter(money) {
 }
 
 export function volumeFormatter(volume) {
-  if (volume) {
-    return numeral(volume).format('0,0');
-  }
-  return 0;
+  return doubleFormatter(volume);
 }
 
 export function weightFormatter(weight) {
-  if (weight) {
-    return numeral(weight).format('0,0');
+  return doubleFormatter(weight);
+}
+
+function doubleFormatter(origin) {
+  if (origin) {
+    if (origin < 1000) {
+      return origin;
+    } else if (origin.toString().indexOf(".") != -1) {
+      const tempStr = origin.toString();
+      return numeral(tempStr.substring(0, tempStr.indexOf("."))).format('0,0') + tempStr.substring(tempStr.indexOf("."));
+    } else {
+      return numeral(origin).format('0,0');
+    }
+  } else {
+    return 0;
   }
-  return 0;
 }
 
 export function dateFormatter(date) {

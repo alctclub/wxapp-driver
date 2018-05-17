@@ -3,6 +3,8 @@ import {
   getShipmentDisplayStatus,
   moneyFormatter,
   dateFormatter,
+  weightFormatter,
+  volumeFormatter
 } from '../../utils/index';
 import appConfig from '../../api/appConfig';
 
@@ -20,8 +22,8 @@ function shipmentFormatter(res = []) {
     statusDisplay: getShipmentDisplayStatus(item.statusCode),
     startAddress: item.startAddress,
     endAddress: item.endAddress,
-    totalVolume: item.totalVolume,
-    totalWeight: item.totalWeight,
+    totalVolume: volumeFormatter(item.totalVolume),
+    totalWeight: weightFormatter(item.totalWeight),
     enterpriseCode: item.enterpriseCode,
     shipmentCharge: moneyFormatter(item.shipmentCharge),
     shipmentConfirmDate: dateFormatter(item.shipmentConfirmDate),

@@ -82,6 +82,20 @@ export function moneyFormatter(money) {
   return 0.00;
 }
 
+export function volumeFormatter(volume) {
+  if (volume) {
+    return numeral(volume).format('0,0');
+  }
+  return 0;
+}
+
+export function weightFormatter(weight) {
+  if (weight) {
+    return numeral(weight).format('0,0');
+  }
+  return 0;
+}
+
 export function dateFormatter(date) {
   if (!date) {
     return '';

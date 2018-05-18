@@ -44,6 +44,11 @@ Page({
       return;
     }
 
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+
     this.setData({
       formId: event.detail.formId
     })
@@ -65,12 +70,21 @@ Page({
         // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
         var networkType = res.networkType
         if (networkType === 'none') {
+          wx.hideLoading();
           wx.showModal({
             content: '由于网络或其它原因导致系统异常，请检查后重试',
             showCancel: false,
             confirmText: '确定'
           })
         }
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showModal({
+          content: '由于网络或其它原因导致系统异常，请检查后重试',
+          showCancel: false,
+          confirmText: '确定'
+        })
       }
     })
   },
@@ -83,6 +97,7 @@ Page({
           if (res.authSetting['scope.userLocation']) {
             that.getLocation();
           } else {
+            wx.hideLoading();
             wx.showModal({
               content: '获取不到位置信息，请打开地理位置信息权限后重试',
               confirmText: '确定',
@@ -109,6 +124,14 @@ Page({
           })
         }
       },
+      fail: function () {
+        wx.hideLoading();
+        wx.showModal({
+          content: '由于网络或其它原因导致系统异常，请检查后重试',
+          showCancel: false,
+          confirmText: '确定'
+        })
+      }
     })
   },
 
@@ -147,16 +170,13 @@ Page({
   getLocation: function () {
     const that = this;
     const { images } = this.data;
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
     wx.getLocation({
-      success: function (res) {
+      success: function (res) { 
         if (res && res.latitude && res.longitude) {
           console.log('latitude: ' + res.latitude + ' longitude: ' + res.longitude);
           that.uploadImage(images, res);
         } else {
+          wx.hideLoading();
           wx.showModal({
             content: '获取不到位置信息, 拍摄的照片无法满足开票要求, 建议重试',
             confirmText: '确定',
@@ -165,6 +185,7 @@ Page({
         }
       },
       fail: function (error) {
+        wx.hideLoading();
         wx.showModal({
           content: '获取定位失败，请检查地理位置信息权限或GPS开关是否为启用状态后重试',
           showCancel: false,
@@ -172,24 +193,16 @@ Page({
         })
         reject(error);
       },
-      complete: function () {
-        wx.hideLoading();
-      }
     })
   },
 
   getLocationWithoutCheck: function () {
     const that = this;
     const { images } = this.data;
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
 
     wx.getLocation({
       complete: function (res) {
         that.uploadImage(images, res);
-        wx.hideLoading();
       }
     })
   },
@@ -231,10 +244,6 @@ Page({
     } = tempData;
 
     return new Promise((resolve, reject) => {
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
       wx.uploadFile({
         url: config.image,
         filePath: tempFilePath,
@@ -257,6 +266,7 @@ Page({
             const resData = JSON.parse(response.data);
             
             if (resData.code !== 0) {
+              wx.hideLoading();
               wx.showModal({
                 content: resData.message || '由于网络或其它原因导致系统异常，请检查后重试',
                 showCancel: false,
@@ -266,6 +276,7 @@ Page({
             }
             resolve();
           } else if (response.statusCode === 401) {
+            wx.hideLoading();
             wx.showModal({
               content: '登录已过期，请关闭小程序后重新打开',
               showCancel: false,
@@ -276,6 +287,7 @@ Page({
             })
             reject();
           } else {
+            wx.hideLoading();
             wx.showModal({
               content: '照片上传失败',
               showCancel: false,
@@ -285,16 +297,13 @@ Page({
           }
         },
         fail: function () {
+          wx.hideLoading();
           wx.showModal({
             content: '由于网络或其它原因导致系统异常，请检查后重试',
             showCancel: false,
             confirmText: '确定'
           })
-          
           reject();
-        },
-        complete: function () {
-          wx.hideLoading();
         }
       })
     })

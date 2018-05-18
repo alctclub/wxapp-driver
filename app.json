@@ -24,14 +24,14 @@
       {
         "pagePath": "pages/shipmentList/shipmentList",
         "text": "运单",
-        "iconPath": "assert/icon/invoice.png",
-        "selectedIconPath": "assert/icon/invoice_selected.png"
+        "iconPath": "assert/icon/shipment.png",
+        "selectedIconPath": "assert/icon/shipment_selected.png"
       },
       {
         "pagePath": "pages/invoiceList/invoiceList",
         "text": "发票",
-        "iconPath": "assert/icon/shipment.png",
-        "selectedIconPath": "assert/icon/shipment_selected.png"
+        "iconPath": "assert/icon/invoice.png",
+        "selectedIconPath": "assert/icon/invoice_selected.png"
       }
     ]
   },

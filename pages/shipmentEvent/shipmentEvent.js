@@ -7,9 +7,7 @@ import {
 } from './actions';
 import config from '../../api/config';
 import { GetSessionId } from '../../api/fetch';
-import {
-  transformToServerTime
-} from '../../utils/index';
+import { transformToServerTime } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
 import appConfig from '../../api/appConfig';
 
@@ -37,7 +35,6 @@ Page({
   onClickComfirm: function(event) {
     const { order, orderItems, images} = this.data;
     const that = this;
-
     if (images && images.length == 0) {
       wx.showToast({
         title: '请上传至少一张照片',
@@ -47,15 +44,21 @@ Page({
       return;
     }
 
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-
     this.setData({
       formId: event.detail.formId
     })
 
+    that.checkNetwork();
+
+    if (order.statusCode === 50) {
+      that.getLocationWithoutCheck();
+    } else {
+      that.checkLocationPermission();
+    }
+    
+  },
+
+  checkNetwork: function () {
     wx.getNetworkType({
       success: function (res) {
         // 返回网络类型, 有效值：
@@ -70,7 +73,10 @@ Page({
         }
       }
     })
+  },
 
+  checkLocationPermission: function () {
+    const that = this;
     wx.getSetting({
       success: function (res) {
         if ('scope.userLocation' in res.authSetting) {
@@ -81,7 +87,7 @@ Page({
               content: '获取不到位置信息，请打开地理位置信息权限后重试',
               confirmText: '确定',
               showCancel: false,
-              success: function (imageData) {
+              success: function () {
                 wx.openSetting();
               }
             })
@@ -103,10 +109,6 @@ Page({
           })
         }
       },
-      complete: function () {
-        wx.hideLoading();
-      }
-      
     })
   },
 
@@ -171,6 +173,22 @@ Page({
         reject(error);
       },
       complete: function () {
+        wx.hideLoading();
+      }
+    })
+  },
+
+  getLocationWithoutCheck: function () {
+    const that = this;
+    const { images } = this.data;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+
+    wx.getLocation({
+      complete: function (res) {
+        that.uploadImage(images, res);
         wx.hideLoading();
       }
     })

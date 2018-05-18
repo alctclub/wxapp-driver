@@ -82,11 +82,34 @@ export function moneyFormatter(money) {
   return 0.00;
 }
 
+export function volumeFormatter(volume) {
+  return doubleFormatter(volume);
+}
+
+export function weightFormatter(weight) {
+  return doubleFormatter(weight);
+}
+
+function doubleFormatter(origin) {
+  if (origin) {
+    if (origin < 1000) {
+      return origin;
+    } else if (origin.toString().indexOf(".") != -1) {
+      const tempStr = origin.toString();
+      return numeral(tempStr.substring(0, tempStr.indexOf("."))).format('0,0') + tempStr.substring(tempStr.indexOf("."));
+    } else {
+      return numeral(origin).format('0,0');
+    }
+  } else {
+    return 0;
+  }
+}
+
 export function dateFormatter(date) {
   if (!date) {
     return '';
   }
-  return Day(date).format('YYYY/MM/DD');
+  return Day(date.substring(0, 10)).format('YYYY/MM/DD');
 }
 
 export function transformToServerTime(date, formate) {

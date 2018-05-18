@@ -55,7 +55,7 @@
         </view>
       </view>
       <view class="row">
-        <text>要求提货时间：{{requirePickupStartDate}} 至 {{requirePickupEndDate}}</text>
+        <text>要求提货日期：{{requirePickupStartDate}} 至 {{requirePickupEndDate}}</text>
       </view>
     </view>
 
@@ -74,7 +74,7 @@
         </view>
       </view>
       <view class="row">
-        <text>要求到货时间：{{requireArrivalStartDate}} 至 {{requireArrivalEndDate}}</text>
+        <text>要求到货日期：{{requireArrivalStartDate}} 至 {{requireArrivalEndDate}}</text>
       </view>
     </view>
   </view>

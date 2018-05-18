@@ -47,10 +47,10 @@ Page({
         duration: appConfig.duration
       });
     } else {
-      this.countDown();
       //调用server接口
       const phoneNumber = this.data.phoneNumber;
       GetVerificationCode(phoneNumber).then(() => {
+        this.countDown();
         wx.showToast({
           title: '发送成功',
           icon: 'none',

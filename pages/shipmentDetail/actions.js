@@ -4,7 +4,9 @@ import {
     moneyFormatter,
     dateFormatter,
     isOrderComplete,
-    transformToServerTime
+    transformToServerTime,
+    weightFormatter,
+    volumeFormatter
   } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
 export function getShipmentDetail(enterpriseCode, shipmentCode) {
@@ -41,8 +43,8 @@ function shipmentFormatter(res = {}) {
         statusDisplay: getShipmentDisplayStatus(res.statusCode),
         startAddress: startAddressFormatter(res.startAddress),
         endAddress: res.endAddress,
-        totalVolume: res.totalVolume,
-        totalWeight: res.totalWeight,
+        totalVolume: volumeFormatter(res.totalVolume),
+        totalWeight: weightFormatter(res.totalWeight),
         enterpriseCode: res.enterpriseCode,
         shipmentCharge: moneyFormatter(res.shipmentCharge),
         shipmentConfirmDate: dateFormatter(res.shipmentConfirmDate),

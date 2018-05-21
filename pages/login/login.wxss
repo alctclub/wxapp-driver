@@ -20,6 +20,8 @@ page {
 
 .centerRow {
   margin: 0 auto;
+  display:flex;
+  justify-content:center;
 }
 
 .phoneNumber {
@@ -55,6 +57,7 @@ page {
   align-items: center;
   top: 30rpx;
   left: 12rpx;
+  margin: 0;
 }
 
 .useTip {

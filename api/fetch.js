@@ -101,7 +101,7 @@ export const GetSessionId = () => {
     wx.login({
       success: function (res) {
         if (res.code) {
-          console.log(res.code);
+          console.log('code: ' + res.code);
           //发起网络请求
           return fetch(url, {
             method: 'POST',

@@ -33,15 +33,17 @@
     </view>
 </template>
 
-<view class="container">
-    <block wx:if="{{invoiceList.driverInvoices.length > 0}}">
+
+<block wx:if="{{invoiceList.driverInvoices.length > 0}}">
+    <view class="container">
         <view wx:for="{{invoiceList.driverInvoices}}" wx:key="driverInvoiceCode" wx:for-index="idx" wx:for-item="invoice">
             <template is="invoice" data="{{...invoice}}" />
         </view>
-    </block>
-    <block wx:else>
-        <view class="emptyContainer">
-            <text>暂无信息</text>
-        </view>
-    </block>
-</view>
+    </view>
+</block>
+<block wx:else>
+    <view class="emptyContainer">
+        <text>暂无信息</text>
+    </view>
+</block>
+

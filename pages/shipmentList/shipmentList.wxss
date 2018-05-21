@@ -6,6 +6,7 @@ page {
 }
 .container {
   padding-bottom: 40rpx;
+  height: auto;
 }
 
 .shipment_basic {

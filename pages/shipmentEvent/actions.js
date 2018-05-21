@@ -43,7 +43,7 @@ export function getOrderItems(data) {
 //到货 回单
 export function onEvent(data, formId, res) {
   const url = buildURL('/shipments/events/' + getOperation(data.nextStatusCode), URLTypes.MINIPROGRAM);
-
+  wx.hideLoading();
   return fetch(url, {
     method: 'POST',
     showLoading: true,

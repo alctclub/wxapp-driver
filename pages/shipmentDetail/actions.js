@@ -76,12 +76,21 @@ export function onPickup(data) {
       // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
       var networkType = res.networkType
       if (networkType === 'none') {
+        wx.hideLoading();
         wx.showModal({
           content: '由于网络或其它原因导致系统异常，请检查后重试',
           showCancel: false,
           confirmText: '确定'
         })
       }
+    },
+    fail: function() {
+      wx.hideLoading();
+      wx.showModal({
+        content: '由于网络或其它原因导致系统异常，请检查后重试',
+        showCancel: false,
+        confirmText: '确定'
+      })
     }
   })
   return new Promise((resolve, reject) => {
@@ -92,6 +101,7 @@ export function onPickup(data) {
             getLocation(data, url).then((resp) => resolve(resp))
               .catch(error => reject(error));
           } else {
+            wx.hideLoading();
             wx.showModal({
               content: '获取不到位置信息，请打开地理位置信息权限后重试',
               confirmText: '确定',
@@ -119,10 +129,14 @@ export function onPickup(data) {
           })
         }
      },
-     complete: function () {
+     fail: function () {
        wx.hideLoading();
+       wx.showModal({
+         content: '由于网络或其它原因导致系统异常，请检查后重试',
+         showCancel: false,
+         confirmText: '确定'
+       })
      }
-
     })
   });
 }
@@ -131,6 +145,7 @@ function getLocation(data, url) {
   return new Promise((resolve, reject) => {
     wx.getLocation({
       success: function (res) {
+        wx.hideLoading();
         return fetch(url, {
           method: 'POST',
           showLoading: true,
@@ -145,6 +160,7 @@ function getLocation(data, url) {
           .catch(error => reject(error));
       },
       fail: function (error) {
+        wx.hideLoading();
         wx.showModal({
           content: '获取定位失败，请检查地理位置信息权限或GPS开关是否为启用状态后重试',
           showCancel: false,

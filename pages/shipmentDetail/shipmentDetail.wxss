@@ -80,11 +80,9 @@
 }
 
 .evntContainer {
-  margin: 20px 0;
+  margin-top: auto;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  height: 100%;
 }
 
 .btn_event {
@@ -133,10 +131,9 @@
 }
 
 .completeIconContainer {
-  height: 100%;
+  margin-top: auto;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
 }
 
 .completeIcon {

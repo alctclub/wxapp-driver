@@ -2,6 +2,10 @@
 
 @import '../templates/shipmentBasic.wxss';
 
+.address {
+  white-space: normal;
+}
+
 .shipment_basic {
   color: #666666;
   display: flex;

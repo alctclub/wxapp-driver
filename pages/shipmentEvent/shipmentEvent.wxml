@@ -6,7 +6,7 @@
 <template name="img-view">
   <view class="{{isPuckUp ? 'img_box_pickup' : 'img_box'}}">
     <image class="deletebtn" src="../../assert/icon/close_image.png" data-src='{{src}}' bindtap='onDelete' />
-    <image class="img_display" src='{{src}}' />
+    <image class="img_display" mode='aspectFill' src='{{src}}' />
   </view>
 </template>
 

@@ -42,7 +42,7 @@
 
     <view class="section {{util.isStartActive(statusCode) ? 'active' : ''}}">
       <view class="row">
-        <text>提货地址：{{pickUpAddress}}</text>
+        <text class="address">提货地址：{{pickUpAddress}}</text>
       </view>
       <view class="row">
         <view class="phone">
@@ -61,7 +61,7 @@
 
     <view class="section {{util.isStartActive(statusCode) ? '' : 'active'}}">
       <view class="row">
-        <text>送货地址：{{arrivalAddress}}</text>
+        <text class="address">送货地址：{{arrivalAddress}}</text>
       </view>
       <view class="row">
         <view class="phone">

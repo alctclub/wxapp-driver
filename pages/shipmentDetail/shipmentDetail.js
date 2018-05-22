@@ -21,16 +21,14 @@ Page({
       ordercode,
       statuscode,
       shipmentcode,
-      enterprisecode
     } = event.currentTarget.dataset;
     if (statuscode === 20) {
       onPickup({
         shipmentCode: shipmentcode,
         orderCode: ordercode,
-        enterpriseCode: enterprisecode,
         nextStatusCode: 30
       }).then(() => {
-        getShipmentDetail(enterprisecode, shipmentcode).then((res) => {
+        getShipmentDetail(shipmentcode).then((res) => {
           const shipment = res;
           shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
           wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
@@ -53,7 +51,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
+    getShipmentDetail(options.shipmentCode).then((res) => {
       const shipment = res;
       shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
       wx.setStorageSync(`${shipment.shipmentCode}`, shipment);
@@ -65,8 +63,8 @@ Page({
   },
   onShow: function () {
     const { options } = this.data;
-    if (! options.enterpriseCode || ! options.shipmentCode) return;
-    getShipmentDetail(options.enterpriseCode, options.shipmentCode).then((res) => {
+    if (! options.shipmentCode) return;
+    getShipmentDetail(options.shipmentCode).then((res) => {
       const shipment = res;
       shipment['statusDisplay'] = getShipmentDisplayStatus(shipment.statusCode);
       wx.setStorageSync(`${shipment.shipmentCode}`, shipment);

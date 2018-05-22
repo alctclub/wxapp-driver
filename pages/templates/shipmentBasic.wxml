@@ -1,7 +1,7 @@
 <wxs src="../../utils/index.wxs" module="util" />
 
 <template name="shipmentBasic">
-    <view class="shipment_basic" data-shipmentcode='{{shipmentCode}}' data-enterprisecode='{{enterpriseCode}}' bindtap='toDetail'>
+    <view class="shipment_basic" data-shipmentcode='{{shipmentCode}}' bindtap='toDetail'>
         <view class="row row_between">
             <text>运单号：{{shipmentCode}}</text>
             <text class="shipmetn_status">{{statusDisplay}}</text>

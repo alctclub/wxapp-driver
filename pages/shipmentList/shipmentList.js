@@ -58,11 +58,10 @@ Page({
   },
   toDetail: function (event) {
     const {
-      enterprisecode,
       shipmentcode
     } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`
+      url: `../shipmentDetail/shipmentDetail?shipmentCode=${shipmentcode}`
     })
   },
   signin: function (event) {

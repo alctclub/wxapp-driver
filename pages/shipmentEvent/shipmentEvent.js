@@ -153,7 +153,6 @@ Page({
         const ctx = wx.createCanvasContext('myCanvas');
         const data = {
           shipmentCode: order.shipmentCode,
-          enterpriseCode: order.enterpriseCode,
           orderCode: order.orderCode,
           imageURL: res.tempFilePaths[0],
         }

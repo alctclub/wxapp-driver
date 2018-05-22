@@ -33,10 +33,9 @@ export function deleteImage(fileName, imageType, data = {}) {
 export function getOrderItems(data) {
   const {
     orderCode,
-    enterpriseCode,
     shipmentCode,
   } = data;
-  const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&enterpriseCode=${enterpriseCode}&shipmentCode=${shipmentCode}`, URLTypes.MINIPROGRAM);
+  const url = buildURL(`/app-shipments/order?orderCode=${orderCode}&shipmentCode=${shipmentCode}`, URLTypes.MINIPROGRAM);
   return fetch(url);
 }
 

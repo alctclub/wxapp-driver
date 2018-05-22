@@ -234,6 +234,7 @@ Page({
   },
 
   uploadFile: function (tempData) {
+    const that = this;
     const {
       order,
       imageType,
@@ -276,15 +277,11 @@ Page({
             resolve();
           } else if (response.statusCode === 401) {
             wx.hideLoading();
-            wx.showModal({
-              content: '登录已过期，请关闭小程序后重新打开',
-              showCancel: false,
-              confirmText: '确定'
-            })
             GetSessionId().then(() => {
-
-            })
-            reject();
+              const sessionId = wx.getStorageSync('sessionId');
+              tempData.sessionId = sessionId;
+              that.uploadFile(tempData).then(() => resolve()).catch(() => reject());
+            }).catch(() => reject())
           } else {
             wx.hideLoading();
             wx.showModal({

@@ -1,4 +1,5 @@
 import { URLTypes, buildURL, fetch } from '../../api/fetch.js';
+import { appConfig } from '../../api/config';
 import {
     getShipmentDisplayStatus,
     moneyFormatter,

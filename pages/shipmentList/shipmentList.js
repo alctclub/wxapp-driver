@@ -3,7 +3,7 @@ import {
   signin,
 } from './actions';
 import { GetSessionId } from '../../api/fetch.js';
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 Page({
 
   /**

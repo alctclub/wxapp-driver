@@ -5,11 +5,11 @@ import {
   onEvent,
   deleteImage,
 } from './actions';
-import config from '../../api/config';
+import { environment } from '../../api/config';
 import { GetSessionId } from '../../api/fetch';
 import { transformToServerTime } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 
 Page({
 
@@ -245,7 +245,7 @@ Page({
 
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: config.image,
+        url: environment.image,
         filePath: tempFilePath,
         header: {
           SessionId: sessionId

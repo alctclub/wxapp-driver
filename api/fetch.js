@@ -1,12 +1,11 @@
-import config  from './config';
-import appConfig from './appConfig';
+import { environment }  from './config';
 var Promise = require('../libs/es6-promise.min.js');
 export const URLTypes = {
   MINIPROGRAM: 'miniprogram',
 };
 
 const baseURL = {
-  [URLTypes.MINIPROGRAM]: config.miniprogram,
+  [URLTypes.MINIPROGRAM]: environment.miniprogram,
 };
 
 export const buildURL = (url, urlType) => `${baseURL[urlType]}${url}`;

@@ -4,7 +4,7 @@ import {
   getUnconfirmInvoiceList,
   confirmDriverInvoice,
 } from './actions.js';
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 
 Page({
   data: {

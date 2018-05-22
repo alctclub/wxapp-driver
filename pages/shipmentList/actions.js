@@ -6,7 +6,7 @@ import {
   weightFormatter,
   volumeFormatter
 } from '../../utils/index';
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 
 export function getRunningShipments(isLoading) {
   const url = buildURL('/shipments', URLTypes.MINIPROGRAM);
@@ -44,7 +44,6 @@ function shipmentFormatter(res = []) {
     endAddress: item.endAddress,
     totalVolume: volumeFormatter(item.totalVolume),
     totalWeight: weightFormatter(item.totalWeight),
-    enterpriseCode: item.enterpriseCode,
     shipmentCharge: moneyFormatter(item.shipmentCharge),
     shipmentConfirmDate: dateFormatter(item.shipmentConfirmDate),
     licensePlateNumber: item.licensePlateNumber,

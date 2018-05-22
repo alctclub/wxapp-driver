@@ -24,7 +24,6 @@
             </view>
             <view class="col_right">
                 <form report-submit="true" bindsubmit="onComfirm">
-                    <input style="display: none" name="enterpriseCode" value="{{enterpriseCode}}" />
                     <input style="display: none" name="driverInvoiceCode" value="{{driverInvoiceCode}}" />
                     <button class="btn_apply" form-type="submit">同意</button>
                 </form>

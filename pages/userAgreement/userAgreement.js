@@ -1,7 +1,7 @@
-import config from '../../api/config';
+import { appConfig } from '../../api/config';
 
 Page({
   data: {
-    url: config.agreement,
+    url: appConfig.agreement,
   },
 })

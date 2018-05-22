@@ -31,7 +31,7 @@
             <text>{{util.getStatusDisplay(statusCode)}}</text>
           </view>
           <view class="evntContainer" wx:if='{{util.funcName(statusCode)}}'>
-            <view class="btn_event" bindtap='onEvent' data-shipmentcode='{{shipmentCode}}' data-ordercode='{{orderCode}}' data-statuscode='{{statusCode}}' data-enterprisecode='{{enterpriseCode}}'>
+            <view class="btn_event" bindtap='onEvent' data-shipmentcode='{{shipmentCode}}' data-ordercode='{{orderCode}}' data-statuscode='{{statusCode}}'>
               {{util.funcName(statusCode)}}
             </view>
           </view>

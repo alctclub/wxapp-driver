@@ -3,7 +3,7 @@ import {
   signin,
 } from './actions';
 import { GetSessionId } from '../../api/fetch.js';
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 Page({
 
   /**
@@ -58,11 +58,10 @@ Page({
   },
   toDetail: function (event) {
     const {
-      enterprisecode,
       shipmentcode
     } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../shipmentDetail/shipmentDetail?enterpriseCode=${enterprisecode}&shipmentCode=${shipmentcode}`
+      url: `../shipmentDetail/shipmentDetail?shipmentCode=${shipmentcode}`
     })
   },
   signin: function (event) {

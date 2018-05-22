@@ -1,4 +1,5 @@
 import { URLTypes, buildURL, fetch } from '../../api/fetch.js';
+import { appConfig } from '../../api/config';
 import {
     getShipmentDisplayStatus,
     moneyFormatter,
@@ -9,7 +10,7 @@ import {
     volumeFormatter
   } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
-export function getShipmentDetail(enterpriseCode, shipmentCode) {
+export function getShipmentDetail(shipmentCode) {
     const baseURL = `/shipments/detail/${shipmentCode}`;
     const url = buildURL(baseURL, URLTypes.MINIPROGRAM);
     return fetch(url, {
@@ -21,7 +22,6 @@ function shipmentFormatter(res = {}) {
     let orders = res.orders || [];
     orders = orders.map((item) =>({
         shipmentCode: item.shipmentCode,
-        enterpriseCode: item.enterpriseCode,
         orderCode: item.orderCode,
         consignor: item.consignor,
         consignee: item.consignee,
@@ -45,7 +45,6 @@ function shipmentFormatter(res = {}) {
         endAddress: res.endAddress,
         totalVolume: volumeFormatter(res.totalVolume),
         totalWeight: weightFormatter(res.totalWeight),
-        enterpriseCode: res.enterpriseCode,
         shipmentCharge: moneyFormatter(res.shipmentCharge),
         shipmentConfirmDate: dateFormatter(res.shipmentConfirmDate),
         licensePlateNumber: res.licensePlateNumber,

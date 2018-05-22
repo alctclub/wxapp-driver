@@ -35,7 +35,6 @@ function dataFormatter(response = {}) {
     result.totalPage = response.totalPage || 0;
     result.driverInvoices = (response.driverInvoices &&
       response.driverInvoices.map((x) => ({
-            enterpriseCode: x.enterpriseCode,
             invoiceReceiverName: x.invoiceReceiverName,
             taxRate: percentFormatter(x.taxRate),
             taxAmount: moneyFormatter(x.taxAmount),

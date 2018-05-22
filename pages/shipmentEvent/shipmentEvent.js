@@ -5,11 +5,11 @@ import {
   onEvent,
   deleteImage,
 } from './actions';
-import config from '../../api/config';
+import { environment } from '../../api/config';
 import { GetSessionId } from '../../api/fetch';
 import { transformToServerTime } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 
 Page({
 
@@ -153,7 +153,6 @@ Page({
         const ctx = wx.createCanvasContext('myCanvas');
         const data = {
           shipmentCode: order.shipmentCode,
-          enterpriseCode: order.enterpriseCode,
           orderCode: order.orderCode,
           imageURL: res.tempFilePaths[0],
         }
@@ -235,6 +234,7 @@ Page({
   },
 
   uploadFile: function (tempData) {
+    const that = this;
     const {
       order,
       imageType,
@@ -245,7 +245,7 @@ Page({
 
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: config.image,
+        url: environment.image,
         filePath: tempFilePath,
         header: {
           SessionId: sessionId
@@ -277,15 +277,11 @@ Page({
             resolve();
           } else if (response.statusCode === 401) {
             wx.hideLoading();
-            wx.showModal({
-              content: '登录已过期，请关闭小程序后重新打开',
-              showCancel: false,
-              confirmText: '确定'
-            })
             GetSessionId().then(() => {
-
-            })
-            reject();
+              const sessionId = wx.getStorageSync('sessionId');
+              tempData.sessionId = sessionId;
+              that.uploadFile(tempData).then(() => resolve()).catch(() => reject());
+            }).catch(() => reject())
           } else {
             wx.hideLoading();
             wx.showModal({

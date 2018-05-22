@@ -1,5 +1,5 @@
 import { Login, GetVerificationCode, Bind } from './actions.js';
-import appConfig from '../../api/appConfig';
+import { appConfig } from '../../api/config';
 var interval = null //倒计时函数
 
 Page({

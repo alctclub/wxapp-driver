@@ -1,12 +1,11 @@
-import config  from './config';
-import appConfig from './appConfig';
+import { environment }  from './config';
 var Promise = require('../libs/es6-promise.min.js');
 export const URLTypes = {
   MINIPROGRAM: 'miniprogram',
 };
 
 const baseURL = {
-  [URLTypes.MINIPROGRAM]: config.miniprogram,
+  [URLTypes.MINIPROGRAM]: environment.miniprogram,
 };
 
 export const buildURL = (url, urlType) => `${baseURL[urlType]}${url}`;
@@ -56,15 +55,14 @@ export const fetch = (url, options = {}) => {
         }
         resolve(response.data);
       } else if (response.statusCode === 401) {
-        wx.showModal({
-          content: '登录已过期，请关闭小程序后重新打开',
-          showCancel: false,
-          confirmText: '确定'
-        })
         GetSessionId().then(() => {
-
-        })
-        reject(response.data);
+          const sessionId = wx.getStorageSync('sessionId');
+          options.header = {
+            SessionId: sessionId
+          }
+          fetch(url, options).then((resp) => resolve(resp))
+            .catch((resp) => reject(resp))
+        }).catch((resp) => reject(resp))
       } else {
         wx.showModal({
           content: response.data.message || '由于网络或其它原因导致系统异常，请检查后重试',

@@ -134,6 +134,11 @@ Page({
 
         })
         wx.hideLoading()
+        wx.showModal({
+          content: '由于网络或其它原因导致系统异常，请检查后重试',
+          showCancel: false,
+          confirmText: '确定'
+        })
       }
     });
   },

@@ -128,11 +128,6 @@ Page({
         })
       }).catch(() => {
         wx.hideLoading();
-        wx.showModal({
-          content: '验证失败，请稍后重试',
-          showCancel: false,
-          confirmText: '确定',
-        })
       })
     }
   },

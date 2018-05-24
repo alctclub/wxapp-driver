@@ -37,16 +37,13 @@ Page({
           })
         })
         })
-    } else{
+    } else {
       wx.navigateTo({
         url: `../shipmentEvent/shipmentEvent?orderCode=${ordercode}&shipmentCode=${shipmentcode}&statusCode=${statuscode}`,
-        complete: function (res) {
-          wx.hideLoading();
-        },
       })
     }
   },
-  toDetail: function () {},
+
   /**
    * 生命周期函数--监听页面加载
    */

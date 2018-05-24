@@ -1,9 +1,6 @@
-import {
-  getRunningShipments,
-  signin,
-} from './actions';
+import { getRunningShipments,  signin, } from './actions';
 import { GetSessionId } from '../../api/fetch.js';
-import { appConfig } from '../../api/config';
+
 Page({
 
   /**
@@ -11,13 +8,6 @@ Page({
    */
   data: {
     runningShipments: [],
-    historyShipment: {
-      modelList: [],
-      currentPage: 1,
-      totalPage: 1,
-    },
-    username: '',
-    password: '',
   },
 
   /**
@@ -51,6 +41,7 @@ Page({
         () => wx.stopPullDownRefresh())
       .catch(() => wx.stopPullDownRefresh());
   },
+
   toDetail: function (event) {
     const {
       shipmentcode
@@ -59,46 +50,10 @@ Page({
       url: `../shipmentDetail/shipmentDetail?shipmentCode=${shipmentcode}`
     })
   },
+
   signin: function (event) {
-    const {
-      formId
-    } = event.detail;
-
-    wx.getSetting({
-      success: function(res) {
-        if ('scope.userLocation' in res.authSetting) {
-          if (res.authSetting['scope.userLocation']) {
-            signin(formId);
-          } else {
-            wx.showToast({
-              title: '请打开地理位置信息',
-              icon: 'none',
-              duration: appConfig.duration,
-              success: function() {
-                wx.openSetting();
-              }
-            })
-           
-          }
-
-        } else {
-          wx.authorize({
-            scope: 'scope.userLocation',
-            success: function() {
-              signin(formId);
-            },
-            fail:function() {
-              wx.showToast({
-                title: '未授权位置信息',
-                icon: 'none',
-                duration: appConfig.duration
-              })
-            }
-          })
-        }
-      }
-
-    })
+    const { formId } = event.detail;
+    signin(formId);
   },
 
   getSessionId: function (e) {
@@ -107,7 +62,7 @@ Page({
       mask: true
     })
     wx.hideTabBar({
-      
+
     })
     GetSessionId().then(() => {
       wx.hideLoading();

@@ -31,10 +31,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
     const sessionId = wx.getStorageSync('sessionId');
     if (sessionId) {
       getRunningShipments(true).then(
@@ -42,7 +38,6 @@ Page({
           runningShipments: res
         }));
     }
-    wx.hideLoading();
   },
 
   /**
@@ -107,7 +102,18 @@ Page({
   },
 
   getSessionId: function (e) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wx.hideTabBar({
+      
+    })
     GetSessionId().then(() => {
+      wx.hideLoading();
+      wx.showTabBar({
+        
+      })
       getRunningShipments(true).then(
         (res) => this.setData({
           runningShipments: res
@@ -115,10 +121,6 @@ Page({
     }).catch((error) => {
       // 如果server返回的code表示司机未绑定，则跳转到绑定页
       if (error.code === 100001) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
         setTimeout(function () {
           wx.redirectTo({
             url: '../login/login',
@@ -127,6 +129,11 @@ Page({
             }
           })
         }, 1000)
+      } else {
+        wx.showTabBar({
+
+        })
+        wx.hideLoading()
       }
     });
   },

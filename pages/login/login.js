@@ -114,10 +114,24 @@ Page({
       });
     } else {
       //调用server接口
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
       let { phoneNumber, smsVerificationCode } = this.data;
       Bind({ phoneNumber, smsVerificationCode }).then(() => {
         wx.switchTab({
-          url: '../shipmentList/shipmentList'
+          url: '../shipmentList/shipmentList',
+          complete: function () {
+            wx.hideLoading();
+          }
+        })
+      }).catch(() => {
+        wx.hideLoading();
+        wx.showModal({
+          content: '验证失败，请稍后重试',
+          showCancel: false,
+          confirmText: '确定',
         })
       })
     }

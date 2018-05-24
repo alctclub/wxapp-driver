@@ -20,10 +20,6 @@ export function GetVerificationCode(phoneNumber) {
 export function Bind(driver) {
   const url = buildURL('/auth/bind', URLTypes.MINIPROGRAM);
   const { phoneNumber, smsVerificationCode } = driver;
-  wx.showLoading({
-    title: '加载中',
-    mask: true
-  })
   return new Promise((resolve, reject) => {
     wx.login({
       success: function (res) {
@@ -32,19 +28,19 @@ export function Bind(driver) {
           //发起网络请求
           fetch(url, {
             method: 'POST',
-            showLoading: true,
+            showLoading: false,
             data: {
               phoneNumber: phoneNumber,
               verificationCode: smsVerificationCode,
               weixinCode: res.code
             },
-          }).then(() => (resolve()));
+          }).then(() => resolve()).catch(error => reject(error));
         } else {
-          console.log('登录失败！' + res.errMsg)
+          reject(res)
         }
       },
-      complete: function () {
-        wx.hideLoading();
+      fail: function (error) {
+        reject(error)
       }
     });
   })

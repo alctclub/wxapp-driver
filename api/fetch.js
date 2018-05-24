@@ -90,10 +90,6 @@ export const fetch = (url, options = {}) => {
 
 export const GetSessionId = () => {
   const url = buildURL('/auth/login', URLTypes.MINIPROGRAM);
-  wx.showLoading({
-    title: '加载中',
-    mask: true
-  })
   wx.clearStorageSync('sessionId');
   return new Promise((resolve, reject) => {
     wx.login({
@@ -103,27 +99,23 @@ export const GetSessionId = () => {
           //发起网络请求
           return fetch(url, {
             method: 'POST',
-            showLoading: true,
+            showLoading: false,
             data: {
               weixinCode: res.code
             },
           }).then((response) => getSessionIdSuccess(response).then(response => resolve())).catch(error => reject(error));
         } else {
-          console.log('登录失败！' + res.errMsg)
+          reject(res)
         }
       },
-      complete: function () {
-        wx.hideLoading();
+      fail: function (error) {
+        reject(error)
       }
     });
   })
 };
 
 function getSessionIdSuccess(response) {
-  wx.showLoading({
-    title: '加载中',
-    mask: true
-  })
   return new Promise((resolve, reject) => {
     if (response.sessionId) {
       wx.setStorageSync('sessionId', response.sessionId);
@@ -133,7 +125,5 @@ function getSessionIdSuccess(response) {
       wx.clearStorageSync('sessionId');
       reject(response);
     }
-
-    wx.hideLoading();
   })
 }

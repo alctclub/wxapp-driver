@@ -20,7 +20,7 @@ const product = {
 
 const appConfig = {
   duration: 2500, // showToast duration: 2.5s
-  agreement: "https://x-staging.alct56.com/mobile/Agreement.html"
+  agreement: "https://mp-staging.alct56.com/Agreement.html"
 }
 
 module.exports = {

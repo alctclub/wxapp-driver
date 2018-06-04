@@ -73,7 +73,7 @@
         <template is="img-view" data="{{ src: images[0], isPuckUp: true}}" />
     </block>
     <block wx:else>
-      <block wx:for="{{images }}" wx:for-item="image">
+      <block wx:for="{{ images }}" wx:key="*this" wx:for-item="image">
         <template is="img-view" data="{{ src: image}}" />
       </block>
       <image wx:if='{{images.length != imageLimit}}' class="img_box" src='../../assert/icon/upload_small.png' bindtap='selectImage'

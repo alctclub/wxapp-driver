@@ -7,7 +7,7 @@ import {
 } from './actions';
 import { environment } from '../../api/config';
 import { GetSessionId } from '../../api/fetch';
-import { transformToServerTime } from '../../utils/index';
+import { transformToServerTime, checkNetwork } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
 import { appConfig } from '../../api/config';
 
@@ -53,7 +53,7 @@ Page({
       formId: event.detail.formId
     })
 
-    that.checkNetwork().then(() => {
+    checkNetwork().then(() => {
       if (order.statusCode === 50) {
         that.getLocationWithoutCheck();
       } else {
@@ -68,27 +68,6 @@ Page({
       })
     });
   }, 
-
-  checkNetwork: function () {
-    return new Promise((resolve, reject) => {
-        wx.getNetworkType({
-        success: function (res) {
-          // 返回网络类型, 有效值：
-          // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-          var networkType = res.networkType
-          if (networkType === 'none') {
-            reject();
-          } else {
-            resolve();
-          }
-        },
-        
-        fail: function () {
-          reject();
-        }
-      })
-    })
-  },
 
   checkLocationPermission: function () {
     const that = this;

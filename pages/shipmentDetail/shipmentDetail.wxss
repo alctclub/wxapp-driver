@@ -1,6 +1,7 @@
 /* pages/detail/detail.wxss */
 
 @import '../templates/shipmentBasic.wxss';
+@import '../templates/popup.wxss';
 
 .address {
   white-space: normal;

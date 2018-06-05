@@ -1,4 +1,5 @@
 @import '../templates/bottomButton.wxss';
+@import '../templates/popup.wxss';
 page {
     height: auto;
     min-height: 100%;

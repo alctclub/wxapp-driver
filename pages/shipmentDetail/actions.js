@@ -7,7 +7,8 @@ import {
     isOrderComplete,
     transformToServerTime,
     weightFormatter,
-    volumeFormatter
+    volumeFormatter,
+    checkNetwork
   } from '../../utils/index';
 var Promise = require('../../libs/es6-promise.min.js');
 export function getShipmentDetail(shipmentCode) {
@@ -69,73 +70,53 @@ export function onPickup(data) {
     title: '加载中',
     mask: true
   })
-  wx.getNetworkType({
-    success: function (res) {
-      // 返回网络类型, 有效值：
-      // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-      var networkType = res.networkType
-      if (networkType === 'none') {
-        wx.hideLoading();
-        wx.showModal({
-          content: '由于网络或其它原因导致系统异常，请检查后重试',
-          showCancel: false,
-          confirmText: '确定'
-        })
-      }
-    },
-    fail: function() {
+
+  return new Promise((resolve, reject) => {
+    return checkNetwork().then(() => {
+      wx.getSetting({
+        success: function (res) {
+          if ('scope.userLocation' in res.authSetting) {
+            if (res.authSetting['scope.userLocation']) {
+              getLocation(data, url).then((resp) => resolve(resp))
+                .catch(error => reject(error));
+            } else {
+              wx.hideLoading();
+              reject("showPopup");
+            }
+          } else {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              success: function () {
+                getLocation(data, url).then((resp) => resolve(resp))
+                  .catch(error => reject(error));
+              },
+              fail: function () {
+                wx.showToast({
+                  title: '未授权位置信息',
+                  icon: 'none',
+                  duration: appConfig.duration
+                })
+              }
+            })
+          }
+        },
+        fail: function () {
+          wx.hideLoading();
+          wx.showModal({
+            content: '由于网络或其它原因导致系统异常，请检查后重试',
+            showCancel: false,
+            confirmText: '确定'
+          })
+        }
+      })
+
+    }).catch(() => {
       wx.hideLoading();
       wx.showModal({
         content: '由于网络或其它原因导致系统异常，请检查后重试',
         showCancel: false,
         confirmText: '确定'
       })
-    }
-  })
-  return new Promise((resolve, reject) => {
-   wx.getSetting({
-      success: function (res) {
-        if ('scope.userLocation' in res.authSetting) {
-          if (res.authSetting['scope.userLocation']) {
-            getLocation(data, url).then((resp) => resolve(resp))
-              .catch(error => reject(error));
-          } else {
-            wx.hideLoading();
-            wx.showModal({
-              content: '获取不到位置信息，请打开地理位置信息权限后重试',
-              confirmText: '确定',
-              showCancel: false,
-              success: function (imageData) {
-                wx.openSetting();
-              }
-            })
-          }
-
-        } else {
-          wx.authorize({
-            scope: 'scope.userLocation',
-            success: function () {
-              getLocation(data, url).then((resp) => resolve(resp))
-                .catch(error => reject(error));
-            },
-            fail: function () {
-              wx.showToast({
-                title: '未授权位置信息',
-                icon: 'none',
-                duration: appConfig.duration
-              })
-            }
-          })
-        }
-     },
-     fail: function () {
-       wx.hideLoading();
-       wx.showModal({
-         content: '由于网络或其它原因导致系统异常，请检查后重试',
-         showCancel: false,
-         confirmText: '确定'
-       })
-     }
     })
   });
 }

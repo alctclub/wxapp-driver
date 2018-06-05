@@ -2,6 +2,7 @@
 
 <wxs src="../../utils/index.wxs" module="util" />
 <import src="../templates/shipmentBasic.wxml" />
+<import src="../templates/popup.wxml" />
 
 <template name="order">
   <view class='order'>
@@ -93,3 +94,4 @@
   </block>
 </view>
 </view>
+<template is="popup" data="{{...popup}}" />

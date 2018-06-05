@@ -14,7 +14,48 @@ Page({
   data: {
     shipment: {},
     options: {},
+    popup: {
+      showModal: false,
+      message: "",
+      confirmText: ""
+    }
   },
+  /**
+  * 显示模态对话框
+  */
+  showDialogBtn: function () {
+    this.setData({
+      popup: {
+        showModal: true,
+        message: "获取不到位置信息，请打开地理位置信息权限后重试",
+        confirmText: "确定"
+      }
+    })
+  },
+  /**
+  * 隐藏模态对话框
+  */
+  hideModal: function () {
+    this.setData({
+      popup: {
+        showModal: false,
+        message: "",
+        confirmText: ""
+      }
+    })
+  },
+  /**
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function () {
+  },
+  /**
+  * 对话框确认按钮点击事件
+  */
+  onConfirm: function () {
+    this.hideModal();
+  },
+
   onEvent: function(event) {
     const that = this;
     const {
@@ -36,6 +77,10 @@ Page({
             shipment
           })
         })
+        }).catch((error) => {
+          if (error === "showPopup") {
+            that.showDialogBtn();
+          }
         })
     } else {
       wx.navigateTo({

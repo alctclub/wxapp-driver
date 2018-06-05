@@ -1,0 +1,14 @@
+<template name="popup">
+  <view class="modalMask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modalDialog" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">
+    <view class="modalTitle" hidden="true">{{title}}</view>
+    <view class="modalContent">
+      <view class="modalText">
+        <text class="message">{{message}}</text>
+      </view>
+    </view>
+    <view class="modalFooter">
+      <button class="btnConfirm" open-type="openSetting" bindtap="onConfirm" data-status="confirm">{{confirmText}}</button>
+    </view>
+  </view>
+</template>

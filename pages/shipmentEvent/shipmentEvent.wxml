@@ -1,4 +1,5 @@
 <import src="../templates/bottomButton.wxml" />
+<import src="../templates/popup.wxml" />
 <wxs src="../../utils/index.wxs" module="util" />
 <!--
   src: image src
@@ -82,4 +83,5 @@
   </view>
 
   <template is="bottomButton" data="{{confimrText}}" />
+  <template is="popup" data="{{...popup}}" />
 </view>

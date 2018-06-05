@@ -81,16 +81,8 @@ export function onPickup(data) {
                 .catch(error => reject(error));
             } else {
               wx.hideLoading();
-              wx.showModal({
-                content: '获取不到位置信息，请打开地理位置信息权限后重试',
-                confirmText: '确定',
-                showCancel: false,
-                success: function (imageData) {
-                  wx.openSetting();
-                }
-              })
+              reject("showPopup");
             }
-
           } else {
             wx.authorize({
               scope: 'scope.userLocation',
